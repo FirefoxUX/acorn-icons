@@ -1,1 +1,1 @@
-# firefox-icons
+# Firefox Icons
