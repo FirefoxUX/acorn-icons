@@ -1,4 +1,3 @@
-** This is a work in progress **
 # Acorn Icons
 Acorn is Firefox's design system. This repo contains icons used throughout Firefox on Desktop and Mobile.
 
