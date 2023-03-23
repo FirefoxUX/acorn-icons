@@ -27,4 +27,3 @@ If you need an individual pdf file for your project, you can find them in the fo
 
 # Resources
 - [Acorn Iconography](https://acorn.firefox.com/latest/styles/iconography.html)
-- [Acorn Icon Style Guide](https://acorn.firefox.com/latest/resources/icon-style-guide.html)
