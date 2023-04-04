@@ -22,13 +22,13 @@ Mobile icons come in a few sizes:
 - Large: 24x24 (Default)
 
 #### SVG (Optimized)
-If you need an individual SVG file for your project, you can find them in the following directories: 
+If you need an individual SVG file for your project, you can find it in one of the following directories: 
 - `icons/mobile/16/svg` 
 - `icons/mobile/20/svg`
 - `icons/mobile/24/svg`.
 
 #### PDF
-If you need an individual PDF file for your project, you can find them in the following directories:
+If you need an individual PDF file for your project, you can find it in one of the following directories:
 - `icons/mobile/16/pdf`
 - `icons/mobile/20/pdf`
 - `icons/mobile/24/pdf`
