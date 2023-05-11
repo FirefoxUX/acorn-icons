@@ -1,9 +1,9 @@
 # Acorn Icons
 
-<a aria-label="npm package" href="https://github.com/FirefoxUX/acorn-icons/releases/latest">
+<a aria-label="GitHub release" href="https://github.com/FirefoxUX/acorn-icons/releases/latest">
   <img alt="" src="https://img.shields.io/github/v/tag/FirefoxUX/acorn-icons?label=release">
 </a>
-<a aria-label="npm package" href="https://github.com/FirefoxUX/acorn-icons/releases/latest">
+<a aria-label="License" href="https://github.com/FirefoxUX/acorn-icons/releases/latest">
   <img alt="" src="https://img.shields.io/github/license/FirefoxUX/acorn-icons
 ">
 </a>
