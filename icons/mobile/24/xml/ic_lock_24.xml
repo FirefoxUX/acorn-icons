@@ -2,12 +2,14 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-  <path
-      android:pathData="M7,11L7,7a5,5 0,0 1,10 0v4a2.5,2.5 0,0 1,2.5 2.5v6A2.5,2.5 0,0 1,17 22L7,22a2.5,2.5 0,0 1,-2.5 -2.5v-6A2.5,2.5 0,0 1,7 11zM8.75,7a3.25,3.25 0,0 1,6.5 0v4h-6.5L8.75,7zM6.25,13.5a0.75,0.75 0,0 1,0.75 -0.75h10a0.75,0.75 0,0 1,0.75 0.75v6a0.75,0.75 0,0 1,-0.75 0.75L7,20.25a0.75,0.75 0,0 1,-0.75 -0.75v-6z"
-      android:fillColor="#000"
-      android:fillType="evenOdd"/>
+    <path
+        android:pathData="M7 11V7a5 5 0 0 1 10 0v4a2.5 2.5 0 0 1 2.5 2.5v6A2.5 2.5 0 0 1 17 22H7a2.5 2.5 0 0 1-2.5-2.5v-6A2.5 2.5 0 0 1 7 11zm1.75-4a3.25 3.25 0 0 1 6.5 0v4h-6.5V7zm-2.5 6.5A0.75 0.75 0 0 1 7 12.75h10a0.75 0.75 0 0 1 0.75 0.75v6A0.75 0.75 0 0 1 17 20.25H7a0.75 0.75 0 0 1-0.75-0.75v-6z"
+        android:fillColor="#000"
+        android:fillType="evenOdd"
+        tools:targetApi="n" />
 </vector>
