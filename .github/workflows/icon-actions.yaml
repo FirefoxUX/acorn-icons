@@ -1,0 +1,45 @@
+name: "Icon actions"
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "icons/**"
+
+jobs:
+  checks:
+    runs-on: "ubuntu-latest"
+    name: "Check and format icons"
+    permissions:
+      contents: "write"
+
+    steps:
+      # Checkout repository
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      # Install dependencies
+      - name: Install dependencies
+        working-directory: ./.github/actions
+        run: npm ci
+      # Desktop icons
+      - name: Update desktop icons
+        uses: ./.github/actions/dist/desktop-transform
+        with:
+          files: "icons/desktop/**/*.svg"
+      # Mobile icons
+      - name: Update mobile svg icons
+        uses: ./.github/actions/dist/mobile-transform
+        with:
+          files: "icons/mobile/**/*.svg"
+          file_type: "svg"
+      - name: Update mobile xml icons
+        uses: ./.github/actions/dist/mobile-transform
+        with:
+          files: "icons/mobile/**/*.xml"
+          file_type: "xml"
+      # Commit changes
+      - name: Commit changes
+        uses: ./.github/actions/dist/commit-changes

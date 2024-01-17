@@ -1,0 +1,5 @@
+name: 'Icon Transform'
+description: 'Modifies icons so they follow the same format'
+runs:
+  using: 'node20'
+  main: 'index.js'
