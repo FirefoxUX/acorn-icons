@@ -73,12 +73,6 @@ async function updateDesktopIcon(path: string): Promise<boolean> {
   // Optimize the SVG using SVGO
   const result = optimize(originalFile, {
     plugins: [
-      // custom plugin to add viewBox and dimensions if missing
-      viewBoxAndDimensions,
-      // custom plugin to add context fill
-      addContextFill,
-      // Import the base config from utils.ts
-      ...svgoBasePlugins,
       // Remove all these attributes
       // They usually are added in the export process but for our simple
       //shapes we don't need them
@@ -94,6 +88,12 @@ async function updateDesktopIcon(path: string): Promise<boolean> {
         'fill-rule',
         'fill-opacity',
       ]),
+      // custom plugin to add viewBox and dimensions if missing
+      viewBoxAndDimensions,
+      // custom plugin to add context fill
+      addContextFill,
+      // Import the base config from utils.ts
+      ...svgoBasePlugins,
     ],
   })
 

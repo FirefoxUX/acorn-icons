@@ -37,9 +37,6 @@ async function updateDesktopIcon(path) {
     const originalFile = fs.readFileSync(path, 'utf8');
     const result = optimize(originalFile, {
         plugins: [
-            viewBoxAndDimensions,
-            addContextFill,
-            ...svgoBasePlugins,
             svgoRemoveAttrs([
                 'id',
                 'data-name',
@@ -52,6 +49,9 @@ async function updateDesktopIcon(path) {
                 'fill-rule',
                 'fill-opacity',
             ]),
+            viewBoxAndDimensions,
+            addContextFill,
+            ...svgoBasePlugins,
         ],
     });
     const formatted = await formatFile('svg', result.data);
