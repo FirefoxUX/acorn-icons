@@ -1,0 +1,14 @@
+name: 'Mobile icon transform'
+description: 'Modifies icons to match format conventions for mobile'
+
+inputs:
+  files:
+    description: 'Glob pattern of files to transform'
+    required: true
+  file_type:
+    description: 'Type of files to transform. Can be "svg" or "xml"'
+    required: true
+
+runs:
+  using: 'node20'
+  main: 'index.js'

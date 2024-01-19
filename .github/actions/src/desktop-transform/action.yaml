@@ -1,0 +1,11 @@
+name: 'Desktop icon Transform'
+description: 'Modifies icons so they match format conventions for desktop'
+
+inputs:
+  files:
+    description: 'Glob pattern of files to transform'
+    required: true
+
+runs:
+  using: 'node20'
+  main: 'index.js'
