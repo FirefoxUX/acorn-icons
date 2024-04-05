@@ -17,9 +17,11 @@ jobs:
     steps:
       # Checkout repository
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
       # Install dependencies
       - name: Install dependencies
         working-directory: ./.github/actions
