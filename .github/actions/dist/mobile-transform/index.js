@@ -51,8 +51,8 @@ async function updateMobileIcon(path, type) {
                 ...svgoBasePlugins,
             ],
         }).data;
+        formatted = await formatFile(type, originalFile);
     }
-    formatted = await formatFile(type, originalFile);
     const withLicense = ensureLicense(formatted);
     const fileChanged = withLicense !== originalFile;
     if (fileChanged) {
