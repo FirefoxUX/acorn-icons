@@ -99,10 +99,11 @@ async function updateMobileIcon(
         ...svgoBasePlugins,
       ],
     }).data
+
+    // now we run prettier on the file
+    formatted = await formatFile(type, originalFile)
   }
 
-  // now we run prettier on the file
-  formatted = await formatFile(type, originalFile)
   // and add the license header if needed
   const withLicense = ensureLicense(formatted)
 
