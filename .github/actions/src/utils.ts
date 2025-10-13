@@ -117,14 +117,7 @@ export const svgoBasePlugins: Exclude<Config['plugins'], undefined> = [
   'removeOffCanvasPaths',
   'removeNonInheritableGroupAttrs',
   'sortAttrs',
-  {
-    name: 'preset-default',
-    params: {
-      overrides: {
-        removeViewBox: false,
-      },
-    },
-  },
+  'preset-default',
 ]
 
 /**
