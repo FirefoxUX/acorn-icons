@@ -84,8 +84,6 @@ async function updateDesktopIcon(path: string): Promise<boolean> {
         'stroke',
         'stroke-width',
         'stroke-miterlimit',
-        'clip-rule',
-        'fill-rule',
         'fill-opacity',
       ]),
       // custom plugin to add viewBox and dimensions if missing
