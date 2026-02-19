@@ -45,8 +45,6 @@ async function updateDesktopIcon(path) {
                 'stroke',
                 'stroke-width',
                 'stroke-miterlimit',
-                'clip-rule',
-                'fill-rule',
                 'fill-opacity',
             ]),
             viewBoxAndDimensions,

@@ -1,14 +1,11 @@
 import js from '@eslint/js'
 import prettierConfig from 'eslint-config-prettier'
 import ts from 'typescript-eslint'
-import { defineConfig } from 'eslint/config'
 import globals from 'globals'
 
-export default defineConfig(
-  // js
+export default ts.config(
   js.configs.recommended,
-  // ts
-  ts.configs.recommended,
+  ...ts.configs.recommended,
   {
     rules: {
       '@typescript-eslint/no-unused-vars': [
@@ -39,7 +36,7 @@ export default defineConfig(
         $$Generic: 'readonly',
       },
     },
-    ignores: ['**/*.config.js'],
+    ignores: ['**/*.config.js', 'dist/**'],
   },
   {
     files: ['**/*.stories.svelte'],
