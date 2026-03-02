@@ -1,1 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#000" d="M20.261 16.286 15.6 11.162V4.75H17V3H7v1.75h1.4v6.347l-4.673 5.202C2.097 18.113 3.385 21 5.823 21h12.353c2.447 0 3.731-2.904 2.085-4.714M7.246 15l2.456-2.734c.289-.321.448-.738.448-1.169V4.75h3.7v6.412c0 .435.162.855.455 1.178l2.42 2.661z"/></svg>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path fill="#000" d="M20.261 16.286 15.6 11.162V4.75H17V3H7v1.75h1.4v6.347l-4.673 5.202C2.097 18.113 3.385 21 5.823 21h12.353c2.447 0 3.731-2.904 2.085-4.714M7.246 15l2.456-2.734c.289-.321.448-.738.448-1.169V4.75h3.7v6.412c0 .435.162.855.455 1.178l2.42 2.661z" />
+</svg>
