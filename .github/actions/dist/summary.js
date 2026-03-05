@@ -20,8 +20,8 @@ class Summary {
         try {
             await access(pathFromEnv, constants.R_OK | constants.W_OK);
         }
-        catch {
-            throw new Error(`Unable to access summary file: '${pathFromEnv}'. Check if the file has correct read/write permissions.`);
+        catch (error) {
+            throw new Error(`Unable to access summary file: '${pathFromEnv}'. Check if the file has correct read/write permissions.`, { cause: error });
         }
         this._filePath = pathFromEnv;
         return this._filePath;

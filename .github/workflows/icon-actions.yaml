@@ -17,7 +17,7 @@ jobs:
     steps:
       # Checkout repository
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           fetch-depth: 0
           ref: ${{github.event.pull_request.head.ref}}
@@ -44,4 +44,5 @@ jobs:
           file_type: "xml"
       # Commit changes
       - name: Commit changes
+        if: github.event.pull_request.head.repo.full_name == github.repository
         uses: ./.github/actions/dist/commit-changes

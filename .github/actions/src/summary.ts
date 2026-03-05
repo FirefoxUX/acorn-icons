@@ -100,9 +100,10 @@ class Summary {
 
     try {
       await access(pathFromEnv, constants.R_OK | constants.W_OK)
-    } catch {
+    } catch (error) {
       throw new Error(
         `Unable to access summary file: '${pathFromEnv}'. Check if the file has correct read/write permissions.`,
+        { cause: error },
       )
     }
 

@@ -101,7 +101,7 @@ async function updateMobileIcon(
     }).data
 
     // now we run prettier on the file
-    formatted = await formatFile(type, originalFile)
+    formatted = await formatFile(type, formatted)
   }
 
   // and add the license header if needed
