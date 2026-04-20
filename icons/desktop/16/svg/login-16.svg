@@ -1,6 +1,3 @@
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="context-fill" fill-opacity="context-fill-opacity" viewBox="0 0 16 16">
-    <path d="M4 4a4 4 0 0 1 3.874 3H16v1.5h-1.25v2.75h-1.5V8.5H7.968A4 4 0 1 1 4 4m0 1.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5" />
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4 4C5.93622 4 7.55046 5.37584 7.91992 7.20312C8.96062 7.13959 10.0778 7.10691 11.2617 7.125C12.7301 7.1474 14.0917 7.24354 15.332 7.37988C15.7437 7.4252 16.0404 7.79534 15.9951 8.20703C15.9498 8.6187 15.5797 8.91634 15.168 8.87109C14.7902 8.82957 14.4006 8.79353 14 8.76074V10.5C13.9999 10.9142 13.6642 11.25 13.25 11.25C12.8358 11.25 12.5001 10.9142 12.5 10.5V8.66504C12.0891 8.64626 11.6685 8.63156 11.2383 8.625C10.0665 8.6071 8.96281 8.64144 7.93652 8.70605C7.60296 10.5783 5.96814 12 4 12C1.79086 12 0 10.2091 0 8C0 5.79086 1.79086 4 4 4ZM4 5.5C2.61929 5.5 1.5 6.61929 1.5 8C1.5 9.38071 2.61929 10.5 4 10.5C5.38071 10.5 6.5 9.38071 6.5 8C6.5 6.61929 5.38071 5.5 4 5.5Z" fill="black"/>
 </svg>
