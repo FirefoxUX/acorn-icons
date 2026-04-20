@@ -1,10 +1,8 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_13802_57507)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0ZM11.4053 5.82031C11.1124 5.5277 10.6376 5.52769 10.3447 5.82031L7.2666 8.89844L5.65527 7.28711C5.36245 6.99463 4.88754 6.99462 4.59473 7.28711C4.30194 7.5799 4.30215 8.05474 4.59473 8.34766L6.20605 9.95898C6.79192 10.5446 7.74132 10.5447 8.32715 9.95898L11.4053 6.88086C11.698 6.58795 11.6981 6.11314 11.4053 5.82031Z" fill="black"/>
-</g>
-<defs>
-<clipPath id="clip0_13802_57507">
-<rect width="16" height="16" fill="white"/>
-</clipPath>
-</defs>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="context-fill" fill-opacity="context-fill-opacity" viewBox="0 0 16 16">
+    <g clip-path="url(#clip0_13802_57507)">
+        <path fill-rule="evenodd" d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0m3.405 5.82a.75.75 0 0 0-1.06 0L7.267 8.898l-1.612-1.61a.75.75 0 0 0-1.06 1.06l1.611 1.611a1.5 1.5 0 0 0 2.121 0l3.078-3.078a.75.75 0 0 0 0-1.06" clip-rule="evenodd" />
+    </g>
 </svg>
