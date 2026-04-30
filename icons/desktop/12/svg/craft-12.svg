@@ -1,14 +1,9 @@
-<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_8069_32467)">
-<path d="M4.125 7C4.60825 7 5 7.39175 5 7.875C5 8.35825 4.60825 8.75 4.125 8.75C3.64175 8.75 3.25 8.35825 3.25 7.875C3.25 7.39175 3.64175 7 4.125 7Z" fill="black"/>
-<path d="M7.875 7C8.35825 7 8.75 7.39175 8.75 7.875C8.75 8.35825 8.35825 8.75 7.875 8.75C7.39175 8.75 7 8.35825 7 7.875C7 7.39175 7.39175 7 7.875 7Z" fill="black"/>
-<path d="M4.125 3.25C4.60825 3.25 5 3.64175 5 4.125C5 4.60825 4.60825 5 4.125 5C3.64175 5 3.25 4.60825 3.25 4.125C3.25 3.64175 3.64175 3.25 4.125 3.25Z" fill="black"/>
-<path d="M7.875 3.25C8.35825 3.25 8.75 3.64175 8.75 4.125C8.75 4.60825 8.35825 5 7.875 5C7.39175 5 7 4.60825 7 4.125C7 3.64175 7.39175 3.25 7.875 3.25Z" fill="black"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M6 0C9.31371 0 12 2.68629 12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0ZM6 1.25C3.37665 1.25 1.25 3.37665 1.25 6C1.25 8.62335 3.37665 10.75 6 10.75C8.62335 10.75 10.75 8.62335 10.75 6C10.75 3.37665 8.62335 1.25 6 1.25Z" fill="black"/>
-</g>
-<defs>
-<clipPath id="clip0_8069_32467">
-<rect width="12" height="12" fill="white"/>
-</clipPath>
-</defs>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="context-fill" fill-opacity="context-fill-opacity" viewBox="0 0 12 12">
+    <g clip-path="url(#clip0_8069_32467)">
+        <path d="M4.125 7a.875.875 0 1 1 0 1.75.875.875 0 0 1 0-1.75M7.875 7a.875.875 0 1 1 0 1.75.875.875 0 0 1 0-1.75M4.125 3.25a.875.875 0 1 1 0 1.75.875.875 0 0 1 0-1.75M7.875 3.25a.875.875 0 1 1 0 1.75.875.875 0 0 1 0-1.75" />
+        <path fill-rule="evenodd" d="M6 0a6 6 0 1 1 0 12A6 6 0 0 1 6 0m0 1.25a4.75 4.75 0 1 0 0 9.5 4.75 4.75 0 0 0 0-9.5" clip-rule="evenodd" />
+    </g>
 </svg>
