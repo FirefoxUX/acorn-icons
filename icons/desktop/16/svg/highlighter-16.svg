@@ -1,0 +1,9 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="context-fill" fill-opacity="context-fill-opacity" viewBox="0 0 16 16">
+    <g clip-path="url(#clip0_8069_32541)">
+        <path d="M14.75 13.5a1.25 1.25 0 1 1 0 2.5H2.25a1.25 1.25 0 0 1 0-2.5z" />
+        <path fill-rule="evenodd" d="M11.027.44a2.256 2.256 0 0 1 2.93.22l1.384 1.386a2.26 2.26 0 0 1 .22 2.934 29 29 0 0 1-2.68 3.098c-.015.015-1.548 1.57-2.64 2.664-.425.426-.99.66-1.59.661h-.003c-.392 0-.768-.103-1.101-.292l-.718.738a.5.5 0 0 1-.358.151H3.015a.5.5 0 0 1-.358-.85l2.397-2.457a2.23 2.23 0 0 1-.433-1.324c0-.6.234-1.166.66-1.591l2.65-2.655A29 29 0 0 1 11.027.441M6.34 6.838a.75.75 0 0 0-.22.531c0 .201.078.39.22.53l1.778 1.78a.746.746 0 0 0 1.06 0c.438-.438.943-.952 1.396-1.41l-2.799-2.87zM12.36 1.5a.73.73 0 0 0-.435.142A27 27 0 0 0 8.99 4.183l-.154.153 2.794 2.866.184-.185a27 27 0 0 0 2.544-2.939.75.75 0 0 0-.08-.971L12.895 1.72a.76.76 0 0 0-.537-.223z" clip-rule="evenodd" />
+    </g>
+</svg>
