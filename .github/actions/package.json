@@ -4,8 +4,7 @@
   "type": "module",
   "description": "A collection of actions for the acorn icon repository",
   "scripts": {
-    "copy": "copyfiles -u 1 -e \"**/*.ts\" \"src/**/*\" dist",
-    "build": "tsc && npm run copy",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
     "prettier": "prettier --write --check 'src/**/*.*'"
   },
@@ -19,11 +18,11 @@
     "@eslint/js": "^10.0.0",
     "@prettier/plugin-xml": "^3.4.2",
     "@types/node": "^25.3.3",
-    "copyfiles": "^2.4.1",
     "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
+    "tsx": "^4.22.3",
     "typescript": "5.9.3",
     "typescript-eslint": "^8.56.1"
   },

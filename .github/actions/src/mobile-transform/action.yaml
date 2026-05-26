@@ -10,5 +10,10 @@ inputs:
     required: true
 
 runs:
-  using: 'node20'
-  main: 'index.js'
+  using: 'composite'
+  steps:
+    - shell: bash
+      env:
+        INPUT_FILES: ${{ inputs.files }}
+        INPUT_FILE_TYPE: ${{ inputs.file_type }}
+      run: '"${{ github.action_path }}/../../node_modules/.bin/tsx" "${{ github.action_path }}/index.ts"'

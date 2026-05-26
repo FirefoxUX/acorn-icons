@@ -7,5 +7,9 @@ inputs:
     required: true
 
 runs:
-  using: 'node20'
-  main: 'index.js'
+  using: 'composite'
+  steps:
+    - shell: bash
+      env:
+        INPUT_FILES: ${{ inputs.files }}
+      run: '"${{ github.action_path }}/../../node_modules/.bin/tsx" "${{ github.action_path }}/index.ts"'

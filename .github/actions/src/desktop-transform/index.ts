@@ -15,12 +15,9 @@ import {
 tryCatch(run, 'Failed to check desktop SVGs. See logs for details.')
 
 async function run() {
-  // get glob pattern from environment
   const filesGlob = getInput('files', true)
-  // get all file paths that match the glob pattern
   const files = await fg(filesGlob)
 
-  // Return a message if no files are found
   if (files.length === 0) {
     summary.addHeading(':desktop_computer: No files found', 3)
     summary.addAlert('warning', `No files found matching "${filesGlob}".`)
@@ -28,18 +25,14 @@ async function run() {
     return
   }
 
-  // we will keep track of changed files for the summary
   const changedFiles: string[] = []
 
-  // loop through each file and check them.
-  // This will automatically update the file if needed.
   for (const file of files) {
     if (await updateDesktopIcon(file)) {
       changedFiles.push(file)
     }
   }
 
-  // If no files were changed, write a message and exit
   if (changedFiles.length === 0) {
     summary.addHeading(':desktop_computer: No SVGs changed', 3)
     summary.addRaw(`Checked ${files.length} desktop SVGs and made no changes.`)
@@ -47,7 +40,6 @@ async function run() {
     return
   }
 
-  // Otherwise, write a summary of changed files
   summary.addHeading(
     `:desktop_computer: Updated ${changedFiles.length} desktop SVGs`,
     3,
@@ -56,27 +48,17 @@ async function run() {
   summary.write()
 }
 
-/**
- * Apply optimizations and formatting to an SVG file for desktop
- *
- * @param path relative path from the current working directory to the SVG file
- * @returns true if the file was changed, false otherwise
- */
 async function updateDesktopIcon(path: string): Promise<boolean> {
-  // we skip if the file is not an SVG
   if (!path.endsWith('.svg')) {
     return false
   }
   console.log(`Checking ${path}`)
-  // Now load the file's contents from disk
   const originalFile = fs.readFileSync(path, 'utf8')
 
-  // Optimize the SVG using SVGO
   const result = optimize(originalFile, {
     plugins: [
-      // Remove all these attributes
-      // They usually are added in the export process but for our simple
-      //shapes we don't need them
+      // These attributes are added during export but are noise for our
+      // simple single-shape icons.
       svgoRemoveAttrs([
         'id',
         'data-name',
@@ -87,23 +69,16 @@ async function updateDesktopIcon(path: string): Promise<boolean> {
         'stroke-miterlimit',
         'fill-opacity',
       ]),
-      // custom plugin to add viewBox and dimensions if missing
       viewBoxAndDimensions,
-      // custom plugin to add context fill
       addContextFill,
-      // strip <g clip-path="url(#X)"> wrappers whose <clipPath> def is gone
       removeOrphanedClipPathRefs,
-      // Import the base config from utils.ts
       ...svgoBasePlugins,
     ],
   })
 
-  // now we run prettier on the file
   const formatted = await formatFile('svg', result.data)
-  // and add the license header if needed
   const withLicense = ensureLicense(formatted)
 
-  // if the file changed, write it back to disk
   const fileChanged = withLicense !== originalFile
   if (fileChanged) {
     fs.writeFileSync(path, withLicense)
@@ -111,9 +86,6 @@ async function updateDesktopIcon(path: string): Promise<boolean> {
   return fileChanged
 }
 
-/**
- * SVGO plugin to add viewBox and dimensions if either is missing
- */
 const viewBoxAndDimensions: PluginConfig = {
   name: 'viewBoxAndDimensions',
   fn: () => ({
@@ -126,7 +98,6 @@ const viewBoxAndDimensions: PluginConfig = {
         const width = node.attributes.width
         const height = node.attributes.height
 
-        // return if all are present
         if (viewBox && width && height) {
           return
         }
@@ -145,9 +116,8 @@ const viewBoxAndDimensions: PluginConfig = {
   }),
 }
 
-/**
- * SVGO plugin to add fill and fill-opacity attributes to SVGs
- */
+// `context-fill` and `context-fill-opacity` let Firefox UI apply the active
+// chrome color/opacity to the icon at runtime — required for theming.
 const addContextFill: PluginConfig = {
   name: 'addContextFill',
   fn: () => ({

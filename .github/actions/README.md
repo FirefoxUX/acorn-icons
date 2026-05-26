@@ -1,38 +1,49 @@
 # Acorn Icons Actions
 
-This folder contains custom GitHub Actions for the acorn-icons repository. The scripts are written in TypeScript and need to be compiled before they can be used.
+This folder contains custom GitHub Actions for the acorn-icons repository. The scripts are written in TypeScript and run directly via [`tsx`](https://github.com/privatenumber/tsx) — there is no build step and no compiled output committed to the repository.
 
-Each folder in `./src` contains a single action, consisting of an `index.ts` file and a `action.yaml` file. `./src/utils.ts` contains useful utility functions that are shared between actions and `./src/summary.ts` contains functions to generate and save GitHub Action summaries.
+Each folder in `./src` contains a single action, consisting of an `index.ts` file and an `action.yaml` file. `./src/utils.ts` contains utility functions shared between actions and `./src/summary.ts` contains functions to generate and save GitHub Action summaries.
 
 ### Development
 
 #### Creating or editing an action
 
-Run `npm install` to install the dependencies.
+Run `npm install` to install dependencies (this also installs `tsx`).
 
-To create a new action, simply create a new folder in `./src` with an `index.ts` and `action.yaml` file. The `index.ts` file needs to self-invoke a function that takes in the action's inputs and outputs. The `action.yaml` file needs to contain the action's metadata, including its inputs and outputs.
+To create a new action, create a new folder in `./src` with an `index.ts` and `action.yaml` file. The `index.ts` file should self-invoke a function that handles the action's inputs. The `action.yaml` file declares the action's metadata and should use `runs.using: composite` with a step that invokes `tsx` against `index.ts`. The existing actions are working templates.
 
-To compile the actions, run `npm run build`. This will compile the TypeScript files in `./src` and output the JavaScript (along with the `action.yaml` files) to `./dist`. Don't forget to recompile the actions after making changes to them. The compiled files are what GitHub will use to run the actions so they need to be committed to the repository too.
+To type-check your changes before pushing, run `npm run typecheck`. CI runs the same check.
 
-To test an action locally, navigate to the root of the repository and run `node path/to/action/index.js`. If your action requires inputs, you have to set up corresponding environment variables. For example, if your action requires an input called `foo_bar`, you have to set an environment variable called `INPUT_FOO_BAR`.
+To test an action locally, navigate to the root of the repository and run:
+
+```bash
+INPUT_FOO_BAR='value' \
+  .github/actions/node_modules/.bin/tsx .github/actions/src/<action>/index.ts
+```
+
+Inputs are passed as environment variables prefixed with `INPUT_` (uppercased).
 
 ### Adding an action to a workflow
 
-Actions need to be part of a workflow to be run. Workflows are defined in `.github/workflows` and are written in YAML. To use the the custom actions in a workflow, you need to set the relative path from the root of the repository to the action's `action.yaml` file as the value of the `uses` key. For example, if you want to use the `commit-changes` action in a workflow, you would set `uses: .github/actions/dist/commit-changes`.
+Actions need to be part of a workflow to be run. Workflows are defined in `.github/workflows` and are written in YAML. To use a custom action in a workflow, set the relative path from the root of the repository to the directory containing the action's `action.yaml` as the value of the `uses` key. For example, to use the `commit-changes` action:
+
+```yaml
+- uses: ./.github/actions/src/commit-changes
+```
+
+The workflow must run `npm ci` (in `./.github/actions`) before any of these `uses:` steps so that `tsx` and the runtime dependencies are available.
 
 ## Available Actions
 
 ### `commit-changes`
 
-This action commits changes to the repository. If any changes have been made to the repository by prior steps in the workflow, this action will commit those changes. If no changes have been made, this action will do nothing.
+Commits and pushes any files modified by prior steps in the workflow. If no files changed, the action exits without committing. Push auth is provided by `actions/checkout`'s persisted credentials — no token input is needed.
 
-**Inputs**
-
-- `message`: The commit message. (required)
+No inputs.
 
 ### `desktop-transform`
 
-This action transforms the SVG files in the repository follow the file format conventions for desktop icons. This means running svgo on the SVG files with custom plugins to remove unnecessary attributes and add missing attributes. The actions also formats the svg using prettier and adds a license comment to the top of the file if it is missing.
+Transforms SVG files in the repository to follow the format conventions for desktop icons. Runs SVGO with custom plugins, formats with Prettier, and ensures the MPL 2.0 license header is present.
 
 **Inputs**
 
@@ -40,7 +51,7 @@ This action transforms the SVG files in the repository follow the file format co
 
 ### `mobile-transform`
 
-This action transforms either SVG or XML files in the repository follow the file format conventions for mobile icons. This means running prettier on the files and adding a license comment to the top of the file if it is missing. If the files are SVG files, the action will also run svgo on the SVG files with custom plugins to remove unnecessary attributes.
+Transforms either SVG or XML files in the repository to follow the format conventions for mobile icons. For SVG files, runs SVGO with custom plugins. For both file types, formats with Prettier and ensures the MPL 2.0 license header is present.
 
 **Inputs**
 
