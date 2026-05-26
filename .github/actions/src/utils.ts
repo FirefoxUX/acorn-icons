@@ -2,7 +2,7 @@ import { EOL } from 'os'
 import { summary } from './summary.js'
 import prettier from 'prettier'
 import prettierXmlPlugin from '@prettier/plugin-xml'
-import { Config, PluginConfig } from 'svgo'
+import { Config, PluginConfig, XastParent } from 'svgo'
 
 /**
  * Mozilla Public License 2.0 header for XML files
@@ -119,6 +119,52 @@ export const svgoBasePlugins: Exclude<Config['plugins'], undefined> = [
   'sortAttrs',
   'preset-default',
 ]
+
+/**
+ * SVGO plugin that removes `clip-path="url(#id)"` attributes pointing at an
+ * id that is not defined anywhere in the document.
+ *
+ * Earlier export tooling stripped unused `<clipPath>` defs but left orphaned
+ * `<g clip-path="url(...)">` wrappers behind. Stripping the now-meaningless
+ * attribute lets `collapseGroups` (part of preset-default) unwrap or simplify
+ * the resulting `<g>`.
+ */
+export const removeOrphanedClipPathRefs: PluginConfig = {
+  name: 'removeOrphanedClipPathRefs',
+  fn: () => {
+    const definedIds = new Set<string>()
+    const urlRefRe = /^url\(\s*['"]?#([^'")\s]+)['"]?\s*\)$/
+
+    const collectIds = (node: XastParent) => {
+      for (const child of node.children) {
+        if (child.type !== 'element') continue
+        if (child.name === 'clipPath' && child.attributes?.id) {
+          definedIds.add(child.attributes.id)
+        }
+        collectIds(child)
+      }
+    }
+
+    return {
+      root: {
+        enter(root) {
+          collectIds(root)
+        },
+      },
+      element: {
+        enter(node) {
+          const ref = node.attributes?.['clip-path']
+          if (!ref) return
+          const match = urlRefRe.exec(ref)
+          if (!match) return
+          if (!definedIds.has(match[1])) {
+            delete node.attributes['clip-path']
+          }
+        },
+      },
+    }
+  },
+}
 
 /**
  * Factory function to create an SVGO plugin that removes specified attributes

@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import fg from 'fast-glob';
 import { optimize } from 'svgo';
 import { summary } from '../summary.js';
-import { ensureLicense, formatFile, getInput, svgoBasePlugins, svgoRemoveAttrs, tryCatch, } from '../utils.js';
+import { ensureLicense, formatFile, getInput, removeOrphanedClipPathRefs, svgoBasePlugins, svgoRemoveAttrs, tryCatch, } from '../utils.js';
 tryCatch(run, 'Failed to check mobile files. See logs for details.');
 async function run() {
     const filesGlob = getInput('files', true);
@@ -48,6 +48,7 @@ async function updateMobileIcon(path, type) {
                     'stroke-width',
                     'stroke-miterlimit',
                 ]),
+                removeOrphanedClipPathRefs,
                 ...svgoBasePlugins,
             ],
         }).data;

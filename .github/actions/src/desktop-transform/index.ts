@@ -6,6 +6,7 @@ import {
   ensureLicense,
   formatFile,
   getInput,
+  removeOrphanedClipPathRefs,
   svgoBasePlugins,
   svgoRemoveAttrs,
   tryCatch,
@@ -90,6 +91,8 @@ async function updateDesktopIcon(path: string): Promise<boolean> {
       viewBoxAndDimensions,
       // custom plugin to add context fill
       addContextFill,
+      // strip <g clip-path="url(#X)"> wrappers whose <clipPath> def is gone
+      removeOrphanedClipPathRefs,
       // Import the base config from utils.ts
       ...svgoBasePlugins,
     ],

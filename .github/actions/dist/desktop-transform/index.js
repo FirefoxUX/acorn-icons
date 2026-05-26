@@ -2,7 +2,7 @@ import { optimize } from 'svgo';
 import fg from 'fast-glob';
 import fs from 'fs';
 import { summary } from '../summary.js';
-import { ensureLicense, formatFile, getInput, svgoBasePlugins, svgoRemoveAttrs, tryCatch, } from '../utils.js';
+import { ensureLicense, formatFile, getInput, removeOrphanedClipPathRefs, svgoBasePlugins, svgoRemoveAttrs, tryCatch, } from '../utils.js';
 tryCatch(run, 'Failed to check desktop SVGs. See logs for details.');
 async function run() {
     const filesGlob = getInput('files', true);
@@ -49,6 +49,7 @@ async function updateDesktopIcon(path) {
             ]),
             viewBoxAndDimensions,
             addContextFill,
+            removeOrphanedClipPathRefs,
             ...svgoBasePlugins,
         ],
     });

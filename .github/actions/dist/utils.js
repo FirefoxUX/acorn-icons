@@ -54,6 +54,43 @@ export const svgoBasePlugins = [
     'sortAttrs',
     'preset-default',
 ];
+export const removeOrphanedClipPathRefs = {
+    name: 'removeOrphanedClipPathRefs',
+    fn: () => {
+        const definedIds = new Set();
+        const urlRefRe = /^url\(\s*['"]?#([^'")\s]+)['"]?\s*\)$/;
+        const collectIds = (node) => {
+            for (const child of node.children) {
+                if (child.type !== 'element')
+                    continue;
+                if (child.name === 'clipPath' && child.attributes?.id) {
+                    definedIds.add(child.attributes.id);
+                }
+                collectIds(child);
+            }
+        };
+        return {
+            root: {
+                enter(root) {
+                    collectIds(root);
+                },
+            },
+            element: {
+                enter(node) {
+                    const ref = node.attributes?.['clip-path'];
+                    if (!ref)
+                        return;
+                    const match = urlRefRe.exec(ref);
+                    if (!match)
+                        return;
+                    if (!definedIds.has(match[1])) {
+                        delete node.attributes['clip-path'];
+                    }
+                },
+            },
+        };
+    },
+};
 export function svgoRemoveAttrs(attrs) {
     const attrString = attrs.map((attr) => attr.trim()).join('|');
     return {

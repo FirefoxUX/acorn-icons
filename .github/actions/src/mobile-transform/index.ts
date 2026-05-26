@@ -7,6 +7,7 @@ import {
   ensureLicense,
   formatFile,
   getInput,
+  removeOrphanedClipPathRefs,
   svgoBasePlugins,
   svgoRemoveAttrs,
   tryCatch,
@@ -95,6 +96,8 @@ async function updateMobileIcon(
           'stroke-width',
           'stroke-miterlimit',
         ]),
+        // strip <g clip-path="url(#X)"> wrappers whose <clipPath> def is gone
+        removeOrphanedClipPathRefs,
         // Import the base config from utils.ts
         ...svgoBasePlugins,
       ],
