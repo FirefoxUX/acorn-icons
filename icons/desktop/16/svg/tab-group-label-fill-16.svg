@@ -1,10 +1,8 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_16611_12422)">
-<path d="M0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16H3.2C1.43269 16 0 14.5673 0 12.8V8Z" fill="black"/>
-</g>
-<defs>
-<clipPath id="clip0_16611_12422">
-<rect width="16" height="16" fill="white"/>
-</clipPath>
-</defs>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="context-fill" fill-opacity="context-fill-opacity" viewBox="0 0 16 16">
+    <g clip-path="url(#clip0_16611_12422)">
+        <path d="M0 8a8 8 0 1 1 8 8H3.2A3.2 3.2 0 0 1 0 12.8z" />
+    </g>
 </svg>
