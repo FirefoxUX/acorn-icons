@@ -1,0 +1,6 @@
+<!-- FAIL: one child shape has no `fill` attribute — it would render with the default black, ignoring chrome theming. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill-opacity="context-fill-opacity">
+  <circle fill="context-stroke" cx="8" cy="8" r="8"/>
+  <path fill="context-fill" d="M4 4h8v8H4z"/>
+  <rect x="1" y="1" width="2" height="2"/>
+</svg>
