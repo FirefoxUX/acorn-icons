@@ -23,8 +23,8 @@ inputs:
     required: true
   outcome:
     description: >-
-      Pass-through of `${{ job.status }}` so the action can distinguish a
-      clean success ("no payload, job succeeded") from an unexpected crash
+      The caller's job.status, so the action can distinguish a clean
+      success ("no payload, job succeeded") from an unexpected crash
       ("no payload, job failed").
     required: true
   github_token:
