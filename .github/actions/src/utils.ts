@@ -1,4 +1,6 @@
 import { EOL } from 'os'
+import fs from 'fs'
+import path from 'path'
 import { summary } from './summary.js'
 import prettier from 'prettier'
 import prettierXmlPlugin from '@prettier/plugin-xml'
@@ -164,6 +166,36 @@ export const removeOrphanedClipPathRefs: PluginConfig = {
       },
     }
   },
+}
+
+/**
+ * Designer-facing feedback payload picked up by the post-feedback composite
+ * action. The fields drive the three PR surfaces:
+ *   - `title`: header line at the top of the sticky comment
+ *   - `summary`: ≤140-char description used as the commit-status description
+ *     (the line in the PR's checks box)
+ *   - `body`: markdown body of the sticky comment — should list each problem
+ *     and explain how to fix it
+ */
+export type FeedbackPayload = {
+  title: string
+  summary: string
+  body: string
+}
+
+/**
+ * Write a feedback payload to `$RUNNER_TEMP/icon-feedback.json` so the
+ * post-feedback composite action can pick it up at the end of the workflow.
+ * No-op when RUNNER_TEMP is unset (e.g. running locally) so action code can
+ * call this unconditionally.
+ */
+export function writeFeedback(payload: FeedbackPayload): void {
+  const runnerTemp = process.env.RUNNER_TEMP
+  if (!runnerTemp) {
+    return
+  }
+  const target = path.join(runnerTemp, 'icon-feedback.json')
+  fs.writeFileSync(target, JSON.stringify(payload), 'utf8')
 }
 
 /**

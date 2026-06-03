@@ -1,0 +1,141 @@
+name: "Post PR feedback"
+description: >-
+  Upserts a sticky PR comment and writes a commit status from a JSON
+  feedback payload. Designed for icon-pipeline workflows where designers
+  need failures surfaced in the PR UI directly instead of the Actions tab.
+
+inputs:
+  marker:
+    description: >-
+      Hidden HTML comment used to locate the sticky comment on the PR.
+      Use a distinct value per workflow so multiple checks don't clobber
+      each other (e.g. "<!-- acorn-icons-bot:icon-actions -->").
+    required: true
+  status_context:
+    description: >-
+      Value for the commit status' "context" field — the title shown in
+      the PR's checks box (e.g. "acorn-icons / icon validation").
+    required: true
+  feedback_path:
+    description: >-
+      Absolute path to the JSON feedback payload. When the file is absent
+      the action treats the run as a success.
+    required: true
+  outcome:
+    description: >-
+      Pass-through of `${{ job.status }}` so the action can distinguish a
+      clean success ("no payload, job succeeded") from an unexpected crash
+      ("no payload, job failed").
+    required: true
+  github_token:
+    description: "Token used for the GitHub API calls."
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Upsert sticky comment and commit status
+      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      env:
+        FEEDBACK_PATH: ${{ inputs.feedback_path }}
+        MARKER: ${{ inputs.marker }}
+        STATUS_CONTEXT: ${{ inputs.status_context }}
+        OUTCOME: ${{ inputs.outcome }}
+      with:
+        github-token: ${{ inputs.github_token }}
+        script: |
+          const fs = require('fs')
+
+          const marker = process.env.MARKER
+          const statusContext = process.env.STATUS_CONTEXT
+          const outcome = process.env.OUTCOME
+          const feedbackPath = process.env.FEEDBACK_PATH
+
+          let payload = null
+          try {
+            const raw = fs.readFileSync(feedbackPath, 'utf8')
+            payload = JSON.parse(raw)
+          } catch (err) {
+            if (err.code !== 'ENOENT') {
+              core.warning(`Could not read feedback payload at ${feedbackPath}: ${err.message}`)
+            }
+          }
+
+          // A payload always indicates a failure that the designer must act on.
+          // Without a payload, fall back to the job's own outcome: an action
+          // that crashed before writing its payload still surfaces as failure.
+          const jobFailed = outcome !== 'success' && outcome !== 'skipped'
+          const isFailure = payload !== null || jobFailed
+
+          const pr = context.payload.pull_request
+          if (!pr) {
+            core.info('Not a pull_request event — skipping comment/status update.')
+            return
+          }
+
+          const owner = context.repo.owner
+          const repo = context.repo.repo
+          const issue_number = pr.number
+          const sha = pr.head.sha
+
+          // --- Sticky comment --------------------------------------------------
+          // Locate any prior comment by the hidden marker so we update rather
+          // than spam a new comment on every push.
+          const comments = await github.paginate(
+            github.rest.issues.listComments,
+            { owner, repo, issue_number, per_page: 100 },
+          )
+          const existing = comments.find((c) => c.body && c.body.includes(marker))
+
+          if (isFailure) {
+            const title = payload?.title ?? 'Icon CI failed unexpectedly'
+            const body = payload?.body
+              ?? 'An icon check failed before it could report details. See the workflow logs for the full error.'
+
+            const commentBody = [
+              marker,
+              `**${title}**`,
+              '',
+              body,
+            ].join('\n')
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner, repo, comment_id: existing.id, body: commentBody,
+              })
+            } else {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number, body: commentBody,
+              })
+            }
+          } else if (existing) {
+            // Previously failing, now green — clean up so the PR isn't noisy.
+            await github.rest.issues.deleteComment({
+              owner, repo, comment_id: existing.id,
+            })
+          }
+
+          // --- Commit status ---------------------------------------------------
+          // GitHub caps the description at 140 chars; truncate defensively.
+          const truncate = (s) => (s.length <= 140 ? s : s.slice(0, 137) + '...')
+          let description
+          let state
+          if (isFailure) {
+            description = truncate(
+              payload?.summary
+                ?? payload?.title
+                ?? 'Icon CI failed — see the PR comment for details.',
+            )
+            state = 'failure'
+          } else {
+            description = 'All icon checks passed.'
+            state = 'success'
+          }
+
+          await github.rest.repos.createCommitStatus({
+            owner, repo, sha,
+            state,
+            context: statusContext,
+            description,
+          })

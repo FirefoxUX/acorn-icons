@@ -11,12 +11,17 @@ jobs:
   check:
     runs-on: "ubuntu-latest"
     name: "Check for case-insensitive filename collisions"
+    permissions:
+      contents: "read"
+      pull-requests: "write"
+      statuses: "write"
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Detect case-insensitive duplicates in icons/
+        id: detect
         run: |
           set -euo pipefail
           collisions=$(
@@ -39,6 +44,37 @@ jobs:
             echo ""
             echo "These would conflict on case-insensitive filesystems (macOS, Windows)."
             echo "Rename so each filename is unique within its directory regardless of case."
+
+            # Write a feedback payload for post-feedback to pick up.
+            # Pairs are consecutive lines in $collisions; render as a bullet list.
+            pair_count=$(printf '%s\n' "$collisions" | awk 'END{print NR/2}')
+            bullets=$(printf '%s\n' "$collisions" \
+              | awk 'NR%2==1{a=$0; next} {printf "- `%s` collides with `%s`\n", a, $0}')
+
+            body=$(printf '%s\n\n%s\n' \
+              "${bullets}" \
+              "Rename one file from each pair so they differ in something other than letter case. Case-insensitive filesystems (macOS, Windows) treat each pair as the same file.")
+
+            title=$([ "${pair_count}" -eq 1 ] && echo "1 filename collides on case-insensitive filesystems" || echo "${pair_count} filenames collide on case-insensitive filesystems")
+            short=$([ "${pair_count}" -eq 1 ] && echo "1 filename pair differs only by letter case." || echo "${pair_count} filename pairs differ only by letter case.")
+
+            mkdir -p "${RUNNER_TEMP}"
+            jq -n \
+              --arg title "${title}" \
+              --arg summary "${short}" \
+              --arg body "${body}" \
+              '{title: $title, summary: $summary, body: $body}' \
+              > "${RUNNER_TEMP}/icon-feedback.json"
+
             exit 1
           fi
           echo "No case-insensitive filename collisions found."
+
+      - name: Post PR feedback
+        if: always()
+        uses: ./.github/actions/post-feedback
+        with:
+          marker: "<!-- acorn-icons-bot:filename-case -->"
+          status_context: "acorn-icons / filename case"
+          feedback_path: ${{ runner.temp }}/icon-feedback.json
+          outcome: ${{ job.status }}

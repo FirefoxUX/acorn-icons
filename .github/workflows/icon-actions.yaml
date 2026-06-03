@@ -13,6 +13,8 @@ jobs:
     name: "Check and format icons"
     permissions:
       contents: "write"
+      pull-requests: "write"
+      statuses: "write"
 
     steps:
       - name: Check out Git repository
@@ -46,3 +48,12 @@ jobs:
       - name: Commit changes
         if: github.event.pull_request.head.repo.full_name == github.repository
         uses: ./.github/actions/src/commit-changes
+
+      - name: Post PR feedback
+        if: always()
+        uses: ./.github/actions/post-feedback
+        with:
+          marker: "<!-- acorn-icons-bot:icon-actions -->"
+          status_context: "acorn-icons / icon validation"
+          feedback_path: ${{ runner.temp }}/icon-feedback.json
+          outcome: ${{ job.status }}

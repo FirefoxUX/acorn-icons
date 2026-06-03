@@ -21,7 +21,10 @@ async function run() {
   const files = await fg(filesGlob)
 
   if (files.length === 0) {
-    summary.addHeading(':desktop_computer: No files found', 3)
+    summary.addHeading(
+      `Mobile ${fileType.toUpperCase()} files: no files found`,
+      3,
+    )
     summary.addAlert('warning', `No files found matching "${filesGlob}".`)
     summary.write()
     return
@@ -36,7 +39,7 @@ async function run() {
   }
 
   if (changedFiles.length === 0) {
-    summary.addHeading(`:iphone: No ${fileType.toUpperCase()} files changed`, 3)
+    summary.addHeading(`Mobile ${fileType.toUpperCase()} files unchanged`, 3)
     summary.addRaw(
       `Checked ${files.length} ${fileType.toUpperCase()} files and made no changes.`,
     )
@@ -45,7 +48,7 @@ async function run() {
   }
 
   summary.addHeading(
-    `:iphone: Updated ${changedFiles.length} mobile ${fileType.toUpperCase()} files`,
+    `Updated ${changedFiles.length} mobile ${fileType.toUpperCase()} files`,
     3,
   )
   summary.addList(changedFiles)
