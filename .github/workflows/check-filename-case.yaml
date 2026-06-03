@@ -1,4 +1,4 @@
-name: "Check filename case"
+name: "Filenames"
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ on:
 jobs:
   check:
     runs-on: "ubuntu-latest"
-    name: "Check for case-insensitive filename collisions"
+    name: "Case collisions"
     permissions:
       contents: "read"
       pull-requests: "write"
@@ -75,6 +75,6 @@ jobs:
         uses: ./.github/actions/post-feedback
         with:
           marker: "<!-- acorn-icons-bot:filename-case -->"
-          status_context: "acorn-icons / filename case"
+          status_context: "Filenames / case"
           feedback_path: ${{ runner.temp }}/icon-feedback.json
           outcome: ${{ job.status }}

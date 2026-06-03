@@ -1,4 +1,4 @@
-name: "Icon actions"
+name: "Icons"
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ on:
 jobs:
   checks:
     runs-on: "ubuntu-latest"
-    name: "Check and format icons"
+    name: "Format and validate"
     permissions:
       contents: "write"
       pull-requests: "write"
@@ -54,6 +54,6 @@ jobs:
         uses: ./.github/actions/post-feedback
         with:
           marker: "<!-- acorn-icons-bot:icon-actions -->"
-          status_context: "acorn-icons / icon validation"
+          status_context: "Icons / validation"
           feedback_path: ${{ runner.temp }}/icon-feedback.json
           outcome: ${{ job.status }}
