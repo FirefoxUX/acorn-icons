@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         working-directory: ./.github/actions
         run: npm ci
-      # tsx runs the actions without a compile step, so types are not verified
-      # at runtime — gate the workflow on a static typecheck instead.
+      # tsx runs the actions without a compile step, so type errors only
+      # surface at runtime unless we typecheck up front.
       - name: Type check actions
         working-directory: ./.github/actions
         run: npm run typecheck

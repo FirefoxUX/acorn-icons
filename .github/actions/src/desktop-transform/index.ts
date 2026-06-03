@@ -15,10 +15,10 @@ import {
 
 tryCatch(run, 'Failed to check desktop SVGs. See logs for details.')
 
-// `*-duotone-*.svg` files author two color channels (`fill="context-fill"`
-// + `fill="context-stroke"`) on individual child elements so the chrome can
-// theme each region independently. The pipeline must preserve those per-
-// element fills instead of flattening them to a single root attribute.
+// Duotone icons carry per-element `fill="context-fill"` and
+// `fill="context-stroke"` so the chrome can theme each region separately.
+// Flattening would erase that distinction, so the pipeline branches on
+// this predicate to skip the usual root-fill normalization.
 function isDuotone(path: string): boolean {
   return /-duotone-\d+\.svg$/.test(path)
 }
@@ -138,10 +138,9 @@ async function updateDesktopIcon(
 
   const duotone = isDuotone(path)
 
-  // Standard icons get `fill` and `fill-opacity` stripped and re-added on
-  // the root by `addContextFill`. Duotone icons author per-element `fill`
-  // attributes that must survive cleanup, so we keep them on disk and let
-  // `normalizeDuotoneRoot` handle root-level housekeeping instead.
+  // Duotone files encode color information on each child's `fill`, so we
+  // can't strip `fill` / `fill-opacity` the way we do for single-channel
+  // icons. `normalizeDuotoneRoot` handles the root attributes downstream.
   const attrsToRemove = duotone
     ? [
         'id',
@@ -163,10 +162,14 @@ async function updateDesktopIcon(
       ]
 
   const result = optimize(originalFile, {
+    // Without multipass, SVGO output is not always a fixed point of its
+    // own algorithm: a later pass can shrink path data once a neighbour
+    // has already been reduced. The CI would then re-format the file on
+    // every run and produce drift commits.
+    multipass: true,
     plugins: [
-      // `mapChannelIdsToFills` must run before attribute stripping so it
-      // can read the designer-authored `id` / `data-name` markers that the
-      // Figma export carries; `svgoRemoveAttrs` then drops the noise.
+      // Read the `id` / `data-name` markers the icon-helper Figma plugin
+      // emits before `svgoRemoveAttrs` strips them.
       ...(duotone ? [mapChannelIdsToFills] : []),
       svgoRemoveAttrs(attrsToRemove),
       viewBoxAndDimensions,
@@ -218,8 +221,9 @@ const viewBoxAndDimensions: PluginConfig = {
   }),
 }
 
-// `context-fill` and `context-fill-opacity` let Firefox UI apply the active
-// chrome color/opacity to the icon at runtime — required for theming.
+// `context-fill` / `context-fill-opacity` are how Firefox themes the icon
+// at runtime; the chrome reads them off the root and substitutes its own
+// values.
 const addContextFill: PluginConfig = {
   name: 'addContextFill',
   fn: () => ({
@@ -235,10 +239,9 @@ const addContextFill: PluginConfig = {
   }),
 }
 
-// Bridges the Figma-side icon-helper to the duotone contract: shapes named
-// `context-fill` / `context-stroke` in the plugin land as `id` / `data-name`
-// attributes after Figma's SVG export. Rewrite those into per-element `fill`
-// attributes so the existing duotone validation accepts the file.
+// Figma writes a shape's name into `id` / `data-name` on export. The
+// icon-helper plugin names the two channels `context-fill` and
+// `context-stroke` precisely so we can promote them to `fill` here.
 const mapChannelIdsToFills: PluginConfig = {
   name: 'mapChannelIdsToFills',
   fn: () => ({
@@ -256,8 +259,9 @@ const mapChannelIdsToFills: PluginConfig = {
   }),
 }
 
-// Duotone icons keep `fill` on each child but the root `<svg>` only needs
-// `fill-opacity` so the chrome's opacity flows down to the children.
+// The root `<svg>` must not carry `fill` for duotone (otherwise children
+// inherit the wrong color), but it still needs `fill-opacity` so the
+// chrome's opacity propagates to both channels.
 const normalizeDuotoneRoot: PluginConfig = {
   name: 'normalizeDuotoneRoot',
   fn: () => ({
@@ -273,17 +277,32 @@ const normalizeDuotoneRoot: PluginConfig = {
   }),
 }
 
-// Records a violation when a `-duotone` file is missing the per-element
-// `context-fill` / `context-stroke` structure that makes the suffix
-// meaningful. Runs before `normalizeDuotoneRoot` so it can observe the
-// designer-authored state, not the normalized state.
+// Geometry-bearing elements need a themable `fill`; containers like `g`,
+// `defs`, `clipPath` don't render and are deliberately excluded.
+const GEOMETRY_ELEMENTS = new Set([
+  'path',
+  'circle',
+  'rect',
+  'ellipse',
+  'polygon',
+  'polyline',
+  'line',
+])
+
+// Runs ahead of `normalizeDuotoneRoot` so we can still see the
+// designer-authored root attributes before they get cleaned up.
 function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
+  // Lives outside `fn` so multipass iterations don't push duplicate
+  // entries into the shared issues array.
+  let alreadyRecorded = false
   return {
     name: 'validateDuotone',
     fn: () => {
       let hasContextFill = false
       let hasContextStroke = false
       let rootCarriesContextFill = false
+      let missingFillCount = 0
+      const badFillValues: string[] = []
 
       const firstToken = (value: string | undefined): string =>
         (value || '').trim().split(/\s+/)[0]
@@ -291,7 +310,8 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
       return {
         element: {
           enter(node) {
-            const token = firstToken(node.attributes.fill)
+            const rawFill = node.attributes.fill
+            const token = firstToken(rawFill)
             if (node.name === 'svg') {
               if (token === 'context-fill' || token === 'context-stroke') {
                 rootCarriesContextFill = true
@@ -300,6 +320,19 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
             }
             if (token === 'context-fill') hasContextFill = true
             if (token === 'context-stroke') hasContextStroke = true
+
+            // A geometry element without a channel fill renders as default
+            // black at runtime, which silently breaks chrome theming.
+            if (GEOMETRY_ELEMENTS.has(node.name)) {
+              if (!rawFill || rawFill.trim() === '') {
+                missingFillCount++
+              } else if (
+                token !== 'context-fill' &&
+                token !== 'context-stroke'
+              ) {
+                badFillValues.push(rawFill)
+              }
+            }
           },
         },
         root: {
@@ -316,7 +349,26 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
             if (!hasContextStroke) {
               reasons.push('no child element has `fill="context-stroke"`')
             }
-            if (reasons.length > 0) {
+            if (missingFillCount > 0) {
+              const noun = missingFillCount === 1 ? 'shape has' : 'shapes have'
+              reasons.push(
+                `${missingFillCount} child ${noun} no \`fill\` attribute — set \`fill="context-fill"\` or \`fill="context-stroke"\` on each`,
+              )
+            }
+            if (badFillValues.length > 0) {
+              const example = badFillValues[0]
+              const extra =
+                badFillValues.length > 1
+                  ? ` (+${badFillValues.length - 1} more)`
+                  : ''
+              const noun =
+                badFillValues.length === 1 ? 'shape has' : 'shapes have'
+              reasons.push(
+                `${badFillValues.length} child ${noun} \`fill="${example}"\`${extra} — use \`fill="context-fill"\` or \`fill="context-stroke"\` instead`,
+              )
+            }
+            if (reasons.length > 0 && !alreadyRecorded) {
+              alreadyRecorded = true
               issues.push({ path, reasons })
             }
           },

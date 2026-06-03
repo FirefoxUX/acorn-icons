@@ -69,6 +69,8 @@ async function updateMobileIcon(
 
   if (type === 'svg') {
     formatted = optimize(originalFile, {
+      // Loop until output stabilizes (see desktop-transform for rationale).
+      multipass: true,
       plugins: [
         // These attributes are added during export but are noise for our
         // simple single-shape icons.

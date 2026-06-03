@@ -13,8 +13,8 @@ inputs:
     required: true
   status_context:
     description: >-
-      Value for the commit status' "context" field — the title shown in
-      the PR's checks box (e.g. "acorn-icons / icon validation").
+      Value for the commit status' "context" field. Becomes the title
+      shown in the PR's checks box (e.g. "acorn-icons / icon validation").
     required: true
   feedback_path:
     description: >-
@@ -62,15 +62,15 @@ runs:
             }
           }
 
-          // A payload always indicates a failure that the designer must act on.
-          // Without a payload, fall back to the job's own outcome: an action
-          // that crashed before writing its payload still surfaces as failure.
+          // Producers only write a payload when they have something for
+          // the designer to fix; an unexpected crash leaves no payload but
+          // still needs a failure surface, hence the outcome fallback.
           const jobFailed = outcome !== 'success' && outcome !== 'skipped'
           const isFailure = payload !== null || jobFailed
 
           const pr = context.payload.pull_request
           if (!pr) {
-            core.info('Not a pull_request event — skipping comment/status update.')
+            core.info('Not a pull_request event, skipping comment and status update.')
             return
           }
 
@@ -79,9 +79,8 @@ runs:
           const issue_number = pr.number
           const sha = pr.head.sha
 
-          // --- Sticky comment --------------------------------------------------
-          // Locate any prior comment by the hidden marker so we update rather
-          // than spam a new comment on every push.
+          // Sticky comment: locate the prior one by hidden marker so each
+          // push edits in place instead of spamming new comments.
           const comments = await github.paginate(
             github.rest.issues.listComments,
             { owner, repo, issue_number, per_page: 100 },
@@ -110,14 +109,15 @@ runs:
               })
             }
           } else if (existing) {
-            // Previously failing, now green — clean up so the PR isn't noisy.
+            // The failure was fixed; drop the stale comment so the PR stays
+            // clean.
             await github.rest.issues.deleteComment({
               owner, repo, comment_id: existing.id,
             })
           }
 
-          // --- Commit status ---------------------------------------------------
-          // GitHub caps the description at 140 chars; truncate defensively.
+          // GitHub silently rejects status descriptions longer than 140
+          // characters, so trim defensively.
           const truncate = (s) => (s.length <= 140 ? s : s.slice(0, 137) + '...')
           let description
           let state

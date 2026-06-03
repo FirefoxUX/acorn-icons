@@ -169,13 +169,12 @@ export const removeOrphanedClipPathRefs: PluginConfig = {
 }
 
 /**
- * Designer-facing feedback payload picked up by the post-feedback composite
- * action. The fields drive the three PR surfaces:
- *   - `title`: header line at the top of the sticky comment
- *   - `summary`: ≤140-char description used as the commit-status description
- *     (the line in the PR's checks box)
- *   - `body`: markdown body of the sticky comment — should list each problem
- *     and explain how to fix it
+ * Payload consumed by the post-feedback composite action.
+ *
+ * - `title`: sticky comment header.
+ * - `summary`: commit-status description, capped at 140 chars by GitHub.
+ * - `body`: sticky comment body. Should name each offending file and
+ *   tell the designer how to resolve it.
  */
 export type FeedbackPayload = {
   title: string
@@ -184,10 +183,9 @@ export type FeedbackPayload = {
 }
 
 /**
- * Write a feedback payload to `$RUNNER_TEMP/icon-feedback.json` so the
- * post-feedback composite action can pick it up at the end of the workflow.
- * No-op when RUNNER_TEMP is unset (e.g. running locally) so action code can
- * call this unconditionally.
+ * Drop a feedback payload where the post-feedback action expects it.
+ * Silently does nothing when RUNNER_TEMP is unset so callers can invoke
+ * unconditionally from local runs.
  */
 export function writeFeedback(payload: FeedbackPayload): void {
   const runnerTemp = process.env.RUNNER_TEMP
