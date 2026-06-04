@@ -169,6 +169,66 @@ export const removeOrphanedClipPathRefs: PluginConfig = {
 }
 
 /**
+ * Removes `<clipPath>` defs whose only purpose is to clip to the full
+ * viewBox. Figma adds these on every export; they survive `removeUselessDefs`
+ * because they have an id and a referrer, but they have no visual effect and
+ * they confuse the duotone validator into reading the clip rect as a
+ * top-level shape.
+ */
+export const removeNoOpClipPaths: PluginConfig = {
+  name: 'removeNoOpClipPaths',
+  fn: () => {
+    let vb: [number, number, number, number] | null = null
+
+    const num = (v: string | undefined, fallback: number): number => {
+      if (v === undefined) return fallback
+      const n = parseFloat(v)
+      return Number.isFinite(n) ? n : NaN
+    }
+
+    return {
+      element: {
+        enter(node, parentNode) {
+          if (node.name === 'svg') {
+            const parts = (node.attributes.viewBox ?? '')
+              .trim()
+              .split(/[\s,]+/)
+              .map((s) => parseFloat(s))
+            if (parts.length === 4 && parts.every(Number.isFinite)) {
+              vb = [parts[0], parts[1], parts[2], parts[3]]
+            }
+            return
+          }
+          if (vb === null || node.name !== 'clipPath') return
+
+          const elementKids = node.children.filter((c) => c.type === 'element')
+          if (elementKids.length !== 1) return
+          const child = elementKids[0]
+          if (child.name !== 'rect') return
+          if (child.attributes.transform) return
+
+          const x = num(child.attributes.x, 0)
+          const y = num(child.attributes.y, 0)
+          const w = num(child.attributes.width, NaN)
+          const h = num(child.attributes.height, NaN)
+          if (![x, y, w, h].every(Number.isFinite)) return
+
+          const [vbX, vbY, vbW, vbH] = vb
+          if (
+            x <= vbX &&
+            y <= vbY &&
+            x + w >= vbX + vbW &&
+            y + h >= vbY + vbH
+          ) {
+            parentNode.children = parentNode.children.filter((c) => c !== node)
+          }
+        },
+      },
+    }
+  },
+}
+
+/**
  * Payload consumed by the post-feedback composite action.
  *
  * - `title`: sticky comment header.
