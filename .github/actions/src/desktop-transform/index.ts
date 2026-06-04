@@ -289,8 +289,9 @@ const GEOMETRY_ELEMENTS = new Set([
   'line',
 ])
 
-// Runs ahead of `normalizeDuotoneRoot` so we can still see the
-// designer-authored root attributes before they get cleaned up.
+// Captures duotone violations that need a designer to resolve. A root
+// `fill` attribute is auto-fixable by `normalizeDuotoneRoot` and is
+// deliberately not surfaced here.
 function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
   // Lives outside `fn` so multipass iterations don't push duplicate
   // entries into the shared issues array.
@@ -300,7 +301,6 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
     fn: () => {
       let hasContextFill = false
       let hasContextStroke = false
-      let rootCarriesContextFill = false
       let missingFillCount = 0
       const badFillValues: string[] = []
 
@@ -313,9 +313,6 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
             const rawFill = node.attributes.fill
             const token = firstToken(rawFill)
             if (node.name === 'svg') {
-              if (token === 'context-fill' || token === 'context-stroke') {
-                rootCarriesContextFill = true
-              }
               return
             }
             if (token === 'context-fill') hasContextFill = true
@@ -338,11 +335,6 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
         root: {
           exit() {
             const reasons: string[] = []
-            if (rootCarriesContextFill) {
-              reasons.push(
-                'root `<svg>` must not carry `fill="context-fill"` or `fill="context-stroke"` (put fills on the children instead)',
-              )
-            }
             if (!hasContextFill) {
               reasons.push('no child element has `fill="context-fill"`')
             }
