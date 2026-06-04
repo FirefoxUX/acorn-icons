@@ -6,6 +6,7 @@ import {
   ensureLicense,
   formatFile,
   getInput,
+  removeNoOpClipPaths,
   removeOrphanedClipPathRefs,
   svgoBasePlugins,
   svgoRemoveAttrs,
@@ -173,6 +174,9 @@ async function updateDesktopIcon(
       ...(duotone ? [mapChannelIdsToFills] : []),
       svgoRemoveAttrs(attrsToRemove),
       viewBoxAndDimensions,
+      // Strip Figma's no-op clipPath wrappers before the duotone validator
+      // runs so it doesn't trip on the clip rect inside `<defs>`.
+      removeNoOpClipPaths,
       ...(duotone
         ? [validateDuotone(path, duotoneIssues), normalizeDuotoneRoot]
         : [addContextFill]),
