@@ -2,5 +2,5 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-    <path fill="#000" fill-rule="evenodd" d="m14 4.662-6.86 6.936a.625.625 0 0 1-.89 0L2 7.3l.888-.879 3.807 3.847 6.417-6.486z" clip-rule="evenodd" />
+    <path fill="#000" d="M11.932 5.02a.627.627 0 0 1 .885.886l-4.501 4.502A2 2 0 0 1 6.884 11c-.54 0-1.05-.21-1.433-.592l-2.269-2.27a.626.626 0 0 1 .884-.884l2.27 2.269a.775.775 0 0 0 1.095 0z" />
 </svg>
