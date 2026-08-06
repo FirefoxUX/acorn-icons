@@ -1,0 +1,890 @@
+%PDF-1.7
+%ÄÄÄÄ
+1 0 obj
+  << /Length 2 0 R
+     /Subtype /XML
+     /Type /Metadata
+  >>
+stream
+<?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/">
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <rdf:Description rdf:about=""
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+      <dc:title>
+        <rdf:Alt>
+          <rdf:li xml:lang="x-default">kit-Separate-Look-Down-2</rdf:li>
+        </rdf:Alt>
+      </dc:title>
+      <dc:language>
+        <rdf:Bag>
+          <rdf:li>en</rdf:li>
+        </rdf:Bag>
+      </dc:language>
+    </rdf:Description>
+    <rdf:Description xmlns:pdfuaid="http://www.aiim.org/pdfua/ns/id/">
+      <pdfuaid:part>1</pdfuaid:part>
+    </rdf:Description>
+  </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="w"?>
+endstream
+endobj
+
+2 0 obj
+  740
+endobj
+
+3 0 obj
+  << /Nums [ 0
+             []
+           ]
+     /Type /ParentTree
+  >>
+endobj
+
+4 0 obj
+  << /Length 5 0 R
+     /Range [ 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  1.000000 exch dup 0.000000 gt { exch pop dup 0.000000 sub -1.111111 mul 1.000000 add exch } if dup 0.360000 gt { exch pop dup 0.360000 sub -1.032258 mul 0.600000 add exch } if dup 0.670000 gt { exch pop dup 0.670000 sub -0.909091 mul 0.280000 add exch } if dup 0.890000 gt { exch pop dup 0.890000 sub -0.727273 mul 0.080000 add exch } if dup 1.000000 gt { exch pop 0.000000 exch } if pop }
+endstream
+endobj
+
+5 0 obj
+  392
+endobj
+
+6 0 obj
+  << /BBox [ 0.000000 0.000000 300.000000 300.000916 ]
+     /Resources << /Pattern << /P1 << /Matrix [ 13.753716 -128.548203 128.548203 13.753716 18.813370 229.555847 ]
+                                      /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                                  /ColorSpace /DeviceGray
+                                                  /Function 4 0 R
+                                                  /Domain [ 0.000000 1.000000 ]
+                                                  /ShadingType 2
+                                                  /Extend [ true true ]
+                                               >>
+                                      /PatternType 2
+                                      /Type /Pattern
+                                   >> >> >>
+     /Subtype /Form
+     /Length 7 0 R
+     /Group << /Type /Group
+               /S /Transparency
+               /CS /DeviceGray
+            >>
+     /Type /XObject
+  >>
+stream
+/DeviceGray CS
+/DeviceGray cs
+1.000000 0.000000 -0.000000 1.000000 147.346680 220.144653 cm
+0.020310 7.690116 m
+0.558010 6.736460 0.943515 5.813240 1.176857 5.011763 c
+1.613104 3.530550 1.602951 1.765268 1.105832 -0.000011 c
+1.400046 0.628996 1.836308 1.572504 2.516042 2.962408 c
+3.063887 4.098680 5.620503 6.239338 7.974209 7.355320 c
+9.161208 7.913311 10.622114 7.984339 10.622114 7.984339 c
+12.245518 7.984339 l
+13.806058 7.984339 15.212265 8.759769 16.678850 9.293074 c
+19.448513 10.317747 22.065987 9.952518 22.502234 12.083027 c
+22.979061 14.426588 19.123854 15.309225 19.205015 16.851309 c
+19.265888 17.987581 23.861708 16.983198 23.871853 19.468794 c
+23.882000 22.451508 19.478947 22.096422 18.738342 23.303711 c
+9.932235 22.400780 4.220438 10.307596 0.000000 7.669822 c
+0.020310 7.690116 l
+h
+/Pattern cs
+/P1 scn
+f
+n
+
+endstream
+endobj
+
+7 0 obj
+  826
+endobj
+
+8 0 obj
+  << /Length 9 0 R
+     /Range [ 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  0.000000 exch dup 0.150000 gt { exch pop dup 0.150000 sub 0.818182 mul 0.000000 add exch } if dup 0.370000 gt { exch pop dup 0.370000 sub 0.666667 mul 0.180000 add exch } if dup 0.640000 gt { exch pop dup 0.640000 sub 0.476190 mul 0.360000 add exch } if dup 0.850000 gt { exch pop dup 0.850000 sub 0.266667 mul 0.460000 add exch } if dup 1.000000 gt { exch pop 0.500000 exch } if pop }
+endstream
+endobj
+
+9 0 obj
+  388
+endobj
+
+10 0 obj
+  << /BBox [ 0.000000 0.000000 300.000000 300.000916 ]
+     /Resources << /Pattern << /P1 << /Matrix [ 2.810245 33.144646 -33.144646 2.810245 147.012573 270.058533 ]
+                                      /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                                  /ColorSpace /DeviceGray
+                                                  /Function 8 0 R
+                                                  /Domain [ 0.000000 1.000000 ]
+                                                  /ShadingType 2
+                                                  /Extend [ true true ]
+                                               >>
+                                      /PatternType 2
+                                      /Type /Pattern
+                                   >> >> >>
+     /Subtype /Form
+     /Length 11 0 R
+     /Group << /Type /Group
+               /S /Transparency
+               /CS /DeviceGray
+            >>
+     /Type /XObject
+  >>
+stream
+/DeviceGray CS
+/DeviceGray cs
+1.000000 0.000000 -0.000000 1.000000 116.098877 254.817261 cm
+16.800592 14.004385 m
+24.835659 11.670971 31.014147 4.427242 31.014147 4.427242 c
+40.215900 0.916965 l
+40.185463 4.264912 l
+38.501347 8.069393 37.283920 12.584047 35.944740 16.733469 c
+35.193993 19.066885 35.183857 21.035067 34.433105 26.604828 c
+33.367847 34.528294 32.170692 42.654671 29.187977 43.851814 c
+25.647272 45.282299 21.406563 43.892391 16.019415 37.541443 c
+9.749629 30.155678 7.152413 21.907560 4.646527 21.968431 c
+2.871102 22.009014 0.679734 21.785816 0.000000 21.816252 c
+0.781187 20.852449 4.179844 17.676981 16.820871 14.014532 c
+16.800592 14.004385 l
+h
+/Pattern cs
+/P1 scn
+f
+n
+
+endstream
+endobj
+
+11 0 obj
+  689
+endobj
+
+12 0 obj
+  << /Length 13 0 R
+     /Range [ 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  1.000000 exch dup 0.000000 gt { exch pop dup 0.000000 sub -1.111111 mul 1.000000 add exch } if dup 0.360000 gt { exch pop dup 0.360000 sub -1.032258 mul 0.600000 add exch } if dup 0.670000 gt { exch pop dup 0.670000 sub -0.909091 mul 0.280000 add exch } if dup 0.890000 gt { exch pop dup 0.890000 sub -0.727273 mul 0.080000 add exch } if dup 1.000000 gt { exch pop 0.000000 exch } if pop }
+endstream
+endobj
+
+13 0 obj
+  392
+endobj
+
+14 0 obj
+  << /BBox [ 0.000000 0.000000 300.000000 300.000916 ]
+     /Resources << /Pattern << /P1 << /Matrix [ 13.757375 -128.538696 128.538696 13.757375 -61.503662 220.950760 ]
+                                      /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                                  /ColorSpace /DeviceGray
+                                                  /Function 12 0 R
+                                                  /Domain [ 0.000000 1.000000 ]
+                                                  /ShadingType 2
+                                                  /Extend [ true true ]
+                                               >>
+                                      /PatternType 2
+                                      /Type /Pattern
+                                   >> >> >>
+     /Subtype /Form
+     /Length 15 0 R
+     /Group << /Type /Group
+               /S /Transparency
+               /CS /DeviceGray
+            >>
+     /Type /XObject
+  >>
+stream
+/DeviceGray CS
+/DeviceGray cs
+1.000000 0.000000 -0.000000 1.000000 66.055054 213.023193 cm
+46.026615 11.747717 m
+45.468624 12.062220 44.900486 12.437601 44.312057 12.863705 c
+32.624691 21.527779 19.080727 31.865822 4.390355 30.759987 c
+4.319337 30.699114 4.228031 30.628096 4.106288 30.536789 c
+3.142486 29.836763 -0.783744 27.604797 0.139477 25.048185 c
+1.123570 22.329250 5.404880 24.703245 5.749819 23.414795 c
+6.125195 22.004601 2.888835 20.868336 3.548278 18.747972 c
+4.400482 16.018890 7.636838 18.575502 9.391973 17.114582 c
+10.081852 16.536301 8.367289 15.115958 8.367289 15.115958 c
+20.419891 15.115958 l
+23.960596 15.115958 26.375183 14.010118 30.636202 12.559341 c
+36.185673 10.662174 44.210606 8.491079 48.684673 4.676451 c
+50.490536 3.134369 52.276093 1.947378 54.031227 1.024158 c
+47.578827 5.001110 45.823708 10.966539 46.026615 11.757872 c
+46.026615 11.747717 l
+h
+/Pattern cs
+/P1 scn
+f
+n
+
+endstream
+endobj
+
+15 0 obj
+  904
+endobj
+
+16 0 obj
+  << /Length 17 0 R
+     /Range [ 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  0.000000 exch dup 0.090000 gt { exch pop dup 0.090000 sub 1.000000 mul 0.000000 add exch } if dup 0.100000 gt { exch pop dup 0.100000 sub 0.750000 mul 0.010000 add exch } if dup 0.380000 gt { exch pop dup 0.380000 sub 0.600000 mul 0.220000 add exch } if dup 0.630000 gt { exch pop dup 0.630000 sub 0.476191 mul 0.370000 add exch } if dup 0.840000 gt { exch pop dup 0.840000 sub 0.187500 mul 0.470000 add exch } if dup 1.000000 gt { exch pop 0.500000 exch } if pop }
+endstream
+endobj
+
+17 0 obj
+  468
+endobj
+
+18 0 obj
+  << /BBox [ 0.000000 0.000000 300.000000 300.000916 ]
+     /Resources << /Pattern << /P1 << /Matrix [ -5.843687 28.244473 -28.244473 -5.843687 116.824677 275.368042 ]
+                                      /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                                  /ColorSpace /DeviceGray
+                                                  /Function 16 0 R
+                                                  /Domain [ 0.000000 1.000000 ]
+                                                  /ShadingType 2
+                                                  /Extend [ true true ]
+                                               >>
+                                      /PatternType 2
+                                      /Type /Pattern
+                                   >> >> >>
+     /Subtype /Form
+     /Length 19 0 R
+     /Group << /Type /Group
+               /S /Transparency
+               /CS /DeviceGray
+            >>
+     /Type /XObject
+  >>
+stream
+/DeviceGray CS
+/DeviceGray cs
+1.000000 0.000000 -0.000000 1.000000 82.274658 261.073486 cm
+33.306953 16.158792 m
+32.931580 17.305210 32.880852 19.740074 33.276520 25.056204 c
+34.006981 34.917423 32.302570 38.376968 28.995209 38.884232 c
+25.434214 39.442223 17.723799 34.501465 13.746847 29.438967 c
+8.582898 22.874968 3.530544 13.105062 1.633376 5.912056 c
+1.186983 4.197502 0.730460 2.310478 0.000000 0.514763 c
+4.321891 3.284428 11.484446 7.515007 19.418056 10.710772 c
+25.018253 12.973171 30.608297 15.123974 33.296799 16.158792 c
+33.306953 16.158792 l
+h
+/Pattern cs
+/P1 scn
+f
+n
+
+endstream
+endobj
+
+19 0 obj
+  582
+endobj
+
+20 0 obj
+  << /Length 21 0 R
+     /Range [ 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  1.000000 exch dup 0.000000 gt { exch pop dup 0.000000 sub -0.444445 mul 1.000000 add exch } if dup 0.090000 gt { exch pop dup 0.090000 sub -0.800000 mul 0.960000 add exch } if dup 0.240000 gt { exch pop dup 0.240000 sub -0.900000 mul 0.840000 add exch } if dup 0.440000 gt { exch pop dup 0.440000 sub -1.130435 mul 0.660000 add exch } if dup 0.670000 gt { exch pop dup 0.670000 sub -1.222222 mul 0.400000 add exch } if dup 0.940000 gt { exch pop dup 0.940000 sub -1.166667 mul 0.070000 add exch } if dup 1.000000 gt { exch pop 0.000000 exch } if pop }
+endstream
+endobj
+
+21 0 obj
+  554
+endobj
+
+22 0 obj
+  << /BBox [ 0.000000 0.000000 300.000000 300.000916 ]
+     /Resources << /Pattern << /P1 << /Matrix [ 33.950596 -40.655674 40.655674 33.950596 144.905853 73.243622 ]
+                                      /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                                  /ColorSpace /DeviceGray
+                                                  /Function 20 0 R
+                                                  /Domain [ 0.000000 1.000000 ]
+                                                  /ShadingType 2
+                                                  /Extend [ true true ]
+                                               >>
+                                      /PatternType 2
+                                      /Type /Pattern
+                                   >> >> >>
+     /Subtype /Form
+     /Length 23 0 R
+     /Group << /Type /Group
+               /S /Transparency
+               /CS /DeviceGray
+            >>
+     /Type /XObject
+  >>
+stream
+/DeviceGray CS
+/DeviceGray cs
+1.000000 0.000000 -0.000000 1.000000 186.101074 45.402466 cm
+36.786777 30.385118 m
+32.505470 40.611565 30.506853 43.320358 23.953001 51.690216 c
+19.529657 57.330994 15.846929 59.410793 15.846929 59.410793 c
+19.631130 51.416306 l
+22.694996 43.756630 l
+23.739960 43.178345 18.860067 48.727814 11.809094 54.723679 c
+6.848051 58.944115 0.000000 61.145630 0.000000 61.145630 c
+0.000000 61.145630 6.949517 52.725037 11.981578 44.111687 c
+17.013639 35.498341 21.964523 16.435352 22.238445 10.571377 c
+22.715273 -0.000011 30.466278 5.995872 35.751972 5.772678 c
+41.037663 5.549480 42.224670 13.939613 36.807091 30.385118 c
+36.786777 30.385118 l
+h
+/Pattern cs
+/P1 scn
+f
+n
+
+endstream
+endobj
+
+23 0 obj
+  693
+endobj
+
+24 0 obj
+  << /Alternate /DeviceRGB
+     /Filter /FlateDecode
+     /Length 2567
+     /N 3
+  >>
+stream
+xúµñiPŸ«owˆç-Y¬æÜMñ ≤Ü-†ÇÄl¢í a	¿]QÅED\@EptXdQ‹T\Ç
+ 88ä*ØtÍM’´WØﬁø™ª}Íú€Áû˚°ˇ ênD0r•≈¢`_OzDd˜	…É9q∏i‡ﬂ}√wÉÛow≤ªã‹ô«˚tTƒˆYΩˇP˚Ωx¸.≤ú¬‹X‰„ü@òÃB∏ <9˛;}«º ¬U$g¸\-1HVõ,I Ãìq
+üìÅp6¬˙±IibÑ+eq—|˛iã˘‹Ñª&gJ¯HQ6óYbY>)Bñ√M…8an…!’ l>ﬂˇú» m¨¨mˇ√ûˇk…ŒdûÙè ü@Û-ÆDî9CÀn@DNå‘Ä–∆ÄlÄpÓ¿¯É@
+"¡j¿	 à@ÿ ∂Ç<P ˆÄ˝†5†4Ä3†¥Éã‡
+∏nÉ0§`ºS‡òÅ Q *§iCêd1!W»ZCëP	!	¥⁄@≈P9T’A?CÁ†ã–5®∫ç@–_–'ìa¨	¬ñ0ˆÄ‡Pxß√Î‡\x7\W√ß‡f¯"|Ä•KxP$î
+J≈@1Q,T *
+á°6°ÚQ•®jT™’É∫Éí¢&Q—X4MG3–Œh?Ù
+4ùéﬁÑ.Dó£O†õ—›Ë;ËÙ˙+ÜÇ—¿òaú0lL&ìÖ…√îbj1MòÀòÃÊãU¡a∞~ÿHl"v=∂{€àÌƒˆaG±”8NgÜs¡‚881.ww
+w◊è√}¿ì⁄xº>
+/ƒÁ‡KÒ'Ò¯~¸s¸AÅ`@p"xÑµÑ"B°çpã0Fò!*çà.ƒPb"q+±åÿ@ºL|H|C"ëtIé§Â$i©åtötï4B˙HV"õíY‰h≤Ñºõ|ú‹IæO~C°P)Óî(äò≤õRGπDyL˘ Gï≥êcÀÒ‰6ÀU»5ÀıÀΩí'»»{»Øñ_'_*V˛ñ¸§A¡PÅ•¿Qÿ§P°pNaHaZë™h≠®ò¢X®xRÒö‚∏N…P…[âßî´tLÈí“(E’£≤®\Í6jı2uåÜ•—ÿ¥DZÌ'Z/mJYIŸV9L9[πB˘º≤T•b®¬VIV)R9£2®ÚiÅÊè¸ª4,Ë_^u°™ª*_5_µQu@ıì]Õ[-ImØZã⁄#u¥∫©˙rı,ı√Íó’'“:/‰.Ã_xf·X√T#XcΩ∆1çõ”öZöæöiö5/iNj©hπk%jïhuhMhSµ]µ⁄%⁄¥_–ïÈÙdzΩõ>•£°„ß#—©“È’ô—5“]°õ£€®˚Hè®«‘ã”+—Î“õ“◊÷_™øAø^ˇÅ¡Äiê`p¿†«‡Ω°ëa∏·√√q#U#∂—:£z£á∆c7„t„j„ª&X¶Ií…!ì€¶∞©ùiÇiÖÈ-3ÿÃﬁL`v»¨œcÓh.4Ø6bêåLF=cƒB≈bâEéEã≈+K}À(ÀΩñ=ñ_≠Ï¨í≠j¨Ü≠ï¨˝≠s¨€¨ˇ≤1µ·⁄Tÿ‹]DY‰≥hÛ¢÷EØmÕl˘∂ámÔŸQÌñ⁄Ì∞Î≤˚bÔ`/≤o∞üp–wàq®tb“òAÃBÊUGå£ß„f«v«èNˆNbß3N:3úìúO:è/6ZÃ_\≥x‘E◊Ö„RÂ"u•ª∆∏uï∫È∏q‹™›û∫ÎπÛ‹k›ü{òx$zúÚxÂiÂ)ÚlÚ|œrbmduz°º|ΩÚΩzΩïºWxó{?ˆ—ıâ˜©˜ôÚµÛ]Ô€ÈáÒ€Î7ƒ÷dsŸuÏ)ˇç˛›‰ÄêÄÚÄßKLóàñ¥-Öó˙/›∑Ù·2Ée¬e-Å ê∏/QêQPz–ØÀ±ÀÉñW,lº!∏'Ñ≤&‰d»ªPœ–¢–·∆+$+∫¬‰√¢√Í¬ﬁá{ÖáK#,#6F‹àTèD∂F·¢¬¢j£¶WzØ‹ør,⁄.:/zpï—™ÏU◊V´ØN^}~ç¸Œö≥1òòòì1ü9ÅújŒt,;∂2väÀ‚‡æ‰πÛJx|~1ˇyúK\q‹xºK¸æ¯â∑Ñ“ÑIKP.xùËóx$Ò}R`“Ò§Ÿ‰‰∆|JL 9°í0Iÿù™ïöù⁄ófññó&MwJﬂü>%
+’f@´2Z≈4‰GrSb,Ÿ.…tÕ¨»¸êñu6[1[ò}s≠È⁄]küØÛY˜„zÙzÓ˙Æ:∂nŸË±±j¥)vS◊fΩÕπõ«∂¯n9±ï∏5iÎo9V9≈9o∑ÖokÀ’Ã›í;∫›w{}û\û(oháÛé#;—;;{w-⁄up◊◊|^˛ı´Ç“ÇœÖ‹¬Î?XˇPˆ√ÏÓ∏›ΩEˆEá˜`˜˜Óu€{¢X±x]ÒËæ•˚öKË%˘%o˜ØŸ≠‘∂Ù»‚…iŸí≤÷É˙˜¸\ûP>P·Y—X©Qπ´Ú˝!ﬁ°˛√Óáéh)8ÚÈ®‡ËΩ*ﬂ™Êj√Í“cÿcô«û’Ñ’Ù¸»¸±ÆVΩ∂†ˆÀq·qÈâ‡›uuu'5N’√ıí˙âS—ßnˇ‰ıSk£°™Q•±‡48-9˝‚ÁòüœúÈ:À<€ã¡/ïM‘¶¸f®ymÛTKBã¥5≤µÔúˇπÆ6Á∂¶_-~=ﬁÆ”^q^˘|Q±#∑cˆ¬∫”ùiùì„/év≠ÈæqÈn˜ÚÓﬁÀóØ^Òπr©«£Á¬Uó´Ì◊úÆùªŒºﬁr√˛FÛMªõMøŸ˝÷‘kﬂ€|À·VÎm«€m}ã˚:˙›˙/ﬁÒ∫sÂ.˚ÓçÅe}É+ÔEIÔÒÓçﬂOæˇ˙AÊÉô·-1Û)<*}¨Ò∏˙â…ìF©ΩÙ¸à◊»Õß!OáGπ£/œ¯˝ÛXÓ3 ≥“Á⁄œÎ∆m∆€'|&nøX˘bÏe⁄Àô…º?ˇ®|e¸Íó?›ˇº915ˆZÙzˆØ¬7joéøµ}€54˝¯] ªô˜˘‘>ú¯»¸ÿÛ)¸”Ûô¨œ∏œe_Læ¥}¯˙p6evˆ;b¡ˆf—Ì≠ÌÌ6k∫?é#I”eŒéïöú*—C“8\>ùAóôïˇõOâ=@Àv T|ã!
+öÃ{≤9A‡üWwπd^k«∑Xj5 Ãi P{2Òs1Vp(˝ª90Ç˘q|_àl5L¿œ„ë˝y± UHÈ”ˇæÛøÎ[üﬂº±òü-ûÎ35m≠Hü ¶≥ÖbæH»ëuƒIû;ë¨«åTëX I1ß#N“Äå∏E6sKAdƒ#cûÃŒæ1 W¿ó¢ŸŸô™ŸŸ/»,P√ tJ˛ç—#
+endstream
+endobj
+
+25 0 obj
+  2567
+endobj
+
+26 0 obj
+  [ /ICCBased 24 0 R ]
+endobj
+
+27 0 obj
+  << /Length 28 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  0.627451 exch 0.188235 exch 0.725490 exch dup 0.160000 gt { exch pop exch pop exch pop dup 0.160000 sub -0.871460 mul 0.627451 add exch dup 0.160000 sub -0.223312 mul 0.188235 add exch dup 0.160000 sub -0.691721 mul 0.725490 add exch } if dup 0.880000 gt { exch pop exch pop exch pop 0.000000 exch 0.027451 exch 0.227451 exch } if pop }
+endstream
+endobj
+
+28 0 obj
+  339
+endobj
+
+29 0 obj
+  << /Length 30 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  0.627451 exch 0.188235 exch 0.725490 exch dup 0.150000 gt { exch pop exch pop exch pop dup 0.150000 sub -0.859522 mul 0.627451 add exch dup 0.150000 sub -0.220252 mul 0.188235 add exch dup 0.150000 sub -0.682246 mul 0.725490 add exch } if dup 0.880000 gt { exch pop exch pop exch pop 0.000000 exch 0.027451 exch 0.227451 exch } if pop }
+endstream
+endobj
+
+30 0 obj
+  339
+endobj
+
+31 0 obj
+  << /Length 32 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  1.000000 exch 0.921569 exch 0.286275 exch dup 0.000000 gt { exch pop exch pop exch pop dup 0.000000 sub 0.000000 mul 1.000000 add exch dup 0.000000 sub -0.588235 mul 0.921569 add exch dup 0.000000 sub -0.326797 mul 0.286275 add exch } if dup 0.360000 gt { exch pop exch pop exch pop dup 0.360000 sub 0.000000 mul 1.000000 add exch dup 0.360000 sub -0.543959 mul 0.709804 add exch dup 0.360000 sub -0.290955 mul 0.168627 add exch } if dup 0.670000 gt { exch pop exch pop exch pop dup 0.670000 sub 0.000000 mul 1.000000 add exch dup 0.670000 sub -0.463458 mul 0.541176 add exch dup 0.670000 sub -0.267380 mul 0.078431 add exch } if dup 0.890000 gt { exch pop exch pop exch pop dup 0.890000 sub 0.000000 mul 1.000000 add exch dup 0.890000 sub -0.356506 mul 0.439216 add exch dup 0.890000 sub -0.178253 mul 0.019608 add exch } if dup 1.000000 gt { exch pop exch pop exch pop 1.000000 exch 0.400000 exch 0.000000 exch } if pop }
+endstream
+endobj
+
+32 0 obj
+  926
+endobj
+
+33 0 obj
+  << /Length 34 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  0.984314 exch 0.156863 exch 0.447059 exch dup 0.150000 gt { exch pop exch pop exch pop dup 0.150000 sub -0.409982 mul 0.984314 add exch dup 0.150000 sub -0.249554 mul 0.156863 add exch dup 0.150000 sub -0.267380 mul 0.447059 add exch } if dup 0.370000 gt { exch pop exch pop exch pop dup 0.370000 sub -0.305011 mul 0.894118 add exch dup 0.370000 sub -0.174292 mul 0.101961 add exch dup 0.370000 sub -0.217865 mul 0.388235 add exch } if dup 0.640000 gt { exch pop exch pop exch pop dup 0.640000 sub -0.242764 mul 0.811765 add exch dup 0.640000 sub -0.149393 mul 0.054902 add exch dup 0.640000 sub -0.149393 mul 0.329412 add exch } if dup 0.850000 gt { exch pop exch pop exch pop dup 0.850000 sub -0.104575 mul 0.760784 add exch dup 0.850000 sub -0.052288 mul 0.023529 add exch dup 0.850000 sub -0.078431 mul 0.298039 add exch } if dup 1.000000 gt { exch pop exch pop exch pop 0.745098 exch 0.015686 exch 0.286275 exch } if pop }
+endstream
+endobj
+
+34 0 obj
+  930
+endobj
+
+35 0 obj
+  << /Length 36 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  1.000000 exch 0.400000 exch 0.000000 exch dup 0.000000 gt { exch pop exch pop exch pop dup 0.000000 sub 0.000000 mul 1.000000 add exch dup 0.000000 sub 0.879382 mul 0.400000 add exch dup 0.000000 sub 0.487225 mul 0.000000 add exch } if dup 0.330000 gt { exch pop exch pop exch pop dup 0.330000 sub 0.000000 mul 1.000000 add exch dup 0.330000 sub -0.904977 mul 0.690196 add exch dup 0.330000 sub -0.512821 mul 0.160784 add exch } if dup 0.460000 gt { exch pop exch pop exch pop dup 0.460000 sub 0.000000 mul 1.000000 add exch dup 0.460000 sub -1.014994 mul 0.572549 add exch dup 0.460000 sub -0.553633 mul 0.094118 add exch } if dup 0.630000 gt { exch pop exch pop exch pop dup 0.630000 sub -0.046136 mul 1.000000 add exch dup 0.630000 sub -0.715110 mul 0.400000 add exch dup 0.630000 sub 1.314879 mul 0.000000 add exch } if dup 0.970000 gt { exch pop exch pop exch pop 0.984314 exch 0.156863 exch 0.447059 exch } if pop }
+endstream
+endobj
+
+36 0 obj
+  924
+endobj
+
+37 0 obj
+  << /Length 38 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  1.000000 exch 0.400000 exch 0.000000 exch dup 0.000000 gt { exch pop exch pop exch pop dup 0.000000 sub 0.000000 mul 1.000000 add exch dup 0.000000 sub 0.879382 mul 0.400000 add exch dup 0.000000 sub 0.487225 mul 0.000000 add exch } if dup 0.330000 gt { exch pop exch pop exch pop dup 0.330000 sub 0.000000 mul 1.000000 add exch dup 0.330000 sub -0.904977 mul 0.690196 add exch dup 0.330000 sub -0.512821 mul 0.160784 add exch } if dup 0.460000 gt { exch pop exch pop exch pop dup 0.460000 sub 0.000000 mul 1.000000 add exch dup 0.460000 sub -1.014994 mul 0.572549 add exch dup 0.460000 sub -0.553633 mul 0.094118 add exch } if dup 0.630000 gt { exch pop exch pop exch pop dup 0.630000 sub -0.042395 mul 1.000000 add exch dup 0.630000 sub -0.657128 mul 0.400000 add exch dup 0.630000 sub 1.208267 mul 0.000000 add exch } if dup 1.000000 gt { exch pop exch pop exch pop 0.984314 exch 0.156863 exch 0.447059 exch } if pop }
+endstream
+endobj
+
+38 0 obj
+  924
+endobj
+
+39 0 obj
+  << /Filter /FlateDecode
+     /Length 40 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+xçìiNƒ0ÖØíPyÀv†làJP	i4w«ô8ì¬Dj˚´N˝ÂΩÁ§'Á` I≈=˝<æjÖ>§¿≠â‡s≠Êu—»†è{˘vß∫º|.Éó?Õ_ÎÉªÉ)V°èı]?ôÍ˝<Whp&Ù— 3v0ÔW‡ÏﬁûçBeî:¬öõDî`9âÿ%F ë®I–Sñ=¿ :%éÿÑ‡§–—÷‹$±gìHQ<Bó6¸
+hÃaHE¬ é‰e|Å:¬öMÇ¿∂ìH†gO]b Cƒl x»È&ı?@2ÁñöKÜ∞	ëD°£!¨Ÿ$ä	nûb ˝G∫ƒP‘ÆËåi3ÿ]†‹>L∏Ü¿I}vC®K)£´+∫˝Âj¥äR†ËkuŸª Á_ã3Z
+endstream
+endobj
+
+40 0 obj
+  303
+endobj
+
+41 0 obj
+  << /Filter /FlateDecode
+     /Length 42 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+xçîkn√ ÑØ¬±ÀÀß≠˚íZ’Rk©RîªwX∞!äÌ∞ø ÕÁôââœJ—IÀ®óøÁw•O!xhŸ±É5y7ŒN ≈®∑_uŒ«”˜¥±∏ˇÃOuÛ5V”«qÃÃç˛ÊÔXsdt†XÄ}.Í„u°"†ÓYú,∞ëá›UèH<7∞ Ë‡¸‡õH[ eM(z¥®@”Å-†ﬁEú,‡'#{="«—í Ë@&∞?JÏP`gcö6S}ä8YtuhÙàduƒÖ@üº5hq0ìw∂ d“T†È‡†ﬁEú,∫:4zD≤¯ÑÂz„7’|`O÷,ÔAl‹váòõ˜u(‚dÅá à√^áFèH&2πÂ=X$‚ÊjlWwI|V`Ì∞öﬂÎ∞
+Â∞Æ;,1y'œN»Â„hfo
+endstream
+endobj
+
+42 0 obj
+  331
+endobj
+
+43 0 obj
+  << /Length 44 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  1.000000 exch 0.921569 exch 0.286275 exch dup 0.000000 gt { exch pop exch pop exch pop dup 0.000000 sub 0.000000 mul 1.000000 add exch dup 0.000000 sub -0.588235 mul 0.921569 add exch dup 0.000000 sub -0.326797 mul 0.286275 add exch } if dup 0.360000 gt { exch pop exch pop exch pop dup 0.360000 sub 0.000000 mul 1.000000 add exch dup 0.360000 sub -0.543959 mul 0.709804 add exch dup 0.360000 sub -0.290955 mul 0.168627 add exch } if dup 0.670000 gt { exch pop exch pop exch pop dup 0.670000 sub 0.000000 mul 1.000000 add exch dup 0.670000 sub -0.463458 mul 0.541176 add exch dup 0.670000 sub -0.267380 mul 0.078431 add exch } if dup 0.890000 gt { exch pop exch pop exch pop dup 0.890000 sub 0.000000 mul 1.000000 add exch dup 0.890000 sub -0.356506 mul 0.439216 add exch dup 0.890000 sub -0.178253 mul 0.019608 add exch } if dup 1.000000 gt { exch pop exch pop exch pop 1.000000 exch 0.400000 exch 0.000000 exch } if pop }
+endstream
+endobj
+
+44 0 obj
+  926
+endobj
+
+45 0 obj
+  << /Length 46 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+{  1.000000 exch 0.400000 exch 0.000000 exch dup 0.000000 gt { exch pop exch pop exch pop dup 0.000000 sub 0.000000 mul 1.000000 add exch dup 0.000000 sub 0.879382 mul 0.400000 add exch dup 0.000000 sub 0.487225 mul 0.000000 add exch } if dup 0.330000 gt { exch pop exch pop exch pop dup 0.330000 sub 0.000000 mul 1.000000 add exch dup 0.330000 sub -0.904977 mul 0.690196 add exch dup 0.330000 sub -0.512821 mul 0.160784 add exch } if dup 0.460000 gt { exch pop exch pop exch pop dup 0.460000 sub 0.000000 mul 1.000000 add exch dup 0.460000 sub -1.014994 mul 0.572549 add exch dup 0.460000 sub -0.553633 mul 0.094118 add exch } if dup 0.630000 gt { exch pop exch pop exch pop dup 0.630000 sub -0.042395 mul 1.000000 add exch dup 0.630000 sub -0.657128 mul 0.400000 add exch dup 0.630000 sub 1.208267 mul 0.000000 add exch } if dup 1.000000 gt { exch pop exch pop exch pop 0.984314 exch 0.156863 exch 0.447059 exch } if pop }
+endstream
+endobj
+
+46 0 obj
+  924
+endobj
+
+47 0 obj
+  << /Filter /FlateDecode
+     /Length 48 0 R
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+     /Domain [ 0.000000 1.000000 ]
+     /FunctionType 4
+  >>
+stream
+xçîknÑ0ÑØí≈qÏ$«iª}I≠ä‘"UZÌ›;‰lÅ-˛Ö√L∆Œ∆Pgsôßü«Wcª‰H4µŒEuAJwz¨@ä2/ﬂÊ\ñ˚œ~„‚J¸5<ÃÕ«>áﬁüN≈≥“ﬂaîh9πl@SÊ∫i»I´°é>.ÊÌπ∫ÿ¡tî°ä«à)oLÿcXË1RTµƒŸ`;µ!zæmÅ£4"nõA¶£U\#¨g	e¶=àkÉ
+Kíl¿Ä∏Å[˚ÍHºF_ıXFÕ˙C»{d®‚1#YØƒÌ1%ªÑ9bÀ lEÉãéeuû˘îÉ˚spÜDe®‚1πjB¬˛‰ÁÑï„€Ãb†“Ï2OTı\>¶I?! 5◊øÿΩôW0ÅhTnù˜¡J˝o‰ΩGÀÂ®01ñ
+endstream
+endobj
+
+48 0 obj
+  315
+endobj
+
+49 0 obj
+  << /ExtGState << /E7 << /SMask << /Type /Mask
+                                    /G 6 0 R
+                                    /S /Luminosity
+                                 >>
+                          /Type /ExtGState
+                       >>
+                   /E6 << /ca 0.600000 >>
+                   /E4 << /ca 0.600000 >>
+                   /E2 << /SMask << /Type /Mask
+                                    /G 10 0 R
+                                    /S /Luminosity
+                                 >>
+                          /Type /ExtGState
+                       >>
+                   /E5 << /SMask << /Type /Mask
+                                    /G 14 0 R
+                                    /S /Luminosity
+                                 >>
+                          /Type /ExtGState
+                       >>
+                   /E3 << /SMask << /Type /Mask
+                                    /G 18 0 R
+                                    /S /Luminosity
+                                 >>
+                          /Type /ExtGState
+                       >>
+                   /E1 << /SMask << /Type /Mask
+                                    /G 22 0 R
+                                    /S /Luminosity
+                                 >>
+                          /Type /ExtGState
+                       >>
+                >>
+     /Pattern << /P9 << /Matrix [ -2.066056 -14.938539 14.938539 -2.066056 125.000427 256.304230 ]
+                        /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                    /ColorSpace 26 0 R
+                                    /Function 27 0 R
+                                    /Domain [ 0.000000 1.000000 ]
+                                    /ShadingType 2
+                                    /Extend [ true true ]
+                                 >>
+                        /PatternType 2
+                        /Type /Pattern
+                     >>
+                 /P3 << /Matrix [ -79.549126 -196.879303 196.879303 -79.549126 -121.193756 402.223145 ]
+                        /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                    /ColorSpace 26 0 R
+                                    /Function 35 0 R
+                                    /Domain [ 0.000000 1.000000 ]
+                                    /ShadingType 2
+                                    /Extend [ true true ]
+                                 >>
+                        /PatternType 2
+                        /Type /Pattern
+                     >>
+                 /P8 << /Matrix [ -3.778251 -17.937721 17.937721 -3.778251 95.590355 257.326904 ]
+                        /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                    /ColorSpace 26 0 R
+                                    /Function 29 0 R
+                                    /Domain [ 0.000000 1.000000 ]
+                                    /ShadingType 2
+                                    /Extend [ true true ]
+                                 >>
+                        /PatternType 2
+                        /Type /Pattern
+                     >>
+                 /P11 << /Matrix [ 13.753716 -128.548203 128.548203 13.753716 18.813370 229.555847 ]
+                         /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                     /ColorSpace 26 0 R
+                                     /Function 31 0 R
+                                     /Domain [ 0.000000 1.000000 ]
+                                     /ShadingType 2
+                                     /Extend [ true true ]
+                                  >>
+                         /PatternType 2
+                         /Type /Pattern
+                      >>
+                 /P4 << /Matrix [ 2.810245 33.144646 -33.144646 2.810245 147.012573 270.058533 ]
+                        /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                    /ColorSpace 26 0 R
+                                    /Function 33 0 R
+                                    /Domain [ 0.000000 1.000000 ]
+                                    /ShadingType 2
+                                    /Extend [ true true ]
+                                 >>
+                        /PatternType 2
+                        /Type /Pattern
+                     >>
+                 /P6 << /Matrix [ -69.903770 -175.993637 175.993637 -69.903770 -85.341537 375.695770 ]
+                        /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                    /ColorSpace 26 0 R
+                                    /Function 37 0 R
+                                    /Domain [ 0.000000 1.000000 ]
+                                    /ShadingType 2
+                                    /Extend [ true true ]
+                                 >>
+                        /PatternType 2
+                        /Type /Pattern
+                     >>
+                 /P5 << /Matrix [ -5.843687 28.244473 -28.244473 -5.843687 116.824677 275.368042 ]
+                        /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                    /ColorSpace 26 0 R
+                                    /Function 39 0 R
+                                    /Domain [ 0.000000 1.000000 ]
+                                    /ShadingType 2
+                                    /Extend [ true true ]
+                                 >>
+                        /PatternType 2
+                        /Type /Pattern
+                     >>
+                 /P2 << /Matrix [ 33.950596 -40.655674 40.655674 33.950596 144.905853 73.243622 ]
+                        /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                    /ColorSpace 26 0 R
+                                    /Function 41 0 R
+                                    /Domain [ 0.000000 1.000000 ]
+                                    /ShadingType 2
+                                    /Extend [ true true ]
+                                 >>
+                        /PatternType 2
+                        /Type /Pattern
+                     >>
+                 /P10 << /Matrix [ 13.757375 -128.538696 128.538696 13.757375 -61.503662 220.950760 ]
+                         /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                     /ColorSpace 26 0 R
+                                     /Function 43 0 R
+                                     /Domain [ 0.000000 1.000000 ]
+                                     /ShadingType 2
+                                     /Extend [ true true ]
+                                  >>
+                         /PatternType 2
+                         /Type /Pattern
+                      >>
+                 /P7 << /Matrix [ -69.903793 -175.993683 175.993683 -69.903793 -14.985870 347.745911 ]
+                        /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                    /ColorSpace 26 0 R
+                                    /Function 45 0 R
+                                    /Domain [ 0.000000 1.000000 ]
+                                    /ShadingType 2
+                                    /Extend [ true true ]
+                                 >>
+                        /PatternType 2
+                        /Type /Pattern
+                     >>
+                 /P1 << /Matrix [ 25.515390 -144.742767 144.742767 25.515390 1.128815 113.588860 ]
+                        /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                    /ColorSpace 26 0 R
+                                    /Function 47 0 R
+                                    /Domain [ 0.000000 1.000000 ]
+                                    /ShadingType 2
+                                    /Extend [ true true ]
+                                 >>
+                        /PatternType 2
+                        /Type /Pattern
+                     >>
+              >>
+     /ColorSpace << /C1 26 0 R >>
+  >>
+endobj
+
+50 0 obj
+  << /Filter /FlateDecode
+     /Length 51 0 R
+  >>
+stream
+xÌŸMé«‡}ü¢.‡ö¸ˇY⁄ód¯¬¿≤à,È˛5√ÊhÿÄ••a∂¿ÈRteedƒã/≥ûæ…«7ª=˘z˛ÂˆÙÁü˝◊ﬂ?ˇz¸Â€onˇæÂ3]ü#}∫¯”˝Í˛[n˝ÙØßÂ∂RzmÂx˛x{˙Ó˚_˝˚œ?]œ˝.ø<ˇtÂ,3ïŸcÙÓ3Ø„„#„»Án}îÓâ¶Hπ£ûy‘‘7”j%Mì‹f;›ﬁ[;÷πÚ(csü;ó›ˆëßÎÿÂXÌ,µ≠ñéöŒ∂∆H’‡5ŒUÚZÌ®ÎÃ}¥ñèµœ“¸ﬁè∂œëR-ÛXÎúeÁ}˘PÁ∑å^gÁÕû«ÿgmÓu¨…ñGû«ÏgZΩÙ«6£XŸRjm∑c÷3çQG:¯òwY33ù}¶!8F˜≥˜:Û>∆‚eiıZ„öuÔzåy∫≠6û?∞˝¿ 6J™„ögµ÷[=V=[´=Òáè©Â|Ö\ÑvKÀÔ˚ú©vH√)¢∫≠ãõsD
+W©;ç#ßqÓö´üo¬⁄XsÓÓ‡âXósÓ\{flßyï£ö~äj9rIßÔHÛÛ≠î≥óú&‹ï}¶æ‚ﬁ“ ßˆÕËYí≤¯Ú–ËèÃ›≠xˆÛ.‹.p∂Kû„Z‘N%ï˝'»LkBﬂ‚ÙÍÚ ∂eœŸ≤ZÑ,∞WÀºÏn}‘lIk bƒı]∆lG†•V”Qñ:ê˛Ù÷VŒ±{rı|’…ã5üŸ¬G?~ºåÔäÁ«€?o?‹~∫˝U?}»«?~˘ùu`KB€›¿jå/π\Ö\á≈è9gTT]=õ˜„≠ MÍÕ™[Ç,5’„˜û∆¶¶z`“K=wØ ˙ËŸ˙R…&∫Â-≥{Ùyt—´i´Ñ¿HS¬˚ËÄ√7®}dªFèö≥Ëxf™"q≈ØÌ=bˆŸU
+´k ›¨y™ ·√ 
+~Ã£EΩœïÕ√i'~tDSÍò€Lh£≠¨}a)eÒâ•ƒÍQaÃÚ¿Ù|{`TmwD@)R=c⁄ΩrüÎhQy¨([êJË¨Ó£ ŒÊt>ä;GÎêô«©VkWQ£Ñ »Àh÷ô{ôıSÊsé‘H±•¸w_@Ì—≥ÁÌ ≈–†õ"uäc–%n&ÅôŒrY˜»0-0Ír_~≈Ã?@ [Ñzˆı˘∞W]›ã¬*B›éí}@À¢ﬁC≥^–aÀﬁ∏Á®¯-’ä >2õ©‡T∑X>*ª/ò‰Ú>ó¸[–ÆÊ™õõ¢ü¢ù›Ô¬óíKé⁄Ësv∑⁄RÕ¬a¢>Î@‚HQr<ß[FÜŒ»ªfë‹Ä:
+»f«¬’ÊÅ{±Œ vÑu≠•åîãúg_:Ÿ1-àW˝éÕhsã∞ñhTR±g≥¬YN,#1…’R∞Ô“û'`ò;+ eπ£πµîV«{XkË€‰v‘_ ∞˜cÀFYÕ¥à-œà ùCNŸœWé´wÌ˘¶@kˆ¸´ÕÌ§◊¿Aöø—~¢çâÄù=1ám™M€h1®Ω#á∞∫Ä^Q »[Ø†*ü¸Ê/€(∫ì—¨•◊ó;_¨lÊ⁄eÿ¯ê–[œQMlöÈ^±nV ò§Î¥jbÀTƒÀwôÊŒp≠8Î÷e¥∂Ab@‘<£ùÜç„ÿuä>8´¿5†:Uw∞d`çuéâ#x†b¥û¥¯uuÖ5)*ä:lsjﬂF£‚	FdL#w√’Kó	Â[%)y“={|≥ƒ}∫È’^€Y…	hâ¶é∂N-ö2óe+®˘Và¨7¬3≈ﬂ∆ÛYV™Àzÿ⁄NX%≤Ï…À∫Q¯åP≥i“Ä†çÜµ©F·!ª%ÑI@ZÂ§Äíî£çÊrÂ”Wª™ƒrÃÿ§IÔpÈ–¨=ºÄtîºjHOôòêÁX4X`≈t‡1U…œrï4º6–JÏSH∆°ºËN ¿]≥ ÉòVﬂ@G‘M‹Qz°™qù„(®zÌç∏x≈—ÊW!f‘≥—“ZÎ¨gq'ƒKò'Ò9ì@+
+N;§1‚\ÓÆ ëŒâª1ËCÉê(èUnZ§öﬂûè√8⁄í≤æ¯Hi†uuê$ºjÜ‚!Ú-‡I“[Pi<Ÿ±‰&ptõH≥‚UŸ	k•IåfSË§dÿ¨ŒÚ¬&ãp6]@Ø—yhÜ|{∂‰ñ¨Ï-V•Ô3ë”áz£Äˇ÷¸¬Ôo; ”áÚ˚5èdÄ)A'U üı<EÙæ≥¥óŒ"q"ŒI®‰#Ê”XTòø(ZXb›ƒT¨hX8¢ë&È«fô'wëπ√{Ì+éf7√ÇQ˚7<à@«æâh+H≠»¨]¡G≥≠M‘ÃYµD'ôÜU∫CÒ+e;ã≈Ò∞-+∞pûE30ökÍœÓß(WbF”mÑ@<ΩI®ñe«·v#BA	ŒZ4B…kn°¨˜
+
+°t¥á ›)›´ DÃÿÙ√X°;#ï≤-xãò≤Æ.P,∏W›Jµ†ËŸQ.ê'}O¸‡mG¥°“/”¿–Rx+v9˙Ô%àíÍ·Q ?ÃË>⁄›éë	|¬‰ˇ≤ô¶£Zµa!˙˛µ^[sÔ]”&π‡†ƒp x≤æ…o—Y7:µn{Ñb&œó
+zŒ~Å3≤$!t621«ÉKë€zuäçﬂvœ∫l‰n≠ÿs@%ø—zU6U6uë;˘¶àc≠Æ∂÷EhM´`Öÿ√PÖ‚;dç}√fC]ÆHxRC™‚N\i≈≈h^–—<†-.Ë‹"_$^QHóË†“∑ˇ⁄4ƒ.– ’Ö Œäî©:·∏ë˙ﬂ‚4pAΩŒ;9=©
+ﬂ≥2âÉ
+ÒıqâäQœ—≥-N˘ãñ‡‘ïûíz#dvß1u=…;¿æñJ‹–äQäFba•OÎk∆_√lyñˇ9I¬¸ uo!#ı◊á≥˛˙<¬
+òÙú‡v|Pê©EΩ« ∏∞“‹kw™÷¨Pw•`E}JÉ&ã‹$v
+ÿ±5Å∂gc”|Ê`”àg
+—ÜR=Ê«øEb[Öâ˝Ë’/):UÒ—NHeÉπãﬁáv	3∏œnW%á…ï$ü‹ZÄ kAI∑—d˙ÂË©ëJ—±ß£tè¢XÂ[–G%M`L™öCÉRB¬`îm˜GxTyƒÈu®a3Åﬂ¢ùlÒío®D%L)VÅ-Î˝•\¨A‘ÈÄãD·MÛÁÿW≈b’sdjñéÃÕêÅ◊}∂	ÅY∫—ôì.©dƒCÏÖπæ_cÖ†öV†b0”L∞≈å⁄Ìe‚]›≠◊Vÿ>ò6zcE˛∂I∫√Ea˙-y"‰\tIÔ}á^|aXXŸù~éK$NÊ‰)nh^∂Á!^’w‹Ü©âZê∫ÁœN!J-b9ùk…™ß)AÏn ÌsOï„\+7±ìEj¿k74i|û–ù<¯-Ãçx	ˇo¨ ¸∏⁄¿Ä^”IE`u+3~YnÛ*7√cèy•Y“u>≤u¨ÃmZ˜äÈ∂›∑¨ÑúåÆÁÿ\´$ª!B·0A2ÑXJZH≠É„I„·‡W«i©uÄj5‰√mÍ•FƒDˆïñS/Z¶Ú bçKÏ°T©Dl∞éÅ\«j‰óu!∑†A!„Ftn«õ⁄#õ£='3ë§Àa“§eËÅâßP`◊tw„è7ú∂ÄJ˙ÔFÄÆÉ(.V RhaâJlYjt6œCŸ5≈`:‘,ÁífYˆ®∂Né¢T2‘[}“£^Ëœ ºTçP–ÃD°Z∞ùÏË«Òâ.ÊŒº√Aë>>ƒd¢qM}1&‹∂ãGV‚‡Wd‹©M©…ÀÊËÑå@¬±?37+ÖnºP4q¬ø#æ◊%8¸A©HcVÁAÚùƒ7nav[AGk]2ß25v	ã@êN@ÇS¿¶¶Èi!ﬁ„ıè◊áÜ∆∞.pﬁƒÚæ>÷U®.⁄Ö∏!*é-ì§Ô	A3ØjΩDg£-∫9F≤}‡ª.§†í≤∆L…ZUÊêë££bÕ∂®"Û	5ﬁ7Œp#≤O*”uÿ1€¡DÍÉP—á"–	Ç1ŸpÇA∞7@∑înçGﬁ3•¢»ó±ä—*Â’ÙV©ì“ ë£˜+iå`≈6
+õR^æ^›CŒ*Õæ7"P–ÓD˙s.æ∏à†ãq,äJ0]°âz›Hi›m≤
+Å_Ã¨;Ä›'K¿/*«2ﬁÿ‚‘„bí¯ˆ$4Ô[¯˘iæª%Äf_’ƒ›vG“˝Io,˜˘Ó∂ªW˜'π‡	œÔÛ›-œoB{≈˝QBÎÀ«H}»L«[¥0:QÓ2jáé⁄ﬁÉx_Ò‘siE –õú$¬JÄÿ°ñMﬂ’QêıîÁÎ‰—âÉ˛BqÄ¶·öü¬!x:(üÿF®Vb#åŒÄ°ÿOÑbÙ:∫6•nú5P*÷%~ﬁ±.ç*t!
+›(œC∞Ñøì≥0ÈBîÇ~L4íT3ö^Ì©ˇÆˇòUØàs…Km†\z_fHı˜KábÄÂü6â§‹∆•◊´˚oŸF–πNjUamx]®?'„ããà˙Kâ9+w>!=Åbd˙nR†«¨#0§ÄﬂZpJmä_m(«m)∞˛˙$|ä<∏!Êª[çC]|∂I€ıÒÄ◊'›-oÊ{csSxu“›Û˚|wÀ[?}h±ó|˙–„ÀcÆè{˝ıâ@˚ÚÒ}~Á6AŸDtI•Ø˚ÑØ˚ÑWÎˇ˜>·È√à™{˙0„À¨◊Ä¸ı	t˘Ú	èÆè01ˇ}◊Äf£˙å◊U˘,Î⁄Âu€†ÕHÿOÅBsÖ¡ªÒÎ∂Å‹¯ﬂ⁄6DAõãÔ)(nâb»˝îç®$ásâ£TãëÇog©j≈¬Í¿\ "åxìæäco¬Ytc˘P¨Ü≠9ûã„ƒ|P≠Â8ïm :"AÈ6¡n∏#é7µnDŸ∏bÉÅ∏“Â‰ÿh~ÿddo<¬Z®≠+|§!^zmÉıà©£j’/«5À†d9‰cÙJ	Ü"/·…EãÒ˛zö˜ft¢°bJ]êQaÑd¢JìéÎ`ì…ˆ$Ç¿ë\d^>,=k3ÊàÊ+ÙQ„TØ7AöÇˇ^Ôjãx„*ªò(vÛN˚Ä
+	ÈıDÉ∂à}¨–[π8ı˜TÔ≈OHï`®£„Ë¿‚>≈é86 7ôÇl–v‚]ù„e5!r]Üº3’Ë3eÓzt»∞9s¢Ç˛º—Wd1Zèå2p•„Å≤—ÆcÈW^1Û«k>-Z˚"g®Ø	’¿ﬁou·œÏÀ≈X$‘ﬁX[‚åò|é—≠÷#1∫ZÖ⁄º‰Æ·›1˝$˙ﬁXZ±õ≠Wﬁ!øu,çV±0ˆt!§ìÚ”VxíûÌ’£q<◊B›#Ù˙Dî:œ§ ™Øb- ï°Bò\H±ãí§‚ÕíY^0&°^ø‚
+ˇÖp›]±∆ﬁV°SZ IánÔÒ/˝9ﬁæ˝Êˆ3ˆˇ+
+endstream
+endobj
+
+51 0 obj
+  4216
+endobj
+
+52 0 obj
+  << /Kids [ 53 0 R ]
+     /Count 1
+     /Type /Pages
+  >>
+endobj
+
+53 0 obj
+  << /Annots []
+     /Parent 52 0 R
+     /Resources 49 0 R
+     /MediaBox [ 0.000000 0.000000 300.000000 300.000916 ]
+     /Type /Page
+     /Tabs /S
+     /StructParents 0
+     /Contents 50 0 R
+  >>
+endobj
+
+54 0 obj
+  << /P 55 0 R
+     /S /Part
+     /Pg 53 0 R
+     /Type /StructElem
+  >>
+endobj
+
+55 0 obj
+  << /K [ 54 0 R ]
+     /P 56 0 R
+     /S /Document
+     /Type /StructElem
+  >>
+endobj
+
+56 0 obj
+  << /ParentTreeNextKey 1
+     /ParentTree 3 0 R
+     /K [ 55 0 R ]
+     /Type /StructTreeRoot
+  >>
+endobj
+
+57 0 obj
+  << /MarkInfo << /Marked true >>
+     /Metadata 1 0 R
+     /ViewerPreferences << /DisplayDocTitle true >>
+     /Info << /Producer (Figma)
+              /Title (kit\055Separate\055Look\055Down\0552)
+           >>
+     /StructTreeRoot 56 0 R
+     /Lang (en)
+     /Pages 52 0 R
+     /Type /Catalog
+  >>
+endobj
+
+xref
+0 58
+0000000000 65535 f
+0000000015 00000 n
+0000000853 00000 n
+0000000875 00000 n
+0000000963 00000 n
+0000001503 00000 n
+0000001525 00000 n
+0000003379 00000 n
+0000003401 00000 n
+0000003937 00000 n
+0000003959 00000 n
+0000005675 00000 n
+0000005698 00000 n
+0000006240 00000 n
+0000006263 00000 n
+0000008199 00000 n
+0000008222 00000 n
+0000008840 00000 n
+0000008863 00000 n
+0000010475 00000 n
+0000010498 00000 n
+0000011202 00000 n
+0000011225 00000 n
+0000012947 00000 n
+0000012970 00000 n
+0000015658 00000 n
+0000015682 00000 n
+0000015722 00000 n
+0000016247 00000 n
+0000016270 00000 n
+0000016795 00000 n
+0000016818 00000 n
+0000017930 00000 n
+0000017953 00000 n
+0000019069 00000 n
+0000019092 00000 n
+0000020202 00000 n
+0000020225 00000 n
+0000021335 00000 n
+0000021358 00000 n
+0000021873 00000 n
+0000021896 00000 n
+0000022439 00000 n
+0000022462 00000 n
+0000023574 00000 n
+0000023597 00000 n
+0000024707 00000 n
+0000024730 00000 n
+0000025257 00000 n
+0000025280 00000 n
+0000033383 00000 n
+0000037685 00000 n
+0000037709 00000 n
+0000037785 00000 n
+0000038000 00000 n
+0000038090 00000 n
+0000038187 00000 n
+0000038304 00000 n
+trailer
+<< /ID [ (23\072656) (23\072656) ]
+   /Root 57 0 R
+   /Size 58
+>>
+startxref
+38622
+%%EOF
