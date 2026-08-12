@@ -1,1 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="501" height="500" fill="none" viewBox="0 0 501 500"><path fill="url(#a)" d="M180.091 171.924H.361V375.2c0 9.198 9.046 16.651 20.211 16.651h371.517c11.165 0 20.211-7.453 20.211-16.651V171.924z"/><path fill="url(#b)" d="M389.029 108.152c12.856 0 23.278 10.424 23.278 23.279v40.486H.361v-40.486c0-12.855 10.423-23.279 23.279-23.279zm-356.23 19.954c-6.489 0-11.748 5.26-11.748 11.748v.36c0 6.488 5.26 11.747 11.747 11.747H92.71c6.488 0 11.747-5.259 11.747-11.747v-.36c0-6.488-5.26-11.748-11.747-11.748z"/><path fill="url(#c)" d="M468.421 55.232c17.638 0 31.94 14.302 31.94 31.94v331.753c0 14.273-11.57 25.843-25.843 25.843H340.182c-14.273 0-25.843-11.57-25.843-25.843V87.172c0-17.638 14.299-31.94 31.938-31.94z"/><path fill="url(#d)" d="M459.954 82.611H354.743c-6.488 0-11.747 5.26-11.747 11.747v9.237c0 6.488 5.259 11.747 11.747 11.747h105.211c6.488 0 11.747-5.259 11.747-11.747v-9.237c0-6.487-5.259-11.747-11.747-11.747"/><defs><linearGradient id="a" x1="38.981" x2="346.806" y1="179.324" y2="433.942" gradientUnits="userSpaceOnUse"><stop stop-color="#e652f7"/><stop offset="1" stop-color="#271af5"/></linearGradient><linearGradient id="b" x1="-143.811" x2="412.307" y1="55.998" y2="171.917" gradientUnits="userSpaceOnUse"><stop stop-color="#e652f7"/><stop offset="1" stop-color="#271af5"/></linearGradient><linearGradient id="c" x1="259.335" x2="548.166" y1="164.612" y2="363.73" gradientUnits="userSpaceOnUse"><stop stop-color="#e652f7"/><stop offset="1" stop-color="#271af5"/></linearGradient><linearGradient id="d" x1="141.709" x2="475.633" y1="27.326" y2="46.351" gradientUnits="userSpaceOnUse"><stop stop-color="#e652f7"/><stop offset="1" stop-color="#271af5"/></linearGradient></defs></svg>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="501" height="500" fill="none" viewBox="0 0 501 500">
+    <path fill="url(#a)" d="M180.091 171.924H.361V375.2c0 9.198 9.046 16.651 20.211 16.651h371.517c11.165 0 20.211-7.453 20.211-16.651V171.924z" />
+    <path fill="url(#b)" d="M389.029 108.152c12.856 0 23.278 10.424 23.278 23.279v40.486H.361v-40.486c0-12.855 10.423-23.279 23.279-23.279zm-356.23 19.954c-6.489 0-11.748 5.26-11.748 11.748v.36c0 6.488 5.26 11.747 11.747 11.747H92.71c6.488 0 11.747-5.259 11.747-11.747v-.36c0-6.488-5.26-11.748-11.747-11.748z" />
+    <path fill="url(#c)" d="M468.421 55.232c17.638 0 31.94 14.302 31.94 31.94v331.753c0 14.273-11.57 25.843-25.843 25.843H340.182c-14.273 0-25.843-11.57-25.843-25.843V87.172c0-17.638 14.299-31.94 31.938-31.94z" />
+    <path fill="url(#d)" d="M459.954 82.611H354.743c-6.488 0-11.747 5.26-11.747 11.747v9.237c0 6.488 5.259 11.747 11.747 11.747h105.211c6.488 0 11.747-5.259 11.747-11.747v-9.237c0-6.487-5.259-11.747-11.747-11.747" />
+    <defs>
+        <linearGradient id="a" x1="38.981" x2="346.806" y1="179.324" y2="433.942" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#e652f7" />
+            <stop offset="1" stop-color="#271af5" />
+        </linearGradient>
+        <linearGradient id="b" x1="-143.811" x2="412.307" y1="55.998" y2="171.917" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#e652f7" />
+            <stop offset="1" stop-color="#271af5" />
+        </linearGradient>
+        <linearGradient id="c" x1="259.335" x2="548.166" y1="164.612" y2="363.73" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#e652f7" />
+            <stop offset="1" stop-color="#271af5" />
+        </linearGradient>
+        <linearGradient id="d" x1="141.709" x2="475.633" y1="27.326" y2="46.351" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#e652f7" />
+            <stop offset="1" stop-color="#271af5" />
+        </linearGradient>
+    </defs>
+</svg>

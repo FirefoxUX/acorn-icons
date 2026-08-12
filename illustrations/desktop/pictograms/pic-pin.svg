@@ -1,1 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="501" fill="none" viewBox="0 0 500 501"><path fill="url(#a)" d="M250 41.335c40.326 0 78.234 15.708 106.755 44.22 28.512 28.511 44.22 66.429 44.22 106.755 0 9.92-3.075 28.34-17.726 59.775-11.1 23.828-27.132 51.331-47.647 81.756-29.407 43.62-62.117 84.555-85.602 112.562-23.486-28.007-56.196-68.942-85.602-112.562-20.516-30.425-36.547-57.928-47.647-81.756C102.1 220.65 99.025 202.23 99.025 192.31c0-40.326 15.708-78.234 44.22-106.755 28.511-28.512 66.419-44.22 106.745-44.22M250 0C143.787 0 57.69 86.107 57.69 192.31c0 88.572 133.763 250.047 178.173 301.217A18.64 18.64 0 0 0 250 499.981a18.64 18.64 0 0 0 14.137-6.454c44.41-51.17 178.173-212.645 178.173-301.217C442.31 86.107 356.203 0 250 0"/><path fill="url(#b)" d="M250 0v99.796h-.352c-45.657 0-82.68 37.013-82.68 82.68s37.013 82.68 82.68 82.68H250V500c-5.208 0-10.405-2.151-14.137-6.454C191.453 442.358 57.69 280.882 57.69 192.31 57.69 86.107 143.797 0 250 0"/><path fill="url(#c)" d="M250 0v99.796h.352c45.657 0 82.68 37.013 82.68 82.68s-37.013 82.68-82.68 82.68H250V500c5.207 0 10.405-2.151 14.137-6.454 44.41-51.169 178.173-212.645 178.173-301.217C442.31 86.107 356.203 0 250 0"/><path fill="url(#d)" d="M250 0C143.787 0 57.69 86.107 57.69 192.31c0 88.572 133.763 250.047 178.173 301.217A18.64 18.64 0 0 0 250 499.981v-53.578c-23.486-28.007-56.196-68.942-85.602-112.562-20.516-30.425-36.547-57.928-47.647-81.756C102.1 220.65 99.025 202.23 99.025 192.31c0-40.326 15.708-78.234 44.22-106.755 28.511-28.512 66.419-44.22 106.745-44.22"/><path fill="url(#e)" d="M250.01 0c106.203 0 192.3 86.107 192.3 192.31 0 88.572-133.763 250.047-178.173 301.217A18.64 18.64 0 0 1 250 499.981v-53.578c23.485-28.007 56.195-68.942 85.602-112.562 20.515-30.425 36.547-57.928 47.647-81.756 14.651-31.435 17.726-49.855 17.726-59.775 0-40.326-15.708-78.234-44.22-106.755-28.512-28.512-66.42-44.22-106.745-44.22"/><defs><linearGradient id="a" x1="57.69" x2="442.31" y1="249.99" y2="249.99" gradientUnits="userSpaceOnUse"><stop offset=".07" stop-color="#e552f6"/><stop offset=".22" stop-color="#bf46f5"/><stop offset=".5" stop-color="#7e33f4"/><stop offset=".73" stop-color="#4f25f4"/><stop offset=".9" stop-color="#311cf4"/><stop offset="1" stop-color="#271af4"/></linearGradient><linearGradient id="b" x1="121.806" x2="329.081" y1="36.309" y2="513.575" gradientUnits="userSpaceOnUse"><stop offset=".14" stop-color="#e552f6"/><stop offset=".23" stop-color="#dc4ff5"/><stop offset=".38" stop-color="#c448f5"/><stop offset=".56" stop-color="#9d3cf5"/><stop offset=".78" stop-color="#662cf4"/><stop offset="1" stop-color="#271af4"/></linearGradient><linearGradient id="c" x1="226.524" x2="435.075" y1="-.971" y2="574.578" gradientUnits="userSpaceOnUse"><stop offset=".05" stop-color="#dd62f1"/><stop offset=".21" stop-color="#aa4df1"/><stop offset=".38" stop-color="#7c3bf2"/><stop offset=".54" stop-color="#562cf2"/><stop offset=".69" stop-color="#3d22f3"/><stop offset=".81" stop-color="#2c1cf4"/><stop offset=".91" stop-color="#271af4"/></linearGradient><linearGradient id="d" x1="98.511" x2="369.083" y1="-22.172" y2="621.406" gradientUnits="userSpaceOnUse"><stop offset=".07" stop-color="#e552f6"/><stop offset=".22" stop-color="#bf46f5"/><stop offset=".58" stop-color="#7e33f4"/><stop offset=".73" stop-color="#4f25f4"/><stop offset=".9" stop-color="#311cf4"/><stop offset="1" stop-color="#271af4"/></linearGradient><linearGradient id="e" x1="250.609" x2="387.057" y1="-11.29" y2="480.313" gradientUnits="userSpaceOnUse"><stop stop-color="#d62ed9"/><stop offset=".05" stop-color="#c029dc"/><stop offset=".18" stop-color="#9120e3"/><stop offset=".3" stop-color="#6b1ae9"/><stop offset=".42" stop-color="#4d18ed"/><stop offset=".53" stop-color="#3719f1"/><stop offset=".64" stop-color="#2b19f3"/><stop offset=".73" stop-color="#271af4"/></linearGradient></defs></svg>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="501" fill="none" viewBox="0 0 500 501">
+    <path fill="url(#a)" d="M250 41.335c40.326 0 78.234 15.708 106.755 44.22 28.512 28.511 44.22 66.429 44.22 106.755 0 9.92-3.075 28.34-17.726 59.775-11.1 23.828-27.132 51.331-47.647 81.756-29.407 43.62-62.117 84.555-85.602 112.562-23.486-28.007-56.196-68.942-85.602-112.562-20.516-30.425-36.547-57.928-47.647-81.756C102.1 220.65 99.025 202.23 99.025 192.31c0-40.326 15.708-78.234 44.22-106.755 28.511-28.512 66.419-44.22 106.745-44.22M250 0C143.787 0 57.69 86.107 57.69 192.31c0 88.572 133.763 250.047 178.173 301.217A18.64 18.64 0 0 0 250 499.981a18.64 18.64 0 0 0 14.137-6.454c44.41-51.17 178.173-212.645 178.173-301.217C442.31 86.107 356.203 0 250 0" />
+    <path fill="url(#b)" d="M250 0v99.796h-.352c-45.657 0-82.68 37.013-82.68 82.68s37.013 82.68 82.68 82.68H250V500c-5.208 0-10.405-2.151-14.137-6.454C191.453 442.358 57.69 280.882 57.69 192.31 57.69 86.107 143.797 0 250 0" />
+    <path fill="url(#c)" d="M250 0v99.796h.352c45.657 0 82.68 37.013 82.68 82.68s-37.013 82.68-82.68 82.68H250V500c5.207 0 10.405-2.151 14.137-6.454 44.41-51.169 178.173-212.645 178.173-301.217C442.31 86.107 356.203 0 250 0" />
+    <path fill="url(#d)" d="M250 0C143.787 0 57.69 86.107 57.69 192.31c0 88.572 133.763 250.047 178.173 301.217A18.64 18.64 0 0 0 250 499.981v-53.578c-23.486-28.007-56.196-68.942-85.602-112.562-20.516-30.425-36.547-57.928-47.647-81.756C102.1 220.65 99.025 202.23 99.025 192.31c0-40.326 15.708-78.234 44.22-106.755 28.511-28.512 66.419-44.22 106.745-44.22" />
+    <path fill="url(#e)" d="M250.01 0c106.203 0 192.3 86.107 192.3 192.31 0 88.572-133.763 250.047-178.173 301.217A18.64 18.64 0 0 1 250 499.981v-53.578c23.485-28.007 56.195-68.942 85.602-112.562 20.515-30.425 36.547-57.928 47.647-81.756 14.651-31.435 17.726-49.855 17.726-59.775 0-40.326-15.708-78.234-44.22-106.755-28.512-28.512-66.42-44.22-106.745-44.22" />
+    <defs>
+        <linearGradient id="a" x1="57.69" x2="442.31" y1="249.99" y2="249.99" gradientUnits="userSpaceOnUse">
+            <stop offset=".07" stop-color="#e552f6" />
+            <stop offset=".22" stop-color="#bf46f5" />
+            <stop offset=".5" stop-color="#7e33f4" />
+            <stop offset=".73" stop-color="#4f25f4" />
+            <stop offset=".9" stop-color="#311cf4" />
+            <stop offset="1" stop-color="#271af4" />
+        </linearGradient>
+        <linearGradient id="b" x1="121.806" x2="329.081" y1="36.309" y2="513.575" gradientUnits="userSpaceOnUse">
+            <stop offset=".14" stop-color="#e552f6" />
+            <stop offset=".23" stop-color="#dc4ff5" />
+            <stop offset=".38" stop-color="#c448f5" />
+            <stop offset=".56" stop-color="#9d3cf5" />
+            <stop offset=".78" stop-color="#662cf4" />
+            <stop offset="1" stop-color="#271af4" />
+        </linearGradient>
+        <linearGradient id="c" x1="226.524" x2="435.075" y1="-.971" y2="574.578" gradientUnits="userSpaceOnUse">
+            <stop offset=".05" stop-color="#dd62f1" />
+            <stop offset=".21" stop-color="#aa4df1" />
+            <stop offset=".38" stop-color="#7c3bf2" />
+            <stop offset=".54" stop-color="#562cf2" />
+            <stop offset=".69" stop-color="#3d22f3" />
+            <stop offset=".81" stop-color="#2c1cf4" />
+            <stop offset=".91" stop-color="#271af4" />
+        </linearGradient>
+        <linearGradient id="d" x1="98.511" x2="369.083" y1="-22.172" y2="621.406" gradientUnits="userSpaceOnUse">
+            <stop offset=".07" stop-color="#e552f6" />
+            <stop offset=".22" stop-color="#bf46f5" />
+            <stop offset=".58" stop-color="#7e33f4" />
+            <stop offset=".73" stop-color="#4f25f4" />
+            <stop offset=".9" stop-color="#311cf4" />
+            <stop offset="1" stop-color="#271af4" />
+        </linearGradient>
+        <linearGradient id="e" x1="250.609" x2="387.057" y1="-11.29" y2="480.313" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#d62ed9" />
+            <stop offset=".05" stop-color="#c029dc" />
+            <stop offset=".18" stop-color="#9120e3" />
+            <stop offset=".3" stop-color="#6b1ae9" />
+            <stop offset=".42" stop-color="#4d18ed" />
+            <stop offset=".53" stop-color="#3719f1" />
+            <stop offset=".64" stop-color="#2b19f3" />
+            <stop offset=".73" stop-color="#271af4" />
+        </linearGradient>
+    </defs>
+</svg>
