@@ -1,0 +1,47 @@
+---
+import { getCatalog } from '@src/catalog/build.ts'
+import type { Asset } from '@src/catalog/types.ts'
+import { assetHref } from '@src/lib/paths.ts'
+
+interface Props {
+  asset: Asset
+  /** Follows the asset heading, which steps down a level inside the panel. */
+  level?: 2 | 3
+}
+
+const { asset, level = 2 } = Astro.props
+const Heading = `h${level}` as 'h2' | 'h3'
+const catalog = getCatalog()
+
+const siblings = asset.siblings
+  .map((id) => catalog.byId.get(id))
+  .filter((sibling): sibling is Asset => Boolean(sibling))
+  .sort(
+    (a, b) =>
+      a.platform.localeCompare(b.platform) || (a.size ?? 0) - (b.size ?? 0),
+  )
+
+function label(sibling: Asset): string {
+  if (sibling.kind === 'icon') {
+    return `${sibling.platform} ${sibling.size}px`
+  }
+  return sibling.theme ?? (sibling.category as string)
+}
+---
+
+{
+  siblings.length > 0 && (
+    <section class="siblings">
+      <Heading class="tint--type-ui-small-bold">Also available as</Heading>
+      <ul>
+        {siblings.map((sibling) => (
+          <li>
+            <a class="tint--link" href={assetHref(sibling.id)}>
+              {label(sibling)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

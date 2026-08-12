@@ -1,0 +1,318 @@
+---
+import Button from 'tint/components/Button.svelte'
+import CollapsibleCard from 'tint/components/CollapsibleCard.svelte'
+import { getFontPreloads } from 'tint/fonts'
+import iconArrowLeft from 'tint/icons/20-arrow-left.svg?raw'
+import iconArrowRight from 'tint/icons/20-arrow-right.svg?raw'
+
+import BackdropPicker from '@src/components/BackdropPicker.svelte'
+import CopyMarkup from '@src/components/CopyMarkup.svelte'
+import Sidebar from '@src/components/Sidebar.astro'
+
+interface Props {
+  title: string
+  description?: string
+  /** Grid pages get the panel and the search band; a detail page does not. */
+  showPanel?: boolean
+  /**
+   * Set on pages that render a source listing, which is the only mono text on
+   * the site. A grid page has none until the panel fetches one, so preloading
+   * the face there costs a request the first paint never spends.
+   */
+  mono?: boolean
+}
+
+const {
+  title,
+  description = 'Browse, search and download the Firefox Acorn icons and illustrations.',
+  showPanel = false,
+  mono = false,
+} = Astro.props
+
+const fontPreloads = getFontPreloads(
+  mono
+    ? ['hkGroteskBold', 'hkGroteskMedium', 'azeretMonoMedium']
+    : ['hkGroteskBold', 'hkGroteskMedium'],
+)
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · Acorn assets</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    {fontPreloads.map((props) => <link {...props} />)}
+    <script is:inline>
+      // Runs before the body is parsed so the JS-only controls are laid out in
+      // the first frame instead of appearing later and pushing the grid down.
+      document.documentElement.classList.replace('no-js', 'js')
+    </script>
+    <style is:inline>
+      .no-js .js-only {
+        display: none !important;
+      }
+      .js .no-js-only {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#content" class="skip-link">Skip to content</a>
+    <div class="shell" class:list={[{ 'has-panel': showPanel }]}>
+      <Sidebar />
+      <main id="content">
+        <slot />
+      </main>
+      {
+        showPanel && (
+          <aside
+            id="asset-panel"
+            class="js-only panel"
+            aria-label="Asset details"
+            aria-labelledby="asset-panel-heading"
+            tabindex="-1"
+            hidden
+          >
+            <div class="panel-body" data-panel-body />
+            {/*
+             * Lives in the shell rather than the fetched fragment so it
+             * survives a content swap and is wired up once. It replaces the
+             * browser's back button for moving between panel views, which is
+             * why the panel never pushes a history entry.
+             */}
+            {/*
+             * A pair of related controls rather than a set of destinations, so
+             * a labelled group rather than a nav landmark. Hidden until there
+             * is somewhere to step to.
+             */}
+            <div
+              class="panel-nav"
+              role="group"
+              aria-label="Recently viewed assets"
+              data-panel-nav
+              hidden
+            >
+              <Button
+                icon
+                small
+                variant="ghost"
+                aria-label="Previous asset"
+                disabled
+                data-panel-back
+              >
+                <Fragment set:html={iconArrowLeft} />
+              </Button>
+              <Button
+                icon
+                small
+                variant="ghost"
+                aria-label="Next asset"
+                disabled
+                data-panel-forward
+              >
+                <Fragment set:html={iconArrowRight} />
+              </Button>
+            </div>
+            {/*
+             * Stepping back and forward leaves focus on the button, so the
+             * change of contents has to be announced some other way.
+             */}
+            <p class="tint--visually-hidden" role="status" data-panel-status />
+          </aside>
+        )
+      }
+    </div>
+    {
+      /*
+       * Astro partials carry no module scripts, so the chunks for the islands
+       * inside a fetched detail fragment would never reach this page. Rendering
+       * them here, inert, puts both the `astro-island` definition and their
+       * component code in the browser before the panel injects any markup.
+       */
+    }
+    {
+      showPanel && (
+        <div hidden aria-hidden="true">
+          <BackdropPicker id="preload-backdrop" client:load />
+          <CopyMarkup markup="" client:load />
+          <CollapsibleCard client:load />
+        </div>
+      )
+    }
+    <script>
+      import { initDetailPanel } from '@src/lib/detail-panel.ts'
+
+      // Returns immediately on pages without a grid, so this can load everywhere.
+      initDetailPanel()
+    </script>
+  </body>
+</html>
+
+<style is:global lang="sass">
+  @use "../styles/global"
+
+  .shell
+    flex: 1
+    display: grid
+    grid-template-columns: tint.$sidebar-width minmax(0, 1fr)
+    min-block-size: 100dvh
+    // The panel slides in from off-screen. `clip` keeps that from producing a
+    // horizontal scrollbar without creating a scroll container, which `hidden`
+    // would do and which would break the sticky sidebar.
+    overflow-x: clip
+
+  .shell.has-panel:has(> .panel:not([hidden]))
+    grid-template-columns: tint.$sidebar-width minmax(0, 1fr) tint.$panel-width
+
+  main
+    min-width: 0
+    padding-block: var(--tint-size-24)
+    padding-inline: var(--tint-size-24)
+
+  // `display: flex` below outranks the user agent's `[hidden] { display: none }`,
+  // so the attribute has to be honoured explicitly or the element stays visible.
+  .panel[hidden],
+  .panel-nav[hidden]
+    display: none
+
+  .panel
+    position: sticky
+    inset-block-start: 0
+    // A sticky element sizes to its content, so the height is set rather than
+    // capped, and the body inside scrolls instead of running past the fold.
+    block-size: 100dvh
+    display: flex
+    flex-direction: column
+    border-inline-start: 1px solid var(--tint-card-border)
+    background: var(--tint-bg)
+    --panel-pad: var(--tint-size-24)
+    @include tint.effect-focus
+    translate: 100% 0
+    transition: translate 220ms ease, opacity 220ms ease
+    opacity: 0
+
+  // The body scrolls, not the panel, so the navigation row below stays put
+  // without needing sticky positioning.
+  .panel-body
+    flex: 1
+    min-block-size: 0
+    overflow-y: auto
+    overscroll-behavior: contain
+    padding: var(--panel-pad)
+
+  .panel-nav
+    flex: none
+    display: flex
+    gap: var(--tint-size-8)
+    padding-block: var(--tint-size-12)
+    padding-inline: var(--panel-pad)
+    border-block-start: 1px solid var(--tint-card-border)
+    background: var(--tint-bg)
+
+  // `is-open` is added a frame after `hidden` is removed, so the transition has
+  // a starting point to animate from.
+  .panel.is-open
+    translate: 0 0
+    opacity: 1
+
+  @media (prefers-reduced-motion: reduce)
+    .panel
+      transition: none
+
+  // Where a view transition is available the panel sits in place and the pseudo
+  // elements below animate it, so the CSS slide would double up.
+  //
+  // Only the panel is named. `main` is deliberately left in the root snapshot:
+  // a named element is captured as a bitmap, so naming `main` would scale the
+  // old wide grid down to the new narrow width and squash the icons. The root
+  // group keeps the viewport's size in both states, so the two layouts blend
+  // instead of scaling.
+  html.has-vt .panel
+    transition: none
+    translate: 0 0
+    view-transition-name: asset-panel
+
+  // Keep the blend in step with the panel slide. Only the duration is
+  // overridden, so the user agent's keyframes and fill mode still apply.
+  ::view-transition-old(root),
+  ::view-transition-new(root)
+    animation-duration: 240ms
+
+  @keyframes panel-slide-x
+    from
+      translate: 100% 0
+      opacity: 0
+
+  @keyframes panel-slide-y
+    from
+      translate: 0 100%
+      opacity: 0
+
+  @keyframes panel-fade
+    from
+      opacity: 0
+
+  // `forwards` matters more than it looks. Overriding `animation` replaces the
+  // user agent's own keyframes, and with the default fill mode of `none` the
+  // snapshot reverts to its underlying style once the animation ends but before
+  // the pseudo element goes away, so the panel flashes back into view on close.
+  ::view-transition-new(asset-panel)
+    animation: panel-slide-x 240ms ease
+    animation-fill-mode: forwards
+
+  ::view-transition-old(asset-panel)
+    animation: panel-slide-x 200ms ease reverse
+    animation-fill-mode: forwards
+
+  // Following an "also available as" link swaps the panel's contents while the
+  // panel itself stays put, so only the name is overridden and the duration,
+  // direction and fill mode above still apply.
+  html[data-vt='swap']::view-transition-new(asset-panel),
+  html[data-vt='swap']::view-transition-old(asset-panel)
+    animation-name: panel-fade
+
+  @media (max-width: tint.$breakpoint-md)
+    ::view-transition-new(asset-panel)
+      animation-name: panel-slide-y
+    ::view-transition-old(asset-panel)
+      animation-name: panel-slide-y
+    html[data-vt='swap']::view-transition-new(asset-panel),
+    html[data-vt='swap']::view-transition-old(asset-panel)
+      animation-name: panel-fade
+
+  @media (max-width: tint.$breakpoint-md)
+    .shell,
+    .shell.has-panel:has(> .panel:not([hidden]))
+      grid-template-columns: minmax(0, 1fr)
+      // Auto rows stretch to fill the shell, which hands the sidebar's bar an
+      // equal share of the leftover height. Only `main` should take it.
+      grid-template-rows: auto 1fr
+      min-block-size: 0
+
+    .panel
+      position: fixed
+      inset-inline: 0
+      // The desktop rule pins this to the top. Both insets on a fixed element
+      // with a definite height is over-constrained, and the start edge wins, so
+      // it has to be released for the sheet to sit at the bottom.
+      inset-block-start: auto
+      inset-block-end: 0
+      block-size: auto
+      max-block-size: 85dvh
+      z-index: 20
+      border-inline-start: none
+      border-block-start: 1px solid var(--tint-card-border)
+      border-start-start-radius: var(--tint-radius-card)
+      border-start-end-radius: var(--tint-radius-card)
+      box-shadow: 0 -4px 24px #00000029
+      // Narrower gutters than on desktop, which also gives the backdrop control
+      // the width it needs to fit without scrolling.
+      --panel-pad: var(--tint-size-16)
+      translate: 0 100%
+
+    .panel-nav
+      padding-block-end: max(var(--tint-size-12), env(safe-area-inset-bottom))
+</style>

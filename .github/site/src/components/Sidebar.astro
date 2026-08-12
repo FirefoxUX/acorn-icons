@@ -1,0 +1,424 @@
+---
+import iconClose from 'tint/icons/20-close.svg?raw'
+import iconMenu from 'tint/icons/20-menu.svg?raw'
+
+import acorn from '@src/assets/acorn.svg?raw'
+import { getCatalog } from '@src/catalog/build.ts'
+import { getRelease } from '@src/catalog/release.ts'
+import { url } from '@src/lib/paths.ts'
+
+const catalog = getCatalog()
+const here = Astro.url.pathname
+
+const release = await getRelease()
+
+type Item = { href: string; label: string; count: number }
+
+function countIcons(platform?: 'desktop' | 'mobile', size?: number): number {
+  return catalog.icons.filter(
+    (icon) =>
+      (!platform || icon.platform === platform) &&
+      (size === undefined || icon.size === size),
+  ).length
+}
+
+const iconGroups = (['desktop', 'mobile'] as const).map((platform) => ({
+  href: url(`icons/${platform}/`),
+  label: platform === 'desktop' ? 'Desktop' : 'Mobile',
+  count: countIcons(platform),
+  children: catalog.iconSizes[platform].map((size) => ({
+    href: url(`icons/${platform}/${size}/`),
+    label: `${size}px`,
+    count: countIcons(platform, size),
+  })),
+}))
+
+const illustrationGroups: Item[] = (
+  ['kit', 'pictograms', 'exports'] as const
+).map((category) => ({
+  href: url(`illustrations/${category}/`),
+  label: category.charAt(0).toUpperCase() + category.slice(1),
+  count: catalog.illustrations.filter((item) => item.category === category)
+    .length,
+}))
+
+const root = url('')
+
+/**
+ * A category filter is a child page of its size view, so the size link should
+ * stay marked while a filter is applied. Only the deepest match is marked, or
+ * every ancestor would claim to be the current page. The root link matches
+ * exactly, since every path begins with it.
+ */
+const activeHref = [
+  root,
+  url('illustrations/'),
+  ...iconGroups.flatMap((group) => [
+    group.href,
+    ...group.children.map((child) => child.href),
+  ]),
+  ...illustrationGroups.map((group) => group.href),
+]
+  .filter((href) => here === href || (href !== root && here.startsWith(href)))
+  .sort((a, b) => b.length - a.length)[0]
+
+const isCurrent = (href: string) => href === activeHref
+---
+
+<div class="bar tint--tinted">
+  <a class="brand tint--type-title-sans-3" href={url('')}>
+    <span class="mark" aria-hidden="true" set:html={acorn} />
+    Acorn assets
+  </a>
+  <button
+    class="trigger tint--type-ui-bold"
+    type="button"
+    popovertarget="sidebar-nav"
+    data-sidebar-trigger
+  >
+    <span class="icon" aria-hidden="true" set:html={iconMenu} />
+    Categories
+  </button>
+</div>
+
+<nav
+  id="sidebar-nav"
+  class="sidebar tint--tinted"
+  popover="auto"
+  aria-label="Asset categories"
+>
+  <div class="head">
+    <a class="brand tint--type-title-sans-3" href={url('')}>
+      <span class="mark" aria-hidden="true" set:html={acorn} />
+      Acorn assets
+    </a>
+    <button
+      class="close"
+      type="button"
+      popovertarget="sidebar-nav"
+      popovertargetaction="hide"
+      aria-label="Close categories"
+    >
+      <span class="icon" aria-hidden="true" set:html={iconClose} />
+    </button>
+  </div>
+
+  <h2 id="sidebar-icons" class="tint--type-ui-small-bold">Icons</h2>
+  <ul aria-labelledby="sidebar-icons">
+    <li>
+      <a href={url('')} aria-current={isCurrent(url('')) ? 'page' : undefined}>
+        <span>All icons</span>
+        <span class="count">{catalog.icons.length}</span>
+      </a>
+    </li>
+    {
+      iconGroups.map((group) => (
+        <li>
+          <a
+            href={group.href}
+            aria-current={isCurrent(group.href) ? 'page' : undefined}
+          >
+            <span>{group.label}</span>
+            <span class="count">{group.count}</span>
+          </a>
+          <ul class="nested">
+            {group.children.map((size) => (
+              <li>
+                <a
+                  href={size.href}
+                  aria-current={isCurrent(size.href) ? 'page' : undefined}
+                >
+                  <span>{size.label}</span>
+                  <span class="count">{size.count}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2 id="sidebar-illustrations" class="tint--type-ui-small-bold">
+    Illustrations
+  </h2>
+  <ul aria-labelledby="sidebar-illustrations">
+    <li>
+      <a
+        href={url('illustrations/')}
+        aria-current={isCurrent(url('illustrations/')) ? 'page' : undefined}
+      >
+        <span>All illustrations</span>
+        <span class="count">{catalog.illustrations.length}</span>
+      </a>
+      <ul class="nested">
+        {
+          illustrationGroups.map((group) => (
+            <li>
+              <a
+                href={group.href}
+                aria-current={isCurrent(group.href) ? 'page' : undefined}
+              >
+                <span>{group.label}</span>
+                <span class="count">{group.count}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </li>
+  </ul>
+
+  <footer class="tint--type-ui-small">
+    <p>
+      Made with love by the Acorn Design Systems Team at <a
+        href="https://www.mozilla.org/"
+        rel="noopener"
+        target="_blank"
+        >Mozilla<span class="tint--visually-hidden">
+          (opens in a new tab)</span
+        ></a
+      >.
+    </p>
+    {
+      release ? (
+        <p class="release">
+          <a href={release.href} rel="noopener" target="_blank">
+            {release.tag}
+            <span class="tint--visually-hidden">(opens in a new tab)</span>
+          </a>{' '}
+          <span aria-hidden="true">·</span>{' '}
+          <a href="https://acorn.firefox.com/" rel="noopener" target="_blank">
+            acorn.firefox.com
+            <span class="tint--visually-hidden">(opens in a new tab)</span>
+          </a>
+        </p>
+      ) : (
+        <a href="https://acorn.firefox.com/" rel="noopener" target="_blank">
+          acorn.firefox.com
+          <span class="tint--visually-hidden">(opens in a new tab)</span>
+        </a>
+      )
+    }
+  </footer>
+</nav>
+
+<script>
+  const nav = document.getElementById('sidebar-nav')
+  const trigger = document.querySelector('[data-sidebar-trigger]')
+
+  // The drawer can only be dismissed while its trigger is on screen, so growing
+  // past the breakpoint with it open would strand the nav in the top layer.
+  // `checkVisibility` rather than the trigger's computed display, which stays
+  // `flex` once the bar around it is taken out of the layout.
+  window.addEventListener('resize', () => {
+    if (nav?.matches(':popover-open') && !trigger?.checkVisibility()) {
+      nav.hidePopover()
+    }
+  })
+
+  // An invoker gets `aria-expanded` from its `popovertarget` on its own, so this
+  // only pins the state down for the browsers that have not shipped that yet.
+  nav?.addEventListener('toggle', (event) => {
+    trigger?.setAttribute('aria-expanded', String(event.newState === 'open'))
+  })
+</script>
+
+<style lang="sass">
+  // The nav is a popover, so the user agent hands it `display: none`, a fixed
+  // position, a fitted size and a border. Everything it sets is re-declared per
+  // breakpoint below.
+  .sidebar
+    margin: 0
+    border: none
+    max-inline-size: none
+    max-block-size: none
+    overflow-y: auto
+    overscroll-behavior: contain
+    padding-block: var(--tint-size-24)
+    padding-inline: var(--tint-size-16)
+    background: var(--tint-bg)
+    color: var(--tint-text)
+
+  .bar
+    display: none
+    align-items: center
+    justify-content: space-between
+    gap: var(--tint-size-8)
+    position: sticky
+    inset-block-start: 0
+    z-index: 10
+    padding-block: var(--tint-size-12)
+    padding-inline: var(--tint-size-16)
+    background: var(--tint-bg)
+    color: var(--tint-text)
+    border-block-end: 1px solid var(--tint-card-border)
+
+  .head
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: var(--tint-size-8)
+    margin-block-end: var(--tint-size-32)
+
+  .trigger,
+  .close
+    display: flex
+    align-items: center
+    gap: var(--tint-size-8)
+    padding-block: var(--tint-size-8)
+    padding-inline: var(--tint-size-12)
+    border: none
+    border-radius: var(--tint-radius-button-pill)
+    background: var(--tint-action-secondary-hover)
+    color: var(--tint-text)
+    cursor: pointer
+    @include tint.effect-focus
+    &:hover
+      background: var(--tint-action-secondary-active)
+
+  // Forced colours drop the button's tinted wash, which is the only thing
+  // separating it from the bar behind it.
+  @media (forced-colors: active)
+    .trigger,
+    .close
+      border: 1px solid ButtonText
+
+  .close
+    display: none
+    padding-inline: var(--tint-size-8)
+
+  .icon,
+  .mark
+    flex: none
+    :global(svg)
+      display: block
+
+  .mark :global(svg)
+    inline-size: 1.5em
+    block-size: 1.5em
+
+  .brand
+    display: flex
+    align-items: center
+    gap: var(--tint-size-8)
+    color: var(--tint-text)
+    text-decoration: none
+    @include tint.effect-focus
+
+  .head .brand
+    padding-inline: var(--tint-size-8)
+
+  h2
+    color: var(--tint-text-secondary)
+    text-transform: uppercase
+    letter-spacing: 0.06em
+    padding-inline: var(--tint-size-8)
+    margin-block: var(--tint-size-24) var(--tint-size-8)
+
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+    display: flex
+    flex-direction: column
+
+  .nested
+    margin-block: var(--tint-size-2) var(--tint-size-8)
+    padding-inline-start: var(--tint-size-16)
+
+  li a
+    display: flex
+    justify-content: space-between
+    align-items: baseline
+    gap: var(--tint-size-8)
+    padding-block: var(--tint-size-8)
+    padding-inline: var(--tint-size-12)
+    border-radius: var(--tint-radius-input)
+    color: var(--tint-text)
+    text-decoration: none
+    @include tint.effect-focus
+    &:hover
+      background: var(--tint-action-secondary-hover)
+    &[aria-current='page']
+      background: var(--tint-action-primary)
+      color: var(--tint-action-primary-text)
+      // Full strength rather than the dimmed count used elsewhere: against the
+      // filled row, 80% leaves it at 4:1.
+      .count
+        color: inherit
+
+  .count
+    color: var(--tint-text-secondary)
+    font-variant-numeric: tabular-nums
+
+  // Sinks to the bottom of the column when the lists leave room. Once they
+  // overflow the auto margin resolves to zero, so the gap above the rule is
+  // padding rather than margin.
+  footer
+    margin-block-start: auto
+    padding-block-start: var(--tint-size-24)
+    padding-inline: var(--tint-size-8)
+    border-block-start: 1px solid var(--tint-card-border)
+    color: var(--tint-text-secondary)
+
+    p
+      margin-block-end: var(--tint-size-4)
+
+    a
+      color: var(--tint-text-link)
+      text-decoration: underline
+      border-radius: var(--tint-size-2)
+      @include tint.effect-focus
+      &:hover
+        text-decoration: none
+
+  @media (width > #{tint.$breakpoint-md})
+    .sidebar
+      display: flex
+      flex-direction: column
+      position: sticky
+      inset: auto
+      inset-block-start: 0
+      inline-size: auto
+      block-size: 100dvh
+      border-inline-end: 1px solid var(--tint-card-border)
+
+  @media (max-width: tint.$breakpoint-md)
+    .bar,
+    .close
+      display: flex
+
+    .sidebar
+      position: fixed
+      inset-block: 0
+      inset-inline: 0 auto
+      inline-size: min(320px, 85vw)
+      block-size: auto
+      border-inline-end: 1px solid var(--tint-card-border)
+      translate: -100% 0
+      transition: translate 220ms ease, overlay 220ms allow-discrete, display 220ms allow-discrete
+      // Only the open state, or this would outrank the user agent's
+      // `display: none` and leave the drawer on screen.
+      &:popover-open
+        display: flex
+        flex-direction: column
+        translate: 0 0
+      &::backdrop
+        background: rgba(0, 0, 0, 0.4)
+        opacity: 0
+        transition: opacity 220ms ease, overlay 220ms allow-discrete, display 220ms allow-discrete
+      &:popover-open::backdrop
+        opacity: 1
+
+    @starting-style
+      .sidebar:popover-open
+        translate: -100% 0
+      .sidebar:popover-open::backdrop
+        opacity: 0
+
+    @media (prefers-reduced-motion: reduce)
+      .sidebar,
+      .sidebar::backdrop
+        transition: none
+</style>

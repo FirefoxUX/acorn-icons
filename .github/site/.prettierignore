@@ -1,0 +1,12 @@
+node_modules
+dist
+.astro
+.DS_Store
+*.svg
+*.sass
+*.woff
+*.woff2
+*.png
+*.webp
+*.pdf
+*.ico

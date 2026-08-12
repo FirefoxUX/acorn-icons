@@ -1,0 +1,119 @@
+---
+import type { Asset } from '@src/catalog/types.ts'
+import { assetHref, url } from '@src/lib/paths.ts'
+
+interface Props {
+  asset: Asset
+}
+
+const { asset } = Astro.props
+---
+
+{
+  /*
+   * The id doubles as the fragment the detail panel writes onto the grid URL, so
+   * such a link scrolls to and highlights this tile even before any script runs.
+   */
+}
+<li class="tile" data-keywords={asset.keywords.join(' ')} id={asset.id}>
+  <a href={assetHref(asset.id)}>
+    <span
+      class:list={['art', asset.kind]}
+      style={`--asset-width: ${asset.width}; --asset-height: ${asset.height}`}
+    >
+      {
+        asset.inlineSvg ? (
+          <Fragment set:html={asset.inlineSvg} />
+        ) : (
+          <img
+            src={url(asset.previewUrl ?? '')}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        )
+      }
+    </span>
+    <span class="name tint--type-ui-small">{asset.displayName}</span>
+    {asset.size && <span class="meta tint--type-ui-small">{asset.size}px</span>}
+    {
+      asset.theme && (
+        <span class="meta tint--type-ui-small">
+          {asset.theme ? `${asset.theme}` : ''}
+        </span>
+      )
+    }
+    {
+      /*
+       * The synonyms are in the DOM rather than only in a data attribute so the
+       * browser's own find-in-page reaches them when the search island is not
+       * running.
+       */
+    }
+    <span class="tint--visually-hidden">{asset.keywords.join(' ')}</span>
+  </a>
+</li>
+
+<style lang="sass">
+  .tile
+    list-style: none
+
+  a
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: var(--tint-size-4)
+    padding: var(--tint-size-12)
+    border-radius: var(--tint-radius-card)
+    border: 1px solid transparent
+    color: var(--tint-text)
+    text-decoration: none
+    height: 100%
+    &:hover
+      background: var(--tint-bg-secondary)
+      border-color: var(--tint-card-border)
+    @include tint.effect-focus
+    &[aria-current='true']
+      background: var(--tint-bg-secondary)
+      border-color: var(--tint-action-primary)
+
+  // Marks the tile a shared fragment link points at, for the no-script case
+  // only. `replaceState` does not re-evaluate the document's target, so once the
+  // panel starts moving the fragment this would stay stuck on the tile the page
+  // loaded with and light up a second one. With a script, `aria-current` above
+  // marks the open tile and follows it.
+  html.no-js .tile:target a
+    background: var(--tint-bg-secondary)
+    border-color: var(--tint-action-primary)
+
+  .art
+    display: flex
+    align-items: center
+    justify-content: center
+    inline-size: 100%
+    block-size: var(--tile-art-size)
+    color: var(--tint-text)
+    margin-block-end: var(--tint-size-4)
+
+  // Icons draw at their real pixel size, so a 12px and a 40px icon stay
+  // visibly different in a mixed grid.
+  .art.icon :global(svg)
+    inline-size: calc(var(--asset-width) * 1px)
+    block-size: calc(var(--asset-height) * 1px)
+    flex: none
+
+  .art.illustration img
+    max-inline-size: 100%
+    max-block-size: 100%
+    aspect-ratio: var(--asset-width) / var(--asset-height)
+    object-fit: contain
+
+  .name
+    text-align: center
+    overflow-wrap: anywhere
+
+  .meta
+    color: var(--tint-text-secondary)
+    text-align: center
+    text-transform: capitalize
+</style>

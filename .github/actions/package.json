@@ -6,7 +6,13 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
-    "prettier": "prettier --write --check 'src/**/*.*'"
+    "prettier": "prettier --write --check 'src/**/*.*'",
+    "transform": "npm run transform:icons && npm run transform:illustrations && npm run format:categories",
+    "format:categories": "cd ../.. && .github/actions/node_modules/.bin/tsx .github/actions/src/categories-format/index.ts",
+    "lint:illustrations": "cd ../.. && .github/actions/node_modules/.bin/tsx .github/actions/src/illustration-lint/index.ts",
+    "lint:categories": "cd ../.. && .github/actions/node_modules/.bin/tsx .github/actions/src/categories-check/index.ts",
+    "transform:icons": "cd ../.. && INPUT_FILES='icons/desktop/**/*.svg' .github/actions/node_modules/.bin/tsx .github/actions/src/desktop-transform/index.ts && INPUT_FILES='icons/mobile/**/*.svg' INPUT_FILE_TYPE=svg .github/actions/node_modules/.bin/tsx .github/actions/src/mobile-transform/index.ts && INPUT_FILES='icons/mobile/**/*.xml' INPUT_FILE_TYPE=xml .github/actions/node_modules/.bin/tsx .github/actions/src/mobile-transform/index.ts",
+    "transform:illustrations": "cd ../.. && INPUT_FILES='illustrations/**/*.svg' INPUT_FILE_TYPE=svg .github/actions/node_modules/.bin/tsx .github/actions/src/illustration-transform/index.ts && INPUT_FILES='illustrations/mobile/xml/**/*.xml' INPUT_FILE_TYPE=xml .github/actions/node_modules/.bin/tsx .github/actions/src/illustration-transform/index.ts"
   },
   "license": "MPL-2.0",
   "dependencies": {

@@ -1,3 +1,6 @@
 .DS_Store
 node_modules/
 .github/actions/dist/
+.github/site/dist/
+.github/site/.astro/
+.github/site/.cache/

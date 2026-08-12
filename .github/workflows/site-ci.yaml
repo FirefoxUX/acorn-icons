@@ -1,0 +1,30 @@
+name: Site CI
+
+on:
+  pull_request:
+    paths:
+      - '.github/site/**'
+      - '.github/workflows/site-ci.yaml'
+      - 'icons/**'
+      - 'illustrations/**'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: .github/site
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '26'
+          cache: 'npm'
+          cache-dependency-path: .github/site/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run prettier
+      - run: npm test
+      - run: npm run build

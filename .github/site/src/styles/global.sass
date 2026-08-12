@@ -1,0 +1,62 @@
+@use 'tint/styles/bootstrap' as bootstrap
+@use './colors'
+@use './detail.sass'
+// The `additionalData` injection in astro.config only reaches entry stylesheets,
+// so a file pulled in with @use has to import the utils itself.
+@use './utils.sass' as tint
+
+
+@include bootstrap.generate-color-variables(colors.$colors)
+
+@media (prefers-color-scheme: dark)
+  @include bootstrap.generate-color-variables(colors.$colors-dark)
+
+@include bootstrap.full-bootstrap()
+
+// Tint's reset does not set this, and the full-height sidebar and panel would
+// otherwise add their padding on top of a 100dvh height and overflow.
+*,
+*::before,
+*::after
+  box-sizing: border-box
+
+// The duotone icons carry `context-stroke` on their second channel, which
+// `sanitizeSvg` rewrites to this property. Declared on the root so every
+// preview resolves it, wherever the markup is inlined.
+:root
+  --asset-fill-2: currentColor
+
+html
+  height: 100%
+  // Opening the detail panel changes which element scrolls. Reserving the
+  // gutter unconditionally keeps the grid from shifting sideways when it does.
+  scrollbar-gutter: stable
+
+body
+  min-height: 100%
+  display: flex
+  flex-direction: column
+  background: var(--tint-bg)
+
+.skip-link
+  position: fixed
+  inset-block-start: var(--tint-size-16)
+  inset-inline-start: 50%
+  z-index: 1000
+  background: var(--tint-bg)
+  color: var(--tint-text)
+  padding-block: var(--tint-size-12)
+  padding-inline: var(--tint-size-24)
+  border-radius: var(--tint-radius-button-pill)
+  box-shadow: var(--tint-card-shadow)
+  border: 1px solid var(--tint-card-border)
+  // Offset by more than its own height, or the box shadow stays visible as a
+  // sliver along the top of the viewport.
+  translate: -50% calc(-100% - var(--tint-size-32))
+  transition: translate 200ms ease
+  text-decoration: none
+  @include tint.effect-focus
+  @media (prefers-reduced-motion: reduce)
+    transition: none
+  &:focus
+    translate: -50% 0

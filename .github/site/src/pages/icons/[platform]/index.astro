@@ -1,0 +1,20 @@
+---
+import type { GetStaticPaths } from 'astro'
+
+import { getCatalog } from '@src/catalog/build.ts'
+import AssetGrid from '@src/components/AssetGrid.astro'
+import Layout from '@src/components/Layout.astro'
+
+export const getStaticPaths = (() =>
+  ['desktop', 'mobile'].map((platform) => ({
+    params: { platform },
+  }))) satisfies GetStaticPaths
+
+const { platform } = Astro.params
+const assets = getCatalog().icons.filter((icon) => icon.platform === platform)
+const heading = platform === 'desktop' ? 'Desktop icons' : 'Mobile icons'
+---
+
+<Layout title={heading} showPanel>
+  <AssetGrid {heading} {assets} noun="icons" />
+</Layout>

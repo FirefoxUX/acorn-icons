@@ -1,0 +1,13 @@
+---
+import Layout from '@src/components/Layout.astro'
+import { url } from '@src/lib/paths.ts'
+---
+
+<Layout title="Not found">
+  <h1 class="tint--type-title-sans-2">Not found</h1>
+  <p class="tint--type-body-sans">
+    That page does not exist. <a class="tint--link" href={url('')}>
+      Browse the icons
+    </a> instead.
+  </p>
+</Layout>

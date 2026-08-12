@@ -1,0 +1,46 @@
+---
+import type { Asset } from '@src/catalog/types.ts'
+import ResourceRow from '@src/components/ResourceRow.astro'
+import { formatBytes, url } from '@src/lib/paths.ts'
+
+interface Props {
+  asset: Asset
+  /** Follows the asset heading, which steps down a level inside the panel. */
+  level?: 2 | 3
+}
+
+const { asset, level = 2 } = Astro.props
+const Heading = `h${level}` as 'h2' | 'h3'
+
+const PLATFORM_NOTE: Record<string, string> = {
+  svg: 'Desktop',
+  pdf: 'iOS',
+  xml: 'Android',
+  webp: 'Mobile',
+}
+
+const formats = asset.formats.map((format) => ({
+  ...format,
+  label: [format.kind.toUpperCase(), format.variant]
+    .filter(Boolean)
+    .join(' · '),
+  filename: format.repoPath.split('/').pop() ?? format.repoPath,
+}))
+---
+
+<section class="downloads">
+  <Heading class="tint--type-ui-small-bold">Download</Heading>
+  <ul class="row-list">
+    {
+      formats.map((format) => (
+        <ResourceRow
+          kind="download"
+          href={url(format.url)}
+          download={format.filename}
+          label={format.label}
+          meta={`${PLATFORM_NOTE[format.kind]} · ${formatBytes(format.bytes)}`}
+        />
+      ))
+    }
+  </ul>
+</section>

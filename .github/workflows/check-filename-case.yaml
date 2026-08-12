@@ -4,8 +4,17 @@ on:
   pull_request:
     branches:
       - "main"
+    # Kept identical to the filter in icon-actions.yaml. See the comment
+    # there for why the two must not diverge.
     paths:
       - "icons/**"
+      - "illustrations/**"
+      # The whole actions directory, not just src: a change to a composite
+      # action or to package.json has to run the workflow that consumes it,
+      # or a required check never reports and the pull request waits forever.
+      - ".github/actions/**"
+      - ".github/workflows/icon-actions.yaml"
+      - ".github/workflows/check-filename-case.yaml"
 
 jobs:
   check:
@@ -20,12 +29,12 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
-      - name: Detect case-insensitive duplicates in icons/
+      - name: Detect case-insensitive duplicates
         id: detect
         run: |
           set -euo pipefail
           collisions=$(
-            find icons -type f \
+            find icons illustrations -type f -not -name '.*' \
               | awk -F/ '{name=$NF; dir=substr($0,1,length($0)-length(name)-1); print dir"\t"tolower(name)"\t"$0}' \
               | sort \
               | awk -F'\t' '{

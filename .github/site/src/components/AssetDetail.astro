@@ -1,0 +1,164 @@
+---
+import { Code } from 'astro:components'
+import Button from 'tint/components/Button.svelte'
+import CollapsibleCard from 'tint/components/CollapsibleCard.svelte'
+import iconClose from 'tint/icons/20-close.svg?raw'
+
+import { getCatalog } from '@src/catalog/build.ts'
+import { categoryLabel } from '@src/catalog/categories.ts'
+import type { Asset } from '@src/catalog/types.ts'
+import BackdropPicker from '@src/components/BackdropPicker.svelte'
+import CopyMarkup from '@src/components/CopyMarkup.svelte'
+import FirefoxUsage from '@src/components/FirefoxUsage.astro'
+import FormatDownloads from '@src/components/FormatDownloads.astro'
+import SizeSiblings from '@src/components/SizeSiblings.astro'
+import TruncatedPath from '@src/components/TruncatedPath.astro'
+import { repoFileHref, url } from '@src/lib/paths.ts'
+
+interface Props {
+  asset: Asset
+  /**
+   * `panel` adds the close control. Both variants are otherwise identical,
+   * which is the point: the standalone page and the injected panel render this
+   * same component.
+   */
+  variant: 'page' | 'panel'
+}
+
+const { asset, variant } = Astro.props
+
+// On its own page the asset name is the document's heading. In the panel it sits
+// inside a grid page that already has an h1, so it steps down a level and the
+// sections below it follow.
+const Title = variant === 'panel' ? 'h2' : 'h1'
+const sectionLevel = variant === 'panel' ? 3 : 2
+
+// Link the group only where a filter page was generated for it; smaller groups
+// have no page, so the name is shown as plain text.
+const groupView = asset.group
+  ? getCatalog().categoryViews.find(
+      (view) =>
+        view.category === asset.group &&
+        view.platform === asset.platform &&
+        view.size === asset.size,
+    )
+  : undefined
+const groupLabel = asset.group ? categoryLabel(asset.group) : undefined
+
+const meta = [
+  asset.kind === 'icon' ? `${asset.size}px` : asset.category,
+  asset.platform === 'shared' ? 'desktop and mobile' : asset.platform,
+  asset.theme,
+]
+  .filter(Boolean)
+  .join(' · ')
+---
+
+<article class="detail" data-detail data-asset-id={asset.id}>
+  <header>
+    <div>
+      <Title id="asset-panel-heading" class="tint--type-title-sans-3">
+        {asset.displayName}
+      </Title>
+      <p class="tint--type-ui-small meta">{meta}</p>
+      <p class="tags">
+        {
+          groupLabel &&
+            (groupView ? (
+              <a
+                class="group tint--type-ui-small"
+                href={url(
+                  `icons/${asset.platform}/${asset.size}/${groupView.slug}/`,
+                )}
+              >
+                {groupLabel}
+              </a>
+            ) : (
+              <span class="group is-plain tint--type-ui-small">
+                {groupLabel}
+              </span>
+            ))
+        }
+        <a
+          class="source tint--type-ui-small"
+          href={repoFileHref(asset.formats[0].repoPath)}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <code><TruncatedPath path={asset.formats[0].repoPath} /></code>
+          <span class="tint--visually-hidden">(opens in a new tab)</span>
+        </a>
+      </p>
+    </div>
+    {
+      variant === 'panel' && (
+        <div class="close js-only">
+          <Button
+            icon
+            small
+            variant="ghost"
+            aria-label="Close details"
+            data-panel-close
+          >
+            <Fragment set:html={iconClose} />
+          </Button>
+        </div>
+      )
+    }
+  </header>
+
+  <div
+    class:list={['stage', asset.kind]}
+    data-stage
+    data-backdrop="page"
+    style={`--asset-width: ${asset.width}; --asset-height: ${asset.height}`}
+  >
+    {
+      /* The preview is decorative: the heading above already names the asset. */
+    }
+    {
+      asset.inlineSvg ? (
+        <Fragment set:html={asset.inlineSvg} />
+      ) : (
+        <img src={url(asset.previewUrl ?? '')} alt="" />
+      )
+    }
+  </div>
+
+  <div class="js-only">
+    <BackdropPicker id={`backdrop-${asset.id}`} client:load />
+  </div>
+
+  <FormatDownloads {asset} level={sectionLevel} />
+  <FirefoxUsage {asset} level={sectionLevel} />
+  <SizeSiblings {asset} level={sectionLevel} />
+
+  {
+    /*
+     * A native `<details>` underneath, so it opens and closes without JS. It is
+     * still hydrated, because Astro drops the scoped CSS of a Svelte component
+     * that no client bundle reaches, and an unstyled card is worse than an
+     * unnecessary island. Layout renders a hidden copy so the chunk and its CSS
+     * are on the grid page too.
+     *
+     * Shiki runs at build time, so the highlighting itself costs nothing.
+     */
+  }
+  {
+    asset.rawSvg && (
+      <CollapsibleCard class="source-card" variant="bg-secondary" client:load>
+        <Fragment slot="summary">SVG source</Fragment>
+        <Code
+          code={asset.rawSvg}
+          lang="xml"
+          themes={{ light: 'github-light', dark: 'github-dark' }}
+          defaultColor={false}
+          wrap
+        />
+        <div class="js-only copy">
+          <CopyMarkup markup={asset.rawSvg} client:load />
+        </div>
+      </CollapsibleCard>
+    )
+  }
+</article>

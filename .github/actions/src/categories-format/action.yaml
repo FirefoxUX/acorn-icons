@@ -1,0 +1,8 @@
+name: 'Categories format'
+description: 'Sorts and reformats icons/categories.json'
+
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: '"${{ github.action_path }}/../../node_modules/.bin/tsx" "${{ github.action_path }}/index.ts"'

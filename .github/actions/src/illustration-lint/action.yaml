@@ -1,0 +1,8 @@
+name: 'Illustration lint'
+description: 'Checks illustration filenames and cross-format parity'
+
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: '"${{ github.action_path }}/../../node_modules/.bin/tsx" "${{ github.action_path }}/index.ts"'

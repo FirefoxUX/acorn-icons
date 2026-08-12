@@ -1,0 +1,23 @@
+---
+import type { GetStaticPaths } from 'astro'
+
+import { getCatalog } from '@src/catalog/build.ts'
+import { ILLUSTRATION_CATEGORIES } from '@src/catalog/normalize.ts'
+import AssetGrid from '@src/components/AssetGrid.astro'
+import Layout from '@src/components/Layout.astro'
+
+export const getStaticPaths = (() =>
+  ILLUSTRATION_CATEGORIES.map((category) => ({
+    params: { category },
+  }))) satisfies GetStaticPaths
+
+const { category } = Astro.params
+const assets = getCatalog().illustrations.filter(
+  (item) => item.category === category,
+)
+const heading = `${(category ?? '').charAt(0).toUpperCase()}${(category ?? '').slice(1)}`
+---
+
+<Layout title={heading} showPanel>
+  <AssetGrid {heading} {assets} noun="illustrations" wide />
+</Layout>

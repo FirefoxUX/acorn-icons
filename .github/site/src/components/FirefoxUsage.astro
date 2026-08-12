@@ -1,0 +1,73 @@
+---
+import {
+  getFirefoxUsage,
+  type FirefoxProduct,
+  type FirefoxUsage,
+} from '@src/catalog/firefox-usage.ts'
+import type { Asset } from '@src/catalog/types.ts'
+import ResourceRow from '@src/components/ResourceRow.astro'
+
+interface Props {
+  asset: Asset
+  /** Follows the asset heading, which steps down a level inside the panel. */
+  level?: 2 | 3
+}
+
+const { asset, level = 2 } = Astro.props
+const Heading = `h${level}` as 'h2' | 'h3'
+
+const PRODUCT_LABELS: Record<FirefoxProduct, string> = {
+  desktop: 'Firefox Desktop',
+  android: 'Firefox Android',
+  ios: 'Firefox iOS',
+}
+
+const PRODUCT_ORDER = Object.keys(PRODUCT_LABELS) as FirefoxProduct[]
+
+const usage = (await getFirefoxUsage()).get(asset.id) ?? []
+
+const rows = [...usage].sort(
+  (a, b) =>
+    PRODUCT_ORDER.indexOf(a.product) - PRODUCT_ORDER.indexOf(b.product) ||
+    a.path.localeCompare(b.path),
+)
+
+/**
+ * Desktop imports one name into several directories, so only the whole path
+ * tells two of its rows apart, both on screen and in the link's accessible
+ * name. Its directory goes in the prefix, which is the part that gives way when
+ * the row is too narrow. Android and iOS keep everything in one place, where
+ * the directory would repeat on every asset.
+ */
+function detail(entry: FirefoxUsage): { meta?: string; metaPath?: string } {
+  if (entry.symbol) {
+    return { meta: entry.symbol }
+  }
+  return entry.product === 'desktop'
+    ? { metaPath: entry.path }
+    : { meta: entry.path.split('/').pop() ?? entry.path }
+}
+---
+
+{
+  rows.length > 0 && (
+    <section class="usage">
+      <Heading class="tint--type-ui-small-bold">
+        In the Firefox codebase
+      </Heading>
+      <ul class="row-list">
+        {rows.map((entry) => (
+          <ResourceRow
+            kind="external"
+            href={entry.href}
+            label={PRODUCT_LABELS[entry.product]}
+            {...detail(entry)}
+          />
+        ))}
+      </ul>
+      <p class="tint--type-ui-small note">
+        Matched by filename. Other uses may exist.
+      </p>
+    </section>
+  )
+}

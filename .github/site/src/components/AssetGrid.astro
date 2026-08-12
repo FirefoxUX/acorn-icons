@@ -1,0 +1,85 @@
+---
+import AssetTile from '@src/components/AssetTile.astro'
+import SearchBar from '@src/components/SearchBar.svelte'
+import type { Asset } from '@src/catalog/types.ts'
+
+interface Props {
+  heading: string
+  assets: Asset[]
+  /** Plural noun used in the search field's result announcement. */
+  noun: string
+  /** Illustrations are up to 800px wide, so they need a roomier cell. */
+  wide?: boolean
+}
+
+const { heading, assets, noun, wide = false } = Astro.props
+---
+
+<div class="head">
+  <h1 class="tint--type-title-sans-2">{heading}</h1>
+  <p class="tint--type-ui-small total">{assets.length} {noun}</p>
+  <div class="js-only search">
+    <SearchBar total={assets.length} {noun} client:load />
+  </div>
+</div>
+
+<slot name="filters" />
+
+<ul class:list={['grid', { wide }]} data-asset-grid>
+  {assets.map((asset) => <AssetTile {asset} />)}
+</ul>
+
+<p class="empty" data-empty-state hidden>Nothing matches that search.</p>
+
+<script>
+  import { applyFilter } from '@src/lib/match.ts'
+
+  // Runs before the search island's bundle arrives, so a shared link with a
+  // query filters on the first paint rather than flashing the full grid.
+  const query = new URLSearchParams(window.location.search).get('q')
+  const grid = document.querySelector('[data-asset-grid]')
+  if (query && grid) {
+    const visible = applyFilter(grid, query)
+    document
+      .querySelector('[data-empty-state]')
+      ?.toggleAttribute('hidden', visible > 0)
+  }
+</script>
+
+<style lang="sass">
+  .head
+    display: flex
+    flex-wrap: wrap
+    align-items: baseline
+    gap: var(--tint-size-12)
+    margin-block-end: var(--tint-size-16)
+
+  .total
+    color: var(--tint-text-secondary)
+
+  .search
+    flex: 1 1 240px
+    min-inline-size: 240px
+    display: flex
+    justify-content: flex-end
+
+  .grid
+    list-style: none
+    margin: 0
+    padding: 0
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr))
+    gap: var(--tint-size-8)
+    // Inherited by AssetTile, which sizes its preview box from it. Declared
+    // here rather than on the tile, or the wide value below could not win.
+    --tile-art-size: 72px
+
+  .grid.wide
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))
+    --tile-art-size: 168px
+
+  .empty
+    color: var(--tint-text-secondary)
+    padding-block: var(--tint-size-32)
+    text-align: center
+</style>

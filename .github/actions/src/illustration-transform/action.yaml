@@ -1,0 +1,19 @@
+name: 'Illustration transform'
+description: 'Formats illustrations and adds the license header'
+
+inputs:
+  files:
+    description: 'Glob pattern of files to transform'
+    required: true
+  file_type:
+    description: 'Type of files to transform. Can be "svg" or "xml"'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      env:
+        INPUT_FILES: ${{ inputs.files }}
+        INPUT_FILE_TYPE: ${{ inputs.file_type }}
+      run: '"${{ github.action_path }}/../../node_modules/.bin/tsx" "${{ github.action_path }}/index.ts"'

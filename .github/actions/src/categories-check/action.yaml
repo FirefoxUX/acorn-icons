@@ -1,0 +1,26 @@
+name: 'Categories check'
+description: 'Validates icons/categories.json and flags uncategorized new icons'
+
+inputs:
+  base_sha:
+    description: >-
+      Commit to diff against when looking for added icons. Without it, and
+      without base_ref, the reminder is skipped and only the file itself is
+      validated.
+    required: false
+    default: ''
+  base_ref:
+    description: >-
+      Branch the pull request targets. Preferred over base_sha, because its
+      tip stays current as other pull requests land.
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      env:
+        INPUT_BASE_SHA: ${{ inputs.base_sha }}
+        INPUT_BASE_REF: ${{ inputs.base_ref }}
+      run: '"${{ github.action_path }}/../../node_modules/.bin/tsx" "${{ github.action_path }}/index.ts"'
