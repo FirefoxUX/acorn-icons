@@ -12,6 +12,13 @@
     justify-content: space-between
     gap: var(--tint-size-8)
 
+    // The block holding the heading and the tags row. As a flex item its
+    // `min-width` resolves to `auto`, which is its min-content width, and the
+    // source path below never wraps. Without this the header floors at the
+    // full length of that path and widens the page instead of clipping it.
+    > div
+      min-inline-size: 0
+
   .meta
     color: var(--tint-text-secondary)
     text-transform: capitalize
@@ -109,27 +116,22 @@
     font-family: var(--tint-font-mono)
     font-weight: var(--tint-font-weight-mono-regular)
 
-  // A path is clipped from its start, so the filename at the end survives. `rtl`
-  // moves the overflow, and with it the ellipsis, to the inline start. The path
-  // still reads left to right because every character in it is strong LTR, and
-  // the ellipsis only shows when the text really does overflow, unlike the
-  // pseudo-element hacks for this.
+  // A path is clipped from its start, so the filename at the end survives.
+  // `rtl` moves the overflow, and with it the ellipsis, to the inline start.
+  // The path still reads left to right because every character in it is strong
+  // LTR, and the ellipsis only shows when the text really does overflow, unlike
+  // the pseudo-element hacks for this. The whole path shrinks, so a filename
+  // long enough to fill the row on its own is clipped too.
   .trunc
     flex: 1
-    display: flex
-    min-inline-size: 0
-
-  .trunc-prefix
     min-inline-size: 0
     overflow: hidden
     white-space: nowrap
     text-overflow: ellipsis
     direction: rtl
-
-  // Never shrunk, so the prefix gives up its room first.
-  .trunc-name
-    flex: none
-    white-space: nowrap
+    // `rtl` also flips alignment, so a path short enough to fit would sit
+    // against the inline end of the row; this puts it back.
+    text-align: left
 
   .source-card
     margin-block-start: var(--tint-size-16)
@@ -232,6 +234,13 @@
     white-space: nowrap
     text-overflow: ellipsis
     color: var(--tint-text-secondary)
+
+  // Only in the usage rows, where the text is a path, a filename or a dotted
+  // symbol and its end identifies it. The download rows name the platform
+  // first, so clipping their start would take the word that matters.
+  .usage .row-meta
+    direction: rtl
+    text-align: left
 
   @media (forced-colors: active)
     .row-list,

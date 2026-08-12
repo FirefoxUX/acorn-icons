@@ -4,26 +4,12 @@ interface Props {
 }
 
 const { path } = Astro.props
-
-// The separator goes with the name, not the prefix. `.trunc-prefix` is laid out
-// `rtl` so its ellipsis falls at the start, and bidi moves a neutral character
-// at the end of an rtl run to the other side, so a prefix ending in a slash
-// renders with that slash leading it.
-const segments = path.split('/')
-const last = segments.pop() ?? path
-const prefix = segments.join('/')
-const name = prefix ? `/${last}` : last
 ---
 
 {
   /*
    * `title` here rather than on the enclosing link: the text is already in the
    * link's accessible name, and a span has no role to announce it from twice.
-   * The spans sit in a flex row so the whitespace between them is not rendered
-   * inside the path.
    */
 }
-<span class="trunc" title={path}>
-  {prefix && <span class="trunc-prefix">{prefix}</span>}
-  <span class="trunc-name">{name}</span>
-</span>
+<span class="trunc" title={path}>{path}</span>

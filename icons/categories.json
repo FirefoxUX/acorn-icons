@@ -315,7 +315,10 @@
     },
     "logo": {
       "icons": [
-        "firefox"
+        "logo-chrome",
+        "logo-firefox",
+        "logo-google-lens",
+        "logo-safari"
       ]
     },
     "mail": {
@@ -479,12 +482,6 @@
     "plugin": {
       "icons": [
         "plugin-20"
-      ]
-    },
-    "pocket": {
-      "icons": [
-        "pocket",
-        "pocket-fill"
       ]
     },
     "policy": {
