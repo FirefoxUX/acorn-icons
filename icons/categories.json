@@ -1,0 +1,797 @@
+{
+  "_comment": "Maps icons to the groups the catalog site filters by. Maintained by hand. A bare slug covers every size of that icon; add an explicit -<size> entry only when one size belongs somewhere else. Leaving an icon out is fine.",
+  "categories": {
+    "accessibility": {
+      "icons": [
+        "accessibility"
+      ]
+    },
+    "action": {
+      "icons": [
+        "copy"
+      ]
+    },
+    "activity": {
+      "icons": [
+        "activity"
+      ]
+    },
+    "add": {
+      "icons": [
+        "add",
+        "add-circle-fill"
+      ]
+    },
+    "alerts, notifications, help": {
+      "label": "Alerts & help",
+      "icons": [
+        "critical",
+        "critical-fill",
+        "error",
+        "error-fill",
+        "help",
+        "help-fill",
+        "information",
+        "information-fill",
+        "update-circle",
+        "update-circle-fill",
+        "warning",
+        "warning-fill"
+      ]
+    },
+    "app menu": {
+      "icons": [
+        "app-menu",
+        "app-menu-space"
+      ]
+    },
+    "archive": {
+      "icons": [
+        "archive"
+      ]
+    },
+    "arrows & chevrons": {
+      "label": "Arrows & chevrons",
+      "icons": [
+        "arrow-clockwise",
+        "arrow-counterclockwise",
+        "arrow-down-line",
+        "arrow-trending",
+        "back",
+        "back-small",
+        "chevron-double-right",
+        "chevron-down",
+        "chevron-down-small",
+        "chevron-left",
+        "chevron-right",
+        "chevron-up",
+        "chevron-up-small",
+        "cursor-arrow",
+        "forward",
+        "forward-small",
+        "line-arrow-up",
+        "update"
+      ]
+    },
+    "avatars": {
+      "icons": [
+        "avatar-signed-in-fill",
+        "avatar-signed-in-fill-custom-initial",
+        "avatar-signed-in-fill-profile-picture",
+        "avatar-signed-out"
+      ]
+    },
+    "badges": {
+      "icons": [
+        "bookmark-fill-12",
+        "notification-fill",
+        "pin-fill-12",
+        "warning-fill-12"
+      ]
+    },
+    "block": {
+      "icons": [
+        "block",
+        "block-download"
+      ]
+    },
+    "bookmarks": {
+      "icons": [
+        "bookmark",
+        "bookmark-fill",
+        "bookmarks-tray"
+      ]
+    },
+    "calendar, date": {
+      "label": "Calendar",
+      "icons": [
+        "calendar"
+      ]
+    },
+    "checkmarks": {
+      "icons": [
+        "checkmark",
+        "checkmark-circle-fill",
+        "double-checkmark"
+      ]
+    },
+    "close, cancel, dismiss": {
+      "label": "Close & dismiss",
+      "icons": [
+        "close",
+        "close-circle-fill"
+      ]
+    },
+    "closed caption": {
+      "label": "Closed captions",
+      "icons": [
+        "closed-caption"
+      ]
+    },
+    "color picker": {
+      "icons": [
+        "color-picker"
+      ]
+    },
+    "comment": {
+      "icons": [
+        "comment"
+      ]
+    },
+    "container": {
+      "icons": [
+        "dog",
+        "dollar-sign-circle",
+        "fence",
+        "glasses",
+        "tree"
+      ]
+    },
+    "dashboard": {
+      "icons": [
+        "dashboard"
+      ]
+    },
+    "data clearance": {
+      "label": "Data clearance",
+      "icons": [
+        "data-clearance"
+      ]
+    },
+    "delete": {
+      "icons": [
+        "delete"
+      ]
+    },
+    "devices": {
+      "icons": [
+        "device-mobile",
+        "keyboard"
+      ]
+    },
+    "downloads": {
+      "icons": [
+        "downloaded-file",
+        "downloads"
+      ]
+    },
+    "experiments": {
+      "icons": [
+        "experiments"
+      ]
+    },
+    "extensions": {
+      "icons": [
+        "extension",
+        "extension-critical",
+        "extension-cut",
+        "extension-fill",
+        "extension-warning"
+      ]
+    },
+    "external link": {
+      "label": "External link",
+      "icons": [
+        "external-link"
+      ]
+    },
+    "firefox-bridge": {
+      "label": "Firefox bridge",
+      "icons": [
+        "firefox-bridge",
+        "firefox-browser-bridge"
+      ]
+    },
+    "folder": {
+      "icons": [
+        "folder",
+        "folder-arrow-down",
+        "folder-fill"
+      ]
+    },
+    "food": {
+      "icons": [
+        "apple",
+        "knife-and-fork"
+      ]
+    },
+    "fullscreen": {
+      "icons": [
+        "fullscreen-disabled",
+        "fullscreen-exit",
+        "fullscreen-expand"
+      ]
+    },
+    "gift": {
+      "icons": [
+        "gift"
+      ]
+    },
+    "globe": {
+      "icons": [
+        "globe",
+        "globe-slash",
+        "globe-warning"
+      ]
+    },
+    "hand": {
+      "icons": [
+        "hand"
+      ]
+    },
+    "highlighter": {
+      "icons": [
+        "highlighter"
+      ]
+    },
+    "history": {
+      "icons": [
+        "history"
+      ]
+    },
+    "home": {
+      "icons": [
+        "home",
+        "home-fill"
+      ]
+    },
+    "import & export": {
+      "label": "Import & export",
+      "icons": [
+        "export-data",
+        "import-data",
+        "import-export"
+      ]
+    },
+    "labs": {
+      "icons": [
+        "labs"
+      ]
+    },
+    "languages": {
+      "icons": [
+        "languages"
+      ]
+    },
+    "layer": {
+      "icons": [
+        "layer"
+      ]
+    },
+    "library": {
+      "icons": [
+        "library"
+      ]
+    },
+    "lightbulb": {
+      "icons": [
+        "lightbulb"
+      ]
+    },
+    "lightning bolt": {
+      "label": "Lightning bolt",
+      "icons": [
+        "lightning-bolt"
+      ]
+    },
+    "link": {
+      "icons": [
+        "link"
+      ]
+    },
+    "location": {
+      "icons": [
+        "location-20"
+      ]
+    },
+    "lock": {
+      "icons": [
+        "lock",
+        "lock-document",
+        "lock-slash",
+        "lock-slash-duotone",
+        "lock-warning"
+      ]
+    },
+    "logo": {
+      "icons": [
+        "firefox"
+      ]
+    },
+    "mail": {
+      "icons": [
+        "email",
+        "email-mask",
+        "email-shield"
+      ]
+    },
+    "media": {
+      "icons": [
+        "audio",
+        "audio-muted",
+        "microphone",
+        "pause-fill",
+        "play-circle-fill",
+        "play-fill",
+        "playback-forward",
+        "playback-rewind",
+        "print",
+        "skip-backward",
+        "skip-forward",
+        "stop-fill"
+      ]
+    },
+    "move": {
+      "icons": [
+        "move"
+      ]
+    },
+    "news": {
+      "icons": [
+        "newsfeed"
+      ]
+    },
+    "off": {
+      "icons": [
+        "off"
+      ]
+    },
+    "organizational unit": {
+      "label": "Organizational unit",
+      "icons": [
+        "organizational-unit"
+      ]
+    },
+    "page actions": {
+      "label": "Page actions",
+      "icons": [
+        "page-actions"
+      ]
+    },
+    "page layout": {
+      "label": "Page layout",
+      "icons": [
+        "content-width",
+        "justify-center",
+        "justify-left",
+        "justify-right",
+        "letter-spacing",
+        "line-spacing",
+        "word-spacing"
+      ]
+    },
+    "paperclip": {
+      "icons": [
+        "paperclip"
+      ]
+    },
+    "passkey": {
+      "icons": [
+        "passkey"
+      ]
+    },
+    "payment methods": {
+      "label": "Payment methods",
+      "icons": [
+        "payment-methods"
+      ]
+    },
+    "pdf, page": {
+      "label": "PDF & page",
+      "icons": [
+        "current-view",
+        "even-spreads",
+        "horizontal-scrolling",
+        "no-spreads",
+        "odd-spreads",
+        "page-landscape",
+        "page-portrait",
+        "page-scrolling",
+        "page-thumbnails",
+        "pdf",
+        "presentation-mode",
+        "vertical-scrolling",
+        "wrapped-scrolling"
+      ]
+    },
+    "pen, pencil": {
+      "label": "Pen & pencil",
+      "icons": [
+        "edit-active",
+        "edit-squiggle",
+        "signature",
+        "signature-properties"
+      ]
+    },
+    "permissions": {
+      "icons": [
+        "autoplay",
+        "autoplay-slash",
+        "blocked-popup",
+        "camera",
+        "camera-slash",
+        "canvas",
+        "canvas-slash",
+        "local-host",
+        "local-host-slash",
+        "local-network",
+        "local-network-slash",
+        "location",
+        "location-slash",
+        "login",
+        "microphone-slash",
+        "midi",
+        "notifications",
+        "notifications-slash",
+        "permission",
+        "plugin",
+        "plugin-slash",
+        "popup-subitem",
+        "screenshare",
+        "screenshare-slash",
+        "show-password",
+        "show-password-slash",
+        "storage",
+        "storage-slash",
+        "xr",
+        "xr-slash"
+      ]
+    },
+    "picture in picture (pip)": {
+      "label": "Picture in picture",
+      "icons": [
+        "picture-in-picture-closed",
+        "picture-in-picture-open"
+      ]
+    },
+    "pin": {
+      "icons": [
+        "pin",
+        "pin-fill"
+      ]
+    },
+    "playback speed": {
+      "label": "Playback speed",
+      "icons": [
+        "playback-speed"
+      ]
+    },
+    "plugin": {
+      "icons": [
+        "plugin-20"
+      ]
+    },
+    "pocket": {
+      "icons": [
+        "pocket",
+        "pocket-fill"
+      ]
+    },
+    "policy": {
+      "icons": [
+        "applied-policy",
+        "policy"
+      ]
+    },
+    "private mode": {
+      "label": "Private mode",
+      "icons": [
+        "private-mode-circle-fill",
+        "private-mode-fill"
+      ]
+    },
+    "profile": {
+      "icons": [
+        "airplane",
+        "barbell",
+        "bike",
+        "book",
+        "briefcase",
+        "craft",
+        "diamond",
+        "flower",
+        "gift-box",
+        "hammer",
+        "heart",
+        "heart-rate",
+        "leaf",
+        "makeup",
+        "musical-note",
+        "palette",
+        "paw-print",
+        "plane",
+        "shopping-cart",
+        "soccer-ball",
+        "sparkle-single",
+        "video-game-controller"
+      ]
+    },
+    "qr-code": {
+      "label": "QR code",
+      "icons": [
+        "qr-code"
+      ]
+    },
+    "reader mode": {
+      "label": "Reader mode",
+      "icons": [
+        "reader-mode"
+      ]
+    },
+    "restore": {
+      "icons": [
+        "restore"
+      ]
+    },
+    "routed": {
+      "icons": [
+        "routed",
+        "routed-slash"
+      ]
+    },
+    "screenshot": {
+      "icons": [
+        "screenshot"
+      ]
+    },
+    "search": {
+      "icons": [
+        "find-in-page",
+        "search",
+        "search-in-circle",
+        "search-in-circle-right"
+      ]
+    },
+    "settings": {
+      "icons": [
+        "settings"
+      ]
+    },
+    "share": {
+      "icons": [
+        "share-macos",
+        "share-winos"
+      ]
+    },
+    "shield": {
+      "icons": [
+        "shield",
+        "shield-blocked",
+        "shield-checkmark",
+        "shield-cross",
+        "shield-exclamation-mark",
+        "shield-slash",
+        "shield-slash-duotone"
+      ]
+    },
+    "shopping": {
+      "icons": [
+        "competitiveness",
+        "packaging",
+        "price",
+        "quality",
+        "shipping",
+        "shopping"
+      ]
+    },
+    "sidebar": {
+      "icons": [
+        "sidebar-collapsed",
+        "sidebar-collapsed-right",
+        "sidebar-expanded",
+        "sidebar-expanded-right",
+        "sidebar-hidden",
+        "sidebar-left",
+        "sidebar-right"
+      ]
+    },
+    "smart window": {
+      "label": "Smart window",
+      "icons": [
+        "ask",
+        "chat-history",
+        "custom-model",
+        "memories",
+        "memories-slash",
+        "smart-window",
+        "smart-window-color"
+      ]
+    },
+    "sort, filter": {
+      "label": "Sort & filter",
+      "icons": [
+        "filter",
+        "list",
+        "list-arrow-left",
+        "sort"
+      ]
+    },
+    "sparkles": {
+      "icons": [
+        "sparkles"
+      ]
+    },
+    "split view": {
+      "label": "Split view",
+      "icons": [
+        "split-view",
+        "split-view-left",
+        "split-view-right"
+      ]
+    },
+    "sports": {
+      "icons": [
+        "baseball",
+        "basketball",
+        "cricket",
+        "football",
+        "golf",
+        "hockey",
+        "racing",
+        "soccer-ball-32"
+      ]
+    },
+    "stocks": {
+      "icons": [
+        "stocks"
+      ]
+    },
+    "subtract": {
+      "icons": [
+        "subtract",
+        "subtract-circle-fill"
+      ]
+    },
+    "swap": {
+      "icons": [
+        "swap-horizontal"
+      ]
+    },
+    "sync": {
+      "icons": [
+        "sync",
+        "synced-tabs"
+      ]
+    },
+    "tabs": {
+      "icons": [
+        "all-tabs",
+        "closed-tabs",
+        "open-tabs",
+        "send-tab-to-device-left",
+        "send-tab-to-device-right",
+        "site-restrictions",
+        "tab",
+        "tab-group",
+        "tab-group-label",
+        "tab-group-label-fill",
+        "tab-notes",
+        "taskbar-add-tab",
+        "taskbar-move-tab",
+        "taskbar-remove-tab",
+        "vertical-tabs"
+      ]
+    },
+    "tabs: audio & media": {
+      "label": "Tab audio & media",
+      "icons": [
+        "audio-12",
+        "audio-muted-12",
+        "audio-muted-smaller",
+        "audio-smaller",
+        "media-fill-no-circle",
+        "play-circle-fill-12",
+        "play-circle-fill-slash"
+      ]
+    },
+    "text": {
+      "icons": [
+        "add-text",
+        "text-cursor"
+      ]
+    },
+    "themes": {
+      "icons": [
+        "moon",
+        "sun",
+        "themes"
+      ]
+    },
+    "thumbs": {
+      "icons": [
+        "thumbs-down",
+        "thumbs-up"
+      ]
+    },
+    "top sites": {
+      "label": "Top sites",
+      "icons": [
+        "top-sites"
+      ]
+    },
+    "trackers": {
+      "icons": [
+        "cryptominer",
+        "cryptominer-slash",
+        "fingerprinter",
+        "fingerprinter-slash",
+        "footprints",
+        "footprints-slash",
+        "social-tracker",
+        "social-tracker-slash",
+        "tracking-cookies",
+        "tracking-cookies-fill",
+        "tracking-cookies-slash",
+        "tracking-cookies-slash-fill"
+      ]
+    },
+    "translate": {
+      "icons": [
+        "translate",
+        "translations-companion"
+      ]
+    },
+    "user": {
+      "icons": [
+        "add-user",
+        "authenticated-user",
+        "identity",
+        "remove-user",
+        "single-user",
+        "unauthenticated-user",
+        "users"
+      ]
+    },
+    "view": {
+      "icons": [
+        "fx-view"
+      ]
+    },
+    "vpn": {
+      "label": "VPN",
+      "icons": [
+        "vpn-disconnected",
+        "vpn-error",
+        "vpn-off",
+        "vpn-on",
+        "vpn-on-off-site"
+      ]
+    },
+    "weather": {
+      "icons": [
+        "weather"
+      ]
+    },
+    "webserial": {
+      "icons": [
+        "webserial"
+      ]
+    },
+    "window": {
+      "icons": [
+        "window",
+        "window-firefox"
+      ]
+    }
+  }
+}

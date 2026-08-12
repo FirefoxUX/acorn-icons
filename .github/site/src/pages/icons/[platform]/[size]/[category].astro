@@ -1,0 +1,45 @@
+---
+import type { GetStaticPaths } from 'astro'
+
+import { getCatalog } from '@src/catalog/build.ts'
+import AssetGrid from '@src/components/AssetGrid.astro'
+import CategoryChips from '@src/components/CategoryChips.astro'
+import Layout from '@src/components/Layout.astro'
+
+/**
+ * One page per size and category pairing that cleared the chip threshold, so a
+ * filtered view is a real URL and works with the search island, with a shared
+ * link, and with no JS at all.
+ */
+export const getStaticPaths = (() =>
+  getCatalog().categoryViews.map((view) => ({
+    params: {
+      platform: view.platform,
+      size: String(view.size),
+      category: view.slug,
+    },
+    props: { view },
+  }))) satisfies GetStaticPaths
+
+const { view } = Astro.props
+
+const assets = getCatalog().icons.filter(
+  (icon) =>
+    icon.platform === view.platform &&
+    icon.size === view.size &&
+    icon.group === view.category,
+)
+const platformName = view.platform === 'desktop' ? 'Desktop' : 'Mobile'
+const heading = `${view.label} · ${platformName} ${view.size}px`
+---
+
+<Layout title={heading} showPanel>
+  <AssetGrid {heading} {assets} noun="icons">
+    <CategoryChips
+      slot="filters"
+      platform={view.platform}
+      size={view.size}
+      active={view.slug}
+    />
+  </AssetGrid>
+</Layout>

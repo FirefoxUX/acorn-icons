@@ -1,0 +1,284 @@
+@use './utils.sass' as tint
+
+// The detail fragment is delivered two ways: rendered into a page, and fetched
+// as a partial and injected into the panel. Astro only links a component's
+// scoped CSS from pages that render it, so scoped styles would leave the
+// injected copy unstyled on a grid page. These live in the global sheet instead.
+
+.detail
+  header
+    display: flex
+    align-items: flex-start
+    justify-content: space-between
+    gap: var(--tint-size-8)
+
+  .meta
+    color: var(--tint-text-secondary)
+    text-transform: capitalize
+
+  // The group and the source path share the row under the heading. Deliberately
+  // not wrapping: given the chance to wrap, the path would take a second line
+  // instead of ever being narrow enough to truncate.
+  .tags
+    display: flex
+    align-items: center
+    gap: var(--tint-size-8)
+    margin-block-start: var(--tint-size-8)
+
+  .group
+    display: inline-block
+    // Keeps its label intact, so the path beside it absorbs the shrinking.
+    flex: none
+    padding-block: var(--tint-size-2)
+    padding-inline: var(--tint-size-8)
+    border: 1px solid var(--tint-card-border)
+    border-radius: var(--tint-radius-button-pill)
+    color: var(--tint-text-link)
+    text-decoration: none
+    @include tint.effect-focus
+    &:hover
+      background: var(--tint-action-secondary-hover)
+
+  .group.is-plain
+    color: var(--tint-text-secondary)
+
+  .close
+    flex: none
+
+  .stage
+    display: flex
+    align-items: center
+    justify-content: center
+    min-block-size: 200px
+    margin-block-start: var(--tint-size-12)
+    padding: var(--tint-size-24)
+    border-radius: var(--tint-radius-card)
+    border: 1px solid var(--tint-card-border)
+    // The default backdrop is the page itself. The variants below reassign
+    // these two rather than restating the background and color.
+    --stage-bg: var(--tint-bg)
+    --stage-fg: var(--tint-text)
+    background: var(--stage-bg)
+    color: var(--stage-fg)
+
+    &[data-backdrop='light']
+      --stage-bg: #ffffff
+      --stage-fg: #15141a
+
+    &[data-backdrop='dark']
+      --stage-bg: #1c1b22
+      --stage-fg: #fbfbfe
+
+    &[data-backdrop='grey']
+      --stage-bg: #8f8f9d
+      --stage-fg: #ffffff
+
+    // The checkerboard shows where an asset's own artwork is transparent.
+    &[data-backdrop='checker']
+      --stage-fg: #15141a
+      background-color: #ffffff
+      background-image: linear-gradient(45deg, #d7d7db 25%, transparent 25%), linear-gradient(-45deg, #d7d7db 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #d7d7db 75%), linear-gradient(-45deg, transparent 75%, #d7d7db 75%)
+      background-size: 16px 16px
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0
+
+  .stage.icon svg
+    inline-size: calc(var(--asset-width) * 3px)
+    block-size: calc(var(--asset-height) * 3px)
+    max-inline-size: 100%
+    flex: none
+
+  .stage.illustration img
+    max-inline-size: 100%
+    max-block-size: 320px
+    aspect-ratio: var(--asset-width) / var(--asset-height)
+    object-fit: contain
+
+  .source
+    flex: 1
+    min-inline-size: 0
+    color: var(--tint-text-secondary)
+    text-decoration: none
+    @include tint.effect-focus
+    &:hover
+      color: var(--tint-text)
+      text-decoration: underline
+
+  .source code
+    display: flex
+    min-inline-size: 0
+    font-family: var(--tint-font-mono)
+    font-weight: var(--tint-font-weight-mono-regular)
+
+  // A path is clipped from its start, so the filename at the end survives. `rtl`
+  // moves the overflow, and with it the ellipsis, to the inline start. The path
+  // still reads left to right because every character in it is strong LTR, and
+  // the ellipsis only shows when the text really does overflow, unlike the
+  // pseudo-element hacks for this.
+  .trunc
+    flex: 1
+    display: flex
+    min-inline-size: 0
+
+  .trunc-prefix
+    min-inline-size: 0
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    direction: rtl
+
+  // Never shrunk, so the prefix gives up its room first.
+  .trunc-name
+    flex: none
+    white-space: nowrap
+
+  .source-card
+    margin-block-start: var(--tint-size-16)
+
+  // Tint's prose styles put `pre` and `code` in the sans face, so the mono one
+  // it ships has to be asked for by name.
+  .source-card .astro-code
+    max-block-size: 280px
+    overflow: auto
+    margin: 0
+    padding: var(--tint-size-12)
+    border-radius: var(--tint-radius-input)
+    font-family: var(--tint-font-mono)
+    font-weight: var(--tint-font-weight-mono-regular)
+    font-size: 0.75rem
+    line-height: 1.5
+
+  .source-card .copy
+    margin-block-start: var(--tint-size-12)
+
+  .downloads,
+  .siblings,
+  .usage
+    margin-block-start: var(--tint-size-16)
+
+    // The heading level depends on whether the detail is a page or the panel.
+    h2,
+    h3
+      color: var(--tint-text-secondary)
+      text-transform: uppercase
+      letter-spacing: 0.06em
+      margin-block-end: var(--tint-size-8)
+
+    ul
+      list-style: none
+      margin: 0
+      padding: 0
+
+  // An outlined card holding one row per file, borrowing tint's
+  // CollapsibleCard treatment so the two sit together: same border, radius,
+  // row padding, hover wash and inset focus ring. `clip` keeps the first and
+  // last row's hover inside the rounded corners.
+  .row-list
+    border: 1px solid var(--tint-card-border)
+    border-radius: var(--tint-radius-card)
+    background: var(--tint-bg)
+    overflow: clip
+
+  .row-list li + li
+    border-block-start: 1px solid var(--tint-card-border)
+
+  .row-list a
+    display: flex
+    align-items: center
+    gap: var(--tint-size-12)
+    padding-block: var(--tint-size-12)
+    padding-inline: var(--tint-size-16)
+    color: var(--tint-text)
+    text-decoration: none
+
+    &:hover
+      background: color-mix(in srgb, transparent, var(--tint-text) 6%)
+
+    // Inset, because the row runs to the card edge and an outset ring would be
+    // clipped by `overflow: clip` above.
+    &:focus-visible
+      outline: 2px solid var(--tint-action-primary)
+      outline-offset: -2px
+      @media (forced-colors: active)
+        outline-color: CanvasText
+
+  // Sized to the icon asset, not the spacing scale, which has no 20 step.
+  .row-list .row-icon
+    flex: none
+    inline-size: 20px
+    block-size: 20px
+    line-height: 0
+    color: var(--tint-text-secondary)
+
+    svg
+      inline-size: 100%
+      block-size: 100%
+
+  // `center` rather than `baseline`: a flex item with `overflow: hidden`
+  // synthesizes its baseline from the border box, which throws the two apart.
+  .row-list .row-text
+    flex: 1
+    display: flex
+    align-items: center
+    gap: var(--tint-size-8)
+    min-inline-size: 0
+
+  .row-list .row-label
+    flex: none
+
+  .row-list .row-meta
+    flex: 1
+    min-inline-size: 0
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    color: var(--tint-text-secondary)
+
+  @media (forced-colors: active)
+    .row-list,
+    .row-list li + li
+      border-color: GrayText
+    .row-list .row-icon
+      color: CanvasText
+
+  .siblings ul
+    display: flex
+    flex-wrap: wrap
+    gap: var(--tint-size-8)
+
+  .siblings li a
+    display: inline-block
+    padding-block: var(--tint-size-4)
+    padding-inline: var(--tint-size-8)
+    border: 1px solid var(--tint-card-border)
+    border-radius: var(--tint-radius-button-pill)
+    text-decoration: none
+    @include tint.effect-focus
+    &:hover
+      background: var(--tint-action-secondary-hover)
+
+  .usage .note
+    margin-block-start: var(--tint-size-4)
+    margin-inline: var(--tint-size-12)
+    color: var(--tint-text-secondary)
+
+
+// Shiki is asked for two themes with no default, so neither is applied inline
+// and both have to be selected here. Without this the code renders unstyled.
+// Kept at the end of the file: these are top level rules, and putting them
+// between the nested ones above would silently reparent everything after them.
+.astro-code,
+.astro-code span
+  color: var(--shiki-light)
+  background-color: var(--shiki-light-bg)
+  font-style: var(--shiki-light-font-style)
+  font-weight: var(--shiki-light-font-weight)
+  text-decoration: var(--shiki-light-text-decoration)
+
+@media (prefers-color-scheme: dark)
+  .astro-code,
+  .astro-code span
+    color: var(--shiki-dark)
+    background-color: var(--shiki-dark-bg)
+    font-style: var(--shiki-dark-font-style)
+    font-weight: var(--shiki-dark-font-weight)
+    text-decoration: var(--shiki-dark-text-decoration)

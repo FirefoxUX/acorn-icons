@@ -1,0 +1,61 @@
+---
+import type { GetStaticPaths } from 'astro'
+
+import iconArrowLeft from 'tint/icons/20-arrow-left.svg?raw'
+
+import { getCatalog } from '@src/catalog/build.ts'
+import AssetDetail from '@src/components/AssetDetail.astro'
+import Layout from '@src/components/Layout.astro'
+import { url } from '@src/lib/paths.ts'
+
+export const getStaticPaths = (() =>
+  getCatalog().assets.map((asset) => ({
+    params: { id: asset.id },
+    props: { asset },
+  }))) satisfies GetStaticPaths
+
+const { asset } = Astro.props
+
+const backHref =
+  asset.kind === 'icon'
+    ? url(`icons/${asset.platform}/${asset.size}/`)
+    : url(`illustrations/${asset.category}/`)
+const backLabel = asset.kind === 'icon' ? 'All icons' : 'All illustrations'
+---
+
+<Layout title={asset.displayName} mono>
+  {
+    /*
+     * A plain anchor rather than a tint Button, because tint's buttons hold
+     * either an icon or a label, not both.
+     */
+  }
+  <a class="back tint--type-ui-small" href={backHref}>
+    <Fragment set:html={iconArrowLeft} />
+    Back to {backLabel}
+  </a>
+  <div class="page-detail">
+    <AssetDetail {asset} variant="page" />
+  </div>
+</Layout>
+
+<style lang="sass">
+  .back
+    display: inline-flex
+    align-items: center
+    gap: var(--tint-size-8)
+    margin-block-end: var(--tint-size-16)
+    color: var(--tint-text-link)
+    text-decoration: none
+    @include tint.effect-focus
+    &:hover
+      text-decoration: underline
+
+  .back :global(svg)
+    inline-size: var(--tint-size-16)
+    block-size: var(--tint-size-16)
+    flex: none
+
+  .page-detail
+    max-inline-size: 640px
+</style>

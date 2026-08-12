@@ -1,0 +1,76 @@
+---
+import { getCatalog } from '@src/catalog/build.ts'
+import { url } from '@src/lib/paths.ts'
+
+interface Props {
+  platform: 'desktop' | 'mobile'
+  size: number
+  /** Slug of the category currently applied, if any. */
+  active?: string
+}
+
+const { platform, size, active } = Astro.props
+
+const views = getCatalog().categoryViews.filter(
+  (view) => view.platform === platform && view.size === size,
+)
+const base = url(`icons/${platform}/${size}/`)
+---
+
+{
+  views.length > 0 && (
+    <nav class="chips" aria-label="Filter by category">
+      <a
+        href={base}
+        class="chip"
+        aria-current={active === undefined ? 'true' : undefined}
+      >
+        All
+      </a>
+      {views.map((view) => (
+        <a
+          href={`${base}${view.slug}/`}
+          class="chip"
+          aria-current={active === view.slug ? 'true' : undefined}
+        >
+          {view.label}
+          <span class="count">{view.count}</span>
+        </a>
+      ))}
+    </nav>
+  )
+}
+
+<style lang="sass">
+  .chips
+    display: flex
+    flex-wrap: wrap
+    gap: var(--tint-size-8)
+    margin-block-end: var(--tint-size-16)
+
+  .chip
+    display: inline-flex
+    align-items: baseline
+    gap: var(--tint-size-4)
+    padding-block: var(--tint-size-4)
+    padding-inline: var(--tint-size-12)
+    border: 1px solid var(--tint-card-border)
+    border-radius: var(--tint-radius-button-pill)
+    color: var(--tint-text)
+    text-decoration: none
+    font-size: 0.812rem
+    @include tint.effect-focus
+    &:hover
+      background: var(--tint-action-secondary-hover)
+    &[aria-current='true']
+      background: var(--tint-action-primary)
+      border-color: var(--tint-action-primary)
+      color: var(--tint-action-primary-text)
+      .count
+        color: inherit
+        opacity: 0.75
+
+  .count
+    color: var(--tint-text-secondary)
+    font-variant-numeric: tabular-nums
+</style>

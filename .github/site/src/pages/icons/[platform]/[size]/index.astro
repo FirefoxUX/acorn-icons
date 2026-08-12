@@ -1,0 +1,31 @@
+---
+import type { GetStaticPaths } from 'astro'
+
+import { getCatalog } from '@src/catalog/build.ts'
+import AssetGrid from '@src/components/AssetGrid.astro'
+import CategoryChips from '@src/components/CategoryChips.astro'
+import Layout from '@src/components/Layout.astro'
+
+export const getStaticPaths = (() => {
+  const { iconSizes } = getCatalog()
+  return (['desktop', 'mobile'] as const).flatMap((platform) =>
+    iconSizes[platform].map((size) => ({
+      params: { platform, size: String(size) },
+    })),
+  )
+}) satisfies GetStaticPaths
+
+const platform = Astro.params.platform as 'desktop' | 'mobile'
+const size = Number(Astro.params.size)
+
+const assets = getCatalog().icons.filter(
+  (icon) => icon.platform === platform && icon.size === size,
+)
+const heading = `${platform === 'desktop' ? 'Desktop' : 'Mobile'} icons · ${size}px`
+---
+
+<Layout title={heading} showPanel>
+  <AssetGrid {heading} {assets} noun="icons">
+    <CategoryChips slot="filters" {platform} {size} />
+  </AssetGrid>
+</Layout>

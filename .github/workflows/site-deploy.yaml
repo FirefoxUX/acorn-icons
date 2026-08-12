@@ -1,0 +1,46 @@
+name: Deploy site to GitHub Pages
+
+on:
+  # The assets themselves reach the site through a release rather than through
+  # every push, so a batch of icon changes publishes once, when it ships.
+  release:
+    types: [published]
+  push:
+    branches: [main]
+    paths:
+      - '.github/site/**'
+      # Categories are site configuration rather than an asset, so a
+      # recategorization should show up without waiting for a release.
+      - 'icons/categories.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# A run already in flight is left alone so a half-uploaded artifact is never
+# published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: withastro/action@v6
+        with:
+          path: .github/site
+          node-version: 26
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

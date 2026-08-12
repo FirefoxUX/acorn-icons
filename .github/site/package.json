@@ -1,0 +1,41 @@
+{
+  "name": "acorn-icons-site",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "eslint src/",
+    "prettier": "prettier --write --check 'src/**/*.*'",
+    "test": "node --test 'src/**/*.test.ts'"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^9.0.1",
+    "astro": "^7.2.1",
+    "focus-trap": "^8.2.2",
+    "match-sorter": "^8.3.0",
+    "svelte": "^5.56.2",
+    "tint": "github:JulianaGaibler/tint#main"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.2.0",
+    "eslint": "^10.8.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^3.1.0",
+    "eslint-plugin-svelte": "^3.22.0",
+    "globals": "^17.10.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-jsdoc": "^1.8.1",
+    "prettier-plugin-svelte": "^4.1.1",
+    "sass": "^1.102.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.67.0",
+    "vite-plugin-static-copy": "^4.1.1"
+  }
+}

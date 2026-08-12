@@ -1,0 +1,16 @@
+---
+import { getCatalog } from '@src/catalog/build.ts'
+import AssetGrid from '@src/components/AssetGrid.astro'
+import Layout from '@src/components/Layout.astro'
+
+const catalog = getCatalog()
+---
+
+<Layout title="Illustrations" showPanel>
+  <AssetGrid
+    heading="All illustrations"
+    assets={catalog.illustrations}
+    noun="illustrations"
+    wide
+  />
+</Layout>

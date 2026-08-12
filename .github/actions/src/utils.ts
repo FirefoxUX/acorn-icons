@@ -78,7 +78,9 @@ export async function tryCatch(fn: () => void, errorSummary: string) {
     console.log(`::error title=Action failed::${errorSummary}`)
     console.error(error)
     summary.addAlert('caution', errorSummary)
-    summary.write()
+    // Awaited, because `summary.write` appends asynchronously and `exit` would
+    // otherwise cut it off before it reached the job summary.
+    await summary.write()
     process.exit(1)
   }
 }
@@ -120,6 +122,25 @@ export const svgoBasePlugins: Exclude<Config['plugins'], undefined> = [
   'removeNonInheritableGroupAttrs',
   'sortAttrs',
   'preset-default',
+]
+
+/**
+ * SVGO plugins for illustrations.
+ *
+ * Deliberately omits `preset-default`. Every illustration paints through
+ * `fill="url(#id)"` into a gradient definition, so `cleanupIds` and
+ * `removeViewBox` would break them. Nothing here rewrites path data or
+ * touches `id`, `fill` or `stroke`. The pass strips export noise and gives
+ * the files a stable byte layout; it is not a size optimization.
+ */
+export const svgoConservativePlugins: Exclude<Config['plugins'], undefined> = [
+  'removeDesc',
+  'removeComments',
+  // The default precision of 3 rounds the `<stop offset>` values in the
+  // pic-shield gradients, and `mix-blend-mode` would amplify the resulting
+  // sub-pixel shift. 4 leaves every value in the tree untouched.
+  { name: 'cleanupNumericValues', params: { floatPrecision: 4 } },
+  'sortAttrs',
 ]
 
 /**
@@ -229,6 +250,15 @@ export const removeNoOpClipPaths: PluginConfig = {
 }
 
 /**
+ * Job summaries are assembled as raw HTML, where Markdown backticks would
+ * show up literally. The same message strings go into pull request comments,
+ * which are Markdown, so they keep their backticks and get converted here.
+ */
+export function inlineCode(text: string): string {
+  return text.replace(/`([^`]+)`/g, '<code>$1</code>')
+}
+
+/**
  * Payload consumed by the post-feedback composite action.
  *
  * - `title`: sticky comment header.
@@ -246,13 +276,20 @@ export type FeedbackPayload = {
  * Drop a feedback payload where the post-feedback action expects it.
  * Silently does nothing when RUNNER_TEMP is unset so callers can invoke
  * unconditionally from local runs.
+ *
+ * `filename` must match the `feedback_path` the calling workflow passes to
+ * post-feedback. Two producers sharing one filename would clobber each
+ * other, so a concern that runs in its own job uses its own name.
  */
-export function writeFeedback(payload: FeedbackPayload): void {
+export function writeFeedback(
+  payload: FeedbackPayload,
+  filename = 'icon-feedback.json',
+): void {
   const runnerTemp = process.env.RUNNER_TEMP
   if (!runnerTemp) {
     return
   }
-  const target = path.join(runnerTemp, 'icon-feedback.json')
+  const target = path.join(runnerTemp, filename)
   fs.writeFileSync(target, JSON.stringify(payload), 'utf8')
 }
 

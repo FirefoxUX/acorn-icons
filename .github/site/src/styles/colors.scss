@@ -1,0 +1,102 @@
+// Values come from the Nova theme in Firefox's design system
+// (toolkit/themes/shared/design-system/dist/tokens-shared.css). Nova is the
+// violet-accented theme, so `plain` takes its gray canvas and `tint` swaps in
+// the violet surfaces behind the sidebar and the search band.
+$colors: (
+  plain: (
+    bg: #f7f6fb,
+    bg-secondary: #efedf2,
+    text: #180e30,
+    // --text-color-deemphasized and --text-color-disabled are defined against
+    // currentColor, which resolves to the inherited text color here just as it
+    // does in Firefox, so one value covers both themes.
+    text-secondary: 'color-mix(in srgb, currentColor 69%, transparent)',
+    text-disabled: 'color-mix(in srgb, currentColor 40%, transparent)',
+    text-accent: #764edd,
+    text-link: #764edd,
+    action-primary: #764edd,
+    action-primary-text: #ffffff,
+    action-primary-hover: #5939a8,
+    action-primary-active: #3e2976,
+    action-secondary: #161423,
+    action-secondary-text: #161423,
+    // Nova's --toolbarbutton-background-color-hover rather than its opaque
+    // button fill, because these land on list rows that keep the page behind
+    // them visible.
+    action-secondary-hover: rgba(117, 102, 159, 0.25),
+    action-secondary-active: rgba(117, 102, 159, 0.4),
+    input-bg: #e3e2e7,
+  ),
+  tint: (
+    bg: #f5ecff,
+    bg-secondary: #eaddff,
+    text: #180e30,
+    text-secondary: 'color-mix(in srgb, currentColor 69%, transparent)',
+    text-disabled: 'color-mix(in srgb, currentColor 40%, transparent)',
+    text-accent: #764edd,
+    text-link: #764edd,
+    action-primary: #764edd,
+    action-primary-text: #ffffff,
+    action-primary-hover: #5939a8,
+    action-primary-active: #3e2976,
+    action-secondary: #161423,
+    action-secondary-text: #161423,
+    action-secondary-hover: rgba(117, 102, 159, 0.25),
+    action-secondary-active: rgba(117, 102, 159, 0.4),
+    input-bg: #ffffff,
+  ),
+  general: (
+    // --card-border-color is a 6% overlay, which disappears on the hr and code
+    // borders the prose styles draw, so use --border-color-deemphasized.
+    card-border: #d6d5da,
+    card-shadow:
+      '0 0.25px 0.75px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.04)',
+  ),
+);
+
+$colors-dark: (
+  plain: (
+    bg: #131215,
+    bg-secondary: #252428,
+    text: #f2f0f8,
+    text-secondary: 'color-mix(in srgb, currentColor 69%, transparent)',
+    text-disabled: 'color-mix(in srgb, currentColor 40%, transparent)',
+    text-accent: #b89cff,
+    text-link: #b89cff,
+    action-primary: #b89cff,
+    action-primary-text: #252428,
+    action-primary-hover: #d4c1ff,
+    action-primary-active: #eaddff,
+    action-secondary: #fcfbff,
+    action-secondary-text: #fcfbff,
+    action-secondary-hover: rgba(182, 170, 217, 0.25),
+    action-secondary-active: rgba(182, 170, 217, 0.4),
+    input-bg: #312f33,
+  ),
+  tint: (
+    // Nova's dark promo violet is violet-90, which is close enough to the plain
+    // canvas that the tinted chrome stops reading as tinted, so step up to
+    // violet-80 and violet-70.
+    bg: #271c48,
+    bg-secondary: #3e2976,
+    text: #f2f0f8,
+    text-secondary: 'color-mix(in srgb, currentColor 69%, transparent)',
+    text-disabled: 'color-mix(in srgb, currentColor 40%, transparent)',
+    text-accent: #d4c1ff,
+    text-link: #d4c1ff,
+    action-primary: #b89cff,
+    action-primary-text: #252428,
+    action-primary-hover: #d4c1ff,
+    action-primary-active: #eaddff,
+    action-secondary: #fcfbff,
+    action-secondary-text: #fcfbff,
+    action-secondary-hover: rgba(182, 170, 217, 0.25),
+    action-secondary-active: rgba(182, 170, 217, 0.4),
+    input-bg: #161423,
+  ),
+  general: (
+    card-border: #67666a,
+    card-shadow:
+      '0 0.25px 0.75px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.12)',
+  ),
+);

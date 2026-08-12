@@ -1,0 +1,20 @@
+---
+import type { GetStaticPaths } from 'astro'
+
+import { getCatalog } from '@src/catalog/build.ts'
+import AssetDetail from '@src/components/AssetDetail.astro'
+
+// A partial emits the fragment with no document wrapper, so the panel can inject
+// the response directly instead of scraping a full page.
+export const partial = true
+
+export const getStaticPaths = (() =>
+  getCatalog().assets.map((asset) => ({
+    params: { id: asset.id },
+    props: { asset },
+  }))) satisfies GetStaticPaths
+
+const { asset } = Astro.props
+---
+
+<AssetDetail {asset} variant="panel" />

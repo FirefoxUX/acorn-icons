@@ -4,8 +4,18 @@ on:
   pull_request:
     branches:
       - "main"
+    # Kept identical to the filter in check-filename-case.yaml. A workflow
+    # that a path filter skips never reports, so a required check that only
+    # one of the two runs would leave the PR waiting for a status forever.
     paths:
       - "icons/**"
+      - "illustrations/**"
+      # The whole actions directory, not just src: a change to a composite
+      # action or to package.json has to run the workflow that consumes it,
+      # or a required check never reports and the pull request waits forever.
+      - ".github/actions/**"
+      - ".github/workflows/icon-actions.yaml"
+      - ".github/workflows/check-filename-case.yaml"
 
 jobs:
   checks:
@@ -45,9 +55,27 @@ jobs:
         with:
           files: "icons/mobile/**/*.xml"
           file_type: "xml"
+      # Both illustration SVG trees in one glob. desktop/ and mobile/svg/ hold
+      # byte-identical copies for kit and pictograms, and the transform is a
+      # pure function of content, so they stay identical.
+      - name: Update illustration svgs
+        uses: ./.github/actions/src/illustration-transform
+        with:
+          files: "illustrations/**/*.svg"
+          file_type: "svg"
+      - name: Update illustration xmls
+        uses: ./.github/actions/src/illustration-transform
+        with:
+          files: "illustrations/mobile/xml/**/*.xml"
+          file_type: "xml"
+      - name: Tidy icon categories
+        uses: ./.github/actions/src/categories-format
+      # No fork guard here: the action detects a fork itself and reports the
+      # unformatted files instead of pushing, which it cannot do anyway.
       - name: Commit changes
-        if: github.event.pull_request.head.repo.full_name == github.repository
         uses: ./.github/actions/src/commit-changes
+        with:
+          message: "Updated assets to match format conventions"
 
       - name: Post PR feedback
         if: always()
@@ -56,4 +84,78 @@ jobs:
           marker: "<!-- acorn-icons-bot:icon-actions -->"
           status_context: "Icons / validation"
           feedback_path: ${{ runner.temp }}/icon-feedback.json
+          outcome: ${{ job.status }}
+
+  # Its own job so that `job.status` reflects the naming check alone. Sharing
+  # a job with the transforms would make either failure report as both.
+  conventions:
+    runs-on: "ubuntu-latest"
+    name: "Illustration naming"
+    permissions:
+      contents: "read"
+      pull-requests: "write"
+      statuses: "write"
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Install dependencies
+        working-directory: ./.github/actions
+        run: npm ci
+      - name: Type check actions
+        working-directory: ./.github/actions
+        run: npm run typecheck
+      - name: Check illustration naming and parity
+        uses: ./.github/actions/src/illustration-lint
+
+      - name: Post PR feedback
+        if: always()
+        uses: ./.github/actions/post-feedback
+        with:
+          marker: "<!-- acorn-icons-bot:illustration-naming -->"
+          status_context: "Illustrations / naming"
+          feedback_path: ${{ runner.temp }}/illustration-feedback.json
+          outcome: ${{ job.status }}
+
+  categories:
+    runs-on: "ubuntu-latest"
+    name: "Icon categories"
+    permissions:
+      contents: "read"
+      pull-requests: "write"
+      statuses: "write"
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          # The reminder diffs against the base commit to find added icons.
+          fetch-depth: 0
+      - name: Install dependencies
+        working-directory: ./.github/actions
+        run: npm ci
+      - name: Type check actions
+        working-directory: ./.github/actions
+        run: npm run typecheck
+      - name: Check icon categories
+        uses: ./.github/actions/src/categories-check
+        with:
+          base_sha: ${{ github.event.pull_request.base.sha }}
+          base_ref: ${{ github.event.pull_request.base.ref }}
+
+      # Two comment writers in one job is fine here: only post-feedback reads
+      # job.status, and it is the only one setting a commit status.
+      - name: Post PR notice
+        if: always()
+        uses: ./.github/actions/post-notice
+        with:
+          marker: "<!-- acorn-icons-bot:categories-reminder -->"
+          notice_path: ${{ runner.temp }}/categories-notice.json
+      - name: Post PR feedback
+        if: always()
+        uses: ./.github/actions/post-feedback
+        with:
+          marker: "<!-- acorn-icons-bot:categories -->"
+          status_context: "Icons / categories"
+          feedback_path: ${{ runner.temp }}/categories-feedback.json
           outcome: ${{ job.status }}

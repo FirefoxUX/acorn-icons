@@ -1,0 +1,54 @@
+---
+import iconDownload from 'tint/icons/20-download.svg?raw'
+import iconLink from 'tint/icons/20-link.svg?raw'
+
+import TruncatedPath from '@src/components/TruncatedPath.astro'
+
+interface Props {
+  href: string
+  /** Leads the row, so it should say what the row is for. */
+  label: string
+  meta?: string
+  /** Shown in place of `meta`, and clipped from its start when it does not fit. */
+  metaPath?: string
+  /** `download` saves the file in place; `external` leaves the site. */
+  kind: 'download' | 'external'
+  /** Name to save the file under. Downloads only. */
+  download?: string
+}
+
+const { href, label, meta, metaPath, kind, download } = Astro.props
+
+const external = kind === 'external'
+---
+
+<li>
+  <a
+    {href}
+    {download}
+    target={external ? '_blank' : undefined}
+    rel={external ? 'noreferrer' : undefined}
+  >
+    <span
+      class="row-icon"
+      aria-hidden="true"
+      set:html={external ? iconLink : iconDownload}
+    />
+    <span class="row-text">
+      <span class="row-label">{label}</span>
+      {metaPath && <TruncatedPath path={metaPath} />}
+      {meta && <span class="row-meta">{meta}</span>}
+    </span>
+    {
+      /*
+       * The icon is decorative, so without this the only warning that the link
+       * leaves the site is the visual one.
+       */
+    }
+    {
+      external && (
+        <span class="tint--visually-hidden">(opens in a new tab)</span>
+      )
+    }
+  </a>
+</li>

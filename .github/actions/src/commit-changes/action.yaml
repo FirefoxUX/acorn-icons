@@ -1,7 +1,17 @@
-name: 'Icon Transform'
-description: 'Modifies icons so they follow the same format'
+name: 'Commit changes'
+description: 'Commits and pushes any files the transforms rewrote'
+
+inputs:
+  message:
+    description: >-
+      Commit message. Defaults to "Updated icons to match format conventions".
+    required: false
+    default: ''
+
 runs:
   using: 'composite'
   steps:
     - shell: bash
+      env:
+        INPUT_MESSAGE: ${{ inputs.message }}
       run: '"${{ github.action_path }}/../../node_modules/.bin/tsx" "${{ github.action_path }}/index.ts"'

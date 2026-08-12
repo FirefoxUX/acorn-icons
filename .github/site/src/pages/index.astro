@@ -1,0 +1,11 @@
+---
+import { getCatalog } from '@src/catalog/build.ts'
+import AssetGrid from '@src/components/AssetGrid.astro'
+import Layout from '@src/components/Layout.astro'
+
+const catalog = getCatalog()
+---
+
+<Layout title="Icons" showPanel>
+  <AssetGrid heading="All icons" assets={catalog.icons} noun="icons" />
+</Layout>
