@@ -16,10 +16,15 @@ Acorn Icons are distributed as semantically versioned releases through a [GitHub
 To keep up to date with icon updates from the design system, we suggest watching this repository's releases via [custom watch notifications settings](https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository).
 
 ## Browsing
-You'll find both desktop and mobile icon collections inside the `icons` directory under `desktop` and `mobile` directories respectively. The larger artwork that accompanies them lives separately, in `illustrations`.
+You'll find both desktop and mobile icon collections inside the `icons` directory under `desktop` and `mobile` directories respectively. 
 
 - `icons/desktop`
-- `icons/mobile` 
+- `icons/mobile`
+
+Larger artwork live in the `illustrations` directory. Within `desktop` and `mobile`, you will find: 
+- `illustrations/kit`: A library of available Kit illustrations for use
+- `illustrations/pictograms`: A library of available Pictogram illustrations for use
+- `illustrations/exports`: Illustrations exported for in-product usage, sized to specific dimensions. These are only for use within their designated spaces.
 
 Inside each platform's directory, icons are divided up by directories labeled by size. Desktop icons are SVG only and sit directly in the size directory, as `icons/desktop/<size>/`. Mobile icons are divided further by file format, as `icons/mobile/<size>/<format>/`.
 
