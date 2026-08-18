@@ -21,7 +21,7 @@ You'll find both desktop and mobile icon collections inside the `icons` director
 - `icons/desktop`
 - `icons/mobile`
 
-Larger artwork live in the `illustrations` directory. Within `desktop` and `mobile`, you will find: 
+Larger artwork lives in the `illustrations` directory. Within `desktop` and `mobile`, you will find: 
 - `illustrations/kit`: A library of available Kit illustrations for use
 - `illustrations/pictograms`: A library of available Pictogram illustrations for use
 - `illustrations/exports`: Illustrations exported for in-product usage, sized to specific dimensions. These are only for use within their designated spaces.
