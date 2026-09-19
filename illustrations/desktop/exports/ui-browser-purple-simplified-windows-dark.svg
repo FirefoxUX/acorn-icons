@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="117" height="81" fill="none" viewBox="0 0 117 81"><g opacity=".5"><path fill="#161423" d="M22.498 28.328h88.38v45.588a3.895 3.895 0 0 1-3.895 3.895h-80.59a3.895 3.895 0 0 1-3.896-3.895z"/><path fill="#5939a8" d="M22.431 24.168a3.895 3.895 0 0 1 3.895-3.895h80.819a3.895 3.895 0 0 1 3.895 3.895v7.782H22.431z"/><circle cx="29.456" cy="26.108" r="2.186" fill="#b89cff"/><circle cx="38.219" cy="26.117" r="2.186" fill="#b89cff"/><rect width="88.019" height="56.953" x="22.726" y="20.568" stroke="#b89cff" stroke-width=".59" rx="3.6"/></g><g filter="url(#a)"><path fill="#161423" d="M11.75 16.822h88.384v45.59a3.895 3.895 0 0 1-3.895 3.895H15.646a3.895 3.895 0 0 1-3.895-3.895z"/><path fill="#5939a8" d="M11.684 12.658a3.895 3.895 0 0 1 3.895-3.894h80.822a3.895 3.895 0 0 1 3.895 3.894v7.782H11.684z"/><circle cx="18.593" cy="15.173" r="2.187" fill="#9871ff"/><circle cx="27.357" cy="15.181" r="2.187" fill="#9871ff"/><rect width="88.022" height="56.955" x="11.979" y="9.059" stroke="#b89cff" stroke-width=".59" rx="3.6"/></g><defs><filter id="a" width="112.14" height="80.913" x="-.16" y="0" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dy="2.921"/><feGaussianBlur stdDeviation="5.842"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1379_11668"/><feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dy=".365"/><feGaussianBlur stdDeviation=".73"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/><feBlend in2="effect1_dropShadow_1379_11668" result="effect2_dropShadow_1379_11668"/><feBlend in="SourceGraphic" in2="effect2_dropShadow_1379_11668" result="shape"/></filter></defs></svg>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="117" height="81" fill="none" viewBox="0 0 117 81">
+    <g opacity=".5">
+        <path fill="#161423" d="M22.498 28.328h88.38v45.588a3.895 3.895 0 0 1-3.895 3.895h-80.59a3.895 3.895 0 0 1-3.896-3.895z" />
+        <path fill="#5939a8" d="M22.431 24.168a3.895 3.895 0 0 1 3.895-3.895h80.819a3.895 3.895 0 0 1 3.895 3.895v7.782H22.431z" />
+        <circle cx="29.456" cy="26.108" r="2.186" fill="#b89cff" />
+        <circle cx="38.219" cy="26.117" r="2.186" fill="#b89cff" />
+        <rect width="88.019" height="56.953" x="22.726" y="20.568" stroke="#b89cff" stroke-width=".59" rx="3.6" />
+    </g>
+    <g filter="url(#a)">
+        <path fill="#161423" d="M11.75 16.822h88.384v45.59a3.895 3.895 0 0 1-3.895 3.895H15.646a3.895 3.895 0 0 1-3.895-3.895z" />
+        <path fill="#5939a8" d="M11.684 12.658a3.895 3.895 0 0 1 3.895-3.894h80.822a3.895 3.895 0 0 1 3.895 3.894v7.782H11.684z" />
+        <circle cx="18.593" cy="15.173" r="2.187" fill="#9871ff" />
+        <circle cx="27.357" cy="15.181" r="2.187" fill="#9871ff" />
+        <rect width="88.022" height="56.955" x="11.979" y="9.059" stroke="#b89cff" stroke-width=".59" rx="3.6" />
+    </g>
+    <defs>
+        <filter id="a" width="112.14" height="80.913" x="-.16" y="0" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+            <feOffset dy="2.921" />
+            <feGaussianBlur stdDeviation="5.842" />
+            <feComposite in2="hardAlpha" operator="out" />
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+            <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1379_11668" />
+            <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+            <feOffset dy=".365" />
+            <feGaussianBlur stdDeviation=".73" />
+            <feComposite in2="hardAlpha" operator="out" />
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0" />
+            <feBlend in2="effect1_dropShadow_1379_11668" result="effect2_dropShadow_1379_11668" />
+            <feBlend in="SourceGraphic" in2="effect2_dropShadow_1379_11668" result="shape" />
+        </filter>
+    </defs>
+</svg>
