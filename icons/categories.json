@@ -532,7 +532,9 @@
     "reader mode": {
       "label": "Reader mode",
       "icons": [
-        "reader-mode"
+        "reader-mode",
+        "reader-view-headphones",
+        "reader-view-headphones-fill"
       ]
     },
     "restore": {
