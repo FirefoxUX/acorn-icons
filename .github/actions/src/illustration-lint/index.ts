@@ -55,16 +55,21 @@ const TREES: Tree[] = [
 const CATEGORIES = ['kit', 'pictograms', 'exports'] as const
 type Category = (typeof CATEGORIES)[number]
 
-const PREFIX_FOR_CATEGORY: Record<Category, string[]> = {
+/**
+ * `exports` has no prefix or casing rule. Exports keep the name the product
+ * loads them by, such as `onboardingToolbarIconTopJapan-selected` in Firefox
+ * iOS, so only `EXPORT_NAME` applies.
+ */
+const PREFIX_FOR_CATEGORY: Record<Category, string[] | null> = {
   kit: ['kit'],
   pictograms: ['pic'],
-  exports: ['kit', 'ill'],
+  exports: null,
 }
 
 /**
- * `exports` is exempt from cross-platform parity. There is no
- * `illustrations/mobile/pdf/exports`, and the desktop and mobile export sets
- * are deliberately disjoint, so only the three mobile trees are compared.
+ * `exports` is exempt from cross-platform parity. The iOS PDF exports and the
+ * desktop exports are each deliberately disjoint from the rest, so only the
+ * three Android and mobile SVG trees are compared.
  */
 const MOBILE_TREES = ['mobile/svg', 'mobile/xml', 'mobile/webp']
 
@@ -75,6 +80,24 @@ const SHAPE: Record<Casing, RegExp> = {
   // is what catches names exported as a single lowercase run.
   camel: /^(kit|pic|ill)[A-Z][A-Za-z0-9]*\.pdf$/,
   snake: /^(kit|pic|ill)(_[a-z0-9]+)+\.(xml|webp)$/,
+}
+
+/** Only what the platform itself rejects, or what breaks tooling. */
+const EXPORT_NAME: Record<Casing, { pattern: RegExp; allowed: string }> = {
+  kebab: {
+    pattern: /^[A-Za-z0-9][A-Za-z0-9_-]*\.svg$/,
+    allowed: 'letters, digits, hyphens and underscores',
+  },
+  camel: {
+    pattern: /^[A-Za-z0-9][A-Za-z0-9_-]*\.pdf$/,
+    allowed: 'letters, digits, hyphens and underscores',
+  },
+  // Android rejects resource names outside this set.
+  snake: {
+    pattern: /^[a-z][a-z0-9_]*\.(xml|webp)$/,
+    allowed:
+      'lowercase letters, digits and underscores, starting with a letter',
+  },
 }
 
 // `camelToKebab`, `snakeToKebab` and `tidy` are copies of the versions in
@@ -128,7 +151,17 @@ function encode(slug: string, casing: Casing, ext: string): string {
   return slug + ext
 }
 
-type Violation = { rule: string; message: string }
+/**
+ * Violations that share a `group` key collapse into its `summary` once there
+ * are `GROUP_THRESHOLD` of them, with each `item` listed underneath.
+ */
+type Violation = {
+  rule: string
+  message: string
+  group?: { key: string; summary: (count: number) => string; item: string }
+}
+
+const GROUP_THRESHOLD = 3
 
 async function run() {
   const blocking: Violation[] = []
@@ -178,29 +211,74 @@ async function run() {
         const base = filename.replace(/\.[^.]+$/, '')
         const prefixes = PREFIX_FOR_CATEGORY[category]
         const suggestion = encode(slug, tree.casing, tree.ext)
-        const expected = prefixes.map((p) => `\`${p}\``).join(' or ')
+        const caseName = CASE_NAME[tree.casing]
+        const firstWord = slug.split('-')[0]
 
-        if (!prefixes.some((p) => base.toLowerCase().startsWith(p))) {
+        if (!prefixes) {
+          const { pattern, allowed } = EXPORT_NAME[tree.casing]
+          if (!pattern.test(filename)) {
+            blocking.push({
+              rule: 'shape',
+              message: `\`${rel}\` can only use ${allowed}.`,
+              group: {
+                key: `export:${dir}`,
+                summary: (count) =>
+                  `${count} files in \`${dir}\` use characters other than ${allowed}.`,
+                item: `\`${filename}\``,
+              },
+            })
+          }
+        } else if (!prefixes.some((p) => base.toLowerCase().startsWith(p))) {
+          const expected = prefixes.map((p) => `\`${p}\``).join(' or ')
+          const renamed = encode(
+            `${prefixes[0]}-${slug}`,
+            tree.casing,
+            tree.ext,
+          )
           blocking.push({
             rule: 'shape',
-            message: `\`${rel}\` starts with \`${slug.split('-')[0]}\`; files in ${category} start with ${expected}`,
+            message: `\`${rel}\` starts with \`${firstWord}\`, but names in ${category} start with ${expected}. Rename it to \`${renamed}\`.`,
+            group: {
+              key: `prefix:${dir}:${firstWord}`,
+              summary: (count) =>
+                `${count} files in \`${dir}\` start with \`${firstWord}\`, but names in ${category} start with ${expected}. Rename each one as listed.`,
+              item: `\`${filename}\` → \`${renamed}\``,
+            },
           })
-        } else if (!prefixes.includes(slug.split('-')[0])) {
+        } else if (!prefixes.includes(firstWord)) {
           // The name begins with a legal prefix but nothing separates it from
           // the next word, so the word breaks cannot be recovered.
           blocking.push({
             rule: 'shape',
-            message: `\`${rel}\` runs its words together, so the name cannot be split into words; write it ${CASE_NAME[tree.casing]} like \`${EXAMPLE[tree.casing]}\``,
+            message: `\`${rel}\` runs its words together, so the words cannot be told apart. Write it in ${caseName} like \`${EXAMPLE[tree.casing]}\`.`,
+            group: {
+              key: `joined:${dir}`,
+              summary: (count) =>
+                `${count} files in \`${dir}\` run their words together, so the words cannot be told apart. Write them in ${caseName} like \`${EXAMPLE[tree.casing]}\`.`,
+              item: `\`${filename}\``,
+            },
           })
         } else if (suggestion !== filename) {
           blocking.push({
             rule: 'shape',
-            message: `\`${rel}\` is not ${CASE_NAME[tree.casing]}; rename it to \`${suggestion}\``,
+            message: `\`${rel}\` is not ${caseName}. Rename it to \`${suggestion}\`.`,
+            group: {
+              key: `casing:${dir}`,
+              summary: (count) =>
+                `${count} files in \`${dir}\` are not ${caseName}. Rename each one as listed.`,
+              item: `\`${filename}\` → \`${suggestion}\``,
+            },
           })
         } else if (!SHAPE[tree.casing].test(filename)) {
           blocking.push({
             rule: 'shape',
-            message: `\`${rel}\` does not match the ${CASE_NAME[tree.casing]} convention for ${tree.id}; names look like \`${EXAMPLE[tree.casing]}\``,
+            message: `\`${rel}\` does not match the ${caseName} convention for ${tree.id}. Names look like \`${EXAMPLE[tree.casing]}\`.`,
+            group: {
+              key: `pattern:${dir}`,
+              summary: (count) =>
+                `${count} files in \`${dir}\` do not match the ${caseName} convention for ${tree.id}. Names look like \`${EXAMPLE[tree.casing]}\`.`,
+              item: `\`${filename}\``,
+            },
           })
         }
 
@@ -268,13 +346,43 @@ function group(violations: Violation[]): string {
     .map((rule) => {
       const matching = violations.filter((v) => v.rule === rule)
       if (matching.length === 0) return ''
-      return [
-        `**${RULE_HEADINGS[rule]}**`,
-        matching.map((v) => `- ${v.message}`).join('\n'),
-      ].join('\n')
+      return [`**${RULE_HEADINGS[rule]}**`, ...collapse(matching)].join('\n')
     })
     .filter(Boolean)
     .join('\n\n')
+}
+
+/** One bullet per violation, or per group once it reaches the threshold. */
+function collapse(violations: Violation[]): string[] {
+  const groups = new Map<string, Violation[]>()
+  for (const v of violations) {
+    if (!v.group) continue
+    if (!groups.has(v.group.key)) groups.set(v.group.key, [])
+    groups.get(v.group.key)!.push(v)
+  }
+
+  const lines: string[] = []
+  const emitted = new Set<string>()
+  for (const v of violations) {
+    const members = v.group ? groups.get(v.group.key)! : []
+    if (!v.group || members.length < GROUP_THRESHOLD) {
+      lines.push(`- ${v.message}`)
+      continue
+    }
+    if (emitted.has(v.group.key)) continue
+    emitted.add(v.group.key)
+    // GitHub only renders the nested list when it is indented under the
+    // bullet and set off by blank lines.
+    lines.push(
+      `- ${v.group.summary(members.length)}`,
+      `  <details><summary>Show the ${members.length} files</summary>`,
+      '',
+      ...members.map((m) => `  - ${m.group!.item}`),
+      '',
+      '  </details>',
+    )
+  }
+  return lines
 }
 
 async function report(
@@ -323,7 +431,7 @@ async function report(
       body: [
         group(blocking),
         '',
-        'SVG names are kebab-case, iOS PDFs are camelCase, and Android XML and WebP are snake_case. Every name starts with `kit-`, `pic-` or `ill-`, and acronyms follow the same casing as any other word, so `illFeatureMozillaVpn` rather than `illFeatureMozillaVPN`.',
+        'SVG names are kebab-case, iOS PDFs are camelCase, and Android XML and WebP are snake_case. Names in kit start with `kit` and names in pictograms start with `pic`. Names in exports keep whatever name the product loads them by, as long as they avoid spaces and special characters, and Android names stay lowercase with underscores. Acronyms follow the same casing as any other word, so `illFeatureMozillaVpn` rather than `illFeatureMozillaVPN`.',
       ].join('\n'),
     },
     FEEDBACK_FILE,
