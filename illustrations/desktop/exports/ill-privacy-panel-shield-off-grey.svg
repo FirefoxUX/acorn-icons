@@ -1,0 +1,55 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none" viewBox="0 0 64 64">
+    <g filter="url(#a)" opacity=".79">
+        <circle cx="32.61" cy="33" r="21" fill="#949297" />
+    </g>
+    <path fill="url(#b)" d="M32 6.199c.615.034 1.205.26 1.68.652.31.255.6.548.909.802 1.927 1.583 4.07 2.688 6.463 3.541 1.322.472 2.94.9 4.329 1.113 1.02.157 2.057.212 3.084.264.203.01.374-.011.581.026.788.14 1.474.789 1.68 1.556.112.417.083.93.096 1.362a63 63 0 0 1-.202 6.86c-.761 9.367-3.783 17.575-11.47 22.855-2.176 1.495-4.66 2.704-7.15 3.58V54c3.12-1.098 6.16-2.576 8.884-4.448 2.635-1.81 4.683-3.743 6.49-6.015 5.085-6.386 7.121-14.367 7.775-22.41.23-2.833.33-5.683.25-8.53-.015-.539.021-1.177-.118-1.695-.256-.955-1.11-1.762-2.09-1.936-.257-.046-.47-.019-.723-.031-1.277-.065-2.567-.133-3.835-.329-1.727-.266-3.74-.797-5.384-1.384-2.973-1.06-5.638-2.433-8.038-4.405C34.13 1.93 33.501.994 32 1z" />
+    <path fill="url(#c)" d="M32 6.199a2.9 2.9 0 0 0-1.68.652c-.31.255-.6.548-.909.802-1.927 1.583-4.07 2.688-6.463 3.541-1.322.472-2.94.9-4.329 1.113-1.02.157-2.057.212-3.084.264-.203.01-.374-.011-.581.026-.788.14-1.475.789-1.68 1.556-.112.417-.083.93-.096 1.362a63 63 0 0 0 .202 6.86c.761 9.367 3.783 17.575 11.47 22.855 2.176 1.495 4.66 2.704 7.15 3.58V54c-3.12-1.098-6.16-2.576-8.884-4.448-2.635-1.81-4.683-3.743-6.49-6.015-5.085-6.386-7.121-14.367-7.775-22.41a78 78 0 0 1-.25-8.53c.015-.539-.021-1.177.118-1.695.256-.955 1.11-1.762 2.09-1.936.257-.046.47-.019.723-.031 1.277-.065 2.567-.133 3.835-.329 1.727-.266 3.74-.797 5.384-1.384 2.973-1.06 5.638-2.433 8.038-4.405C29.87 1.93 30.499.994 32 1z" />
+    <path fill="url(#d)" d="M32 48.81c-2.49-.876-4.974-2.085-7.15-3.58-7.687-5.28-10.708-13.487-11.47-22.855a63 63 0 0 1-.202-6.859c.013-.433-.016-.946.095-1.362.207-.768.893-1.417 1.68-1.557.208-.037.379-.015.582-.025 1.027-.052 2.065-.107 3.084-.264 1.389-.214 3.007-.641 4.33-1.113 2.392-.853 4.535-1.958 6.462-3.542.31-.254.598-.546.909-.801A2.9 2.9 0 0 1 32 6.199z" />
+    <path fill="url(#e)" d="M32 6.2c.615.034 1.205.26 1.68.652.31.255.6.547.909.801 1.927 1.584 4.07 2.689 6.463 3.542 1.322.472 2.94.9 4.329 1.113 1.02.157 2.057.212 3.084.264.203.01.374-.012.581.025.788.14 1.474.79 1.68 1.557.112.416.083.93.096 1.362a63 63 0 0 1-.202 6.86c-.761 9.367-3.783 17.574-11.47 22.855-2.176 1.494-4.66 2.703-7.15 3.579z" />
+    <g clip-path="url(#f)">
+        <path fill="url(#g)" fill-rule="evenodd" d="M37.748 17.654a2.962 2.962 0 0 1 4.188 4.188l-5.564 5.564 5.605 5.604a2.962 2.962 0 0 1-4.188 4.188l-5.605-5.605-5.604 5.605a2.962 2.962 0 0 1-4.188-4.188l5.606-5.603-5.565-5.565a2.962 2.962 0 0 1 4.188-4.188l5.563 5.564z" clip-rule="evenodd" />
+    </g>
+    <g clip-path="url(#h)">
+        <path fill="url(#i)" fill-rule="evenodd" d="M26.62 17.654a2.962 2.962 0 0 0-4.187 4.188l5.564 5.564-5.605 5.604a2.962 2.962 0 0 0 4.188 4.188l5.605-5.605 5.604 5.605a2.962 2.962 0 0 0 4.188-4.188l-5.606-5.603 5.565-5.565a2.962 2.962 0 0 0-4.188-4.188l-5.563 5.564z" clip-rule="evenodd" />
+    </g>
+    <defs>
+        <linearGradient id="b" x1="23.166" x2="43.624" y1="-12.224" y2="64.317" gradientUnits="userSpaceOnUse">
+            <stop offset=".099" stop-color="#c7c6cb" />
+            <stop offset=".919" stop-color="#3f3e42" />
+        </linearGradient>
+        <linearGradient id="c" x1="13.032" x2="29.957" y1="-3.483" y2="81.814" gradientUnits="userSpaceOnUse">
+            <stop offset=".048" stop-color="#dadada" />
+            <stop offset=".83" stop-color="#3d3d3d" />
+        </linearGradient>
+        <linearGradient id="d" x1="16.743" x2="29.934" y1="2.595" y2="66.639" gradientUnits="userSpaceOnUse">
+            <stop offset=".121" stop-color="#dadada" />
+            <stop offset=".899" stop-color="#3d3d3d" />
+        </linearGradient>
+        <linearGradient id="e" x1="34.169" x2="43.077" y1="9.938" y2="58.208" gradientUnits="userSpaceOnUse">
+            <stop offset=".049" stop-color="#b7b6ba" />
+            <stop offset=".922" stop-color="#3f3e42" />
+        </linearGradient>
+        <linearGradient id="g" x1="29.089" x2="35.153" y1="18.728" y2="42.795" gradientUnits="userSpaceOnUse">
+            <stop offset=".322" stop-color="#fff" />
+            <stop offset=".843" stop-color="#c3c3c3" />
+        </linearGradient>
+        <linearGradient id="i" x1="32.184" x2="39.073" y1="4.277" y2="38.741" gradientUnits="userSpaceOnUse">
+            <stop offset=".448" stop-color="#fff" />
+            <stop offset="1" stop-color="#c3c3c3" />
+        </linearGradient>
+        <clipPath id="f">
+            <path fill="#fff" d="M21.184 15.928h11v23h-11z" />
+        </clipPath>
+        <clipPath id="h">
+            <path fill="#fff" d="M43.184 15.928h-11v23h11z" />
+        </clipPath>
+        <filter id="a" width="61.6" height="61.6" x="1.81" y="2.2" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+            <feGaussianBlur result="effect1_foregroundBlur_1612_60980" stdDeviation="4.9" />
+        </filter>
+    </defs>
+</svg>
