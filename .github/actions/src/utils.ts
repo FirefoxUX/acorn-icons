@@ -190,11 +190,84 @@ export const removeOrphanedClipPathRefs: PluginConfig = {
 }
 
 /**
+ * Returns the bounds of a path whose `d` draws a single axis-aligned
+ * rectangle, or null for any other shape.
+ */
+function rectanglePathBounds(
+  d: string,
+): [number, number, number, number] | null {
+  const tokens = d.match(/[a-zA-Z]|[-+]?(?:\d*\.\d+|\d+\.?)(?:[eE][-+]?\d+)?/g)
+  if (!tokens) return null
+
+  const points: [number, number][] = []
+  let x = 0
+  let y = 0
+  let command = ''
+  let i = 0
+  const next = (): number => parseFloat(tokens[i++])
+
+  while (i < tokens.length) {
+    if (/[a-zA-Z]/.test(tokens[i])) {
+      command = tokens[i++]
+      if (command === 'z' || command === 'Z') {
+        // Anything after the close starts a second subpath.
+        if (i !== tokens.length) return null
+        break
+      }
+      if ((command === 'M' || command === 'm') && points.length > 0) {
+        return null
+      }
+    }
+    const relative = command === command.toLowerCase()
+    switch (command.toUpperCase()) {
+      case 'M':
+      case 'L': {
+        const nx = next()
+        const ny = next()
+        x = relative ? x + nx : nx
+        y = relative ? y + ny : ny
+        // Coordinate pairs after a moveto are implicit linetos.
+        if (command === 'M') command = 'L'
+        if (command === 'm') command = 'l'
+        break
+      }
+      case 'H':
+        x = relative ? x + next() : next()
+        break
+      case 'V':
+        y = relative ? y + next() : next()
+        break
+      default:
+        return null
+    }
+    if (!Number.isFinite(x) || !Number.isFinite(y)) return null
+    points.push([x, y])
+  }
+
+  const xs = [...new Set(points.map(([px]) => px))]
+  const ys = [...new Set(points.map(([, py]) => py))]
+  if (xs.length !== 2 || ys.length !== 2) return null
+  // Two distinct x and y values allow only the four corners of one
+  // rectangle. A diagonal edge, including the implicit closing edge, would
+  // cut it in half.
+  for (let j = 0; j < points.length; j++) {
+    const [ax, ay] = points[j]
+    const [bx, by] = points[(j + 1) % points.length]
+    if (ax !== bx && ay !== by) return null
+  }
+  const corners = new Set(points.map(([px, py]) => `${px},${py}`))
+  if (corners.size !== 4) return null
+
+  const minX = Math.min(...xs)
+  const minY = Math.min(...ys)
+  return [minX, minY, Math.max(...xs) - minX, Math.max(...ys) - minY]
+}
+
+/**
  * Removes `<clipPath>` defs whose only purpose is to clip to the full
- * viewBox. Figma adds these on every export; they survive `removeUselessDefs`
- * because they have an id and a referrer, but they have no visual effect and
- * they confuse the duotone validator into reading the clip rect as a
- * top-level shape.
+ * viewBox. Figma adds these on every export as a `<rect>`, which SVGO turns
+ * into an equivalent `<path>`. They survive `removeUselessDefs` because they
+ * have an id and a referrer, but they have no visual effect.
  */
 export const removeNoOpClipPaths: PluginConfig = {
   name: 'removeNoOpClipPaths',
@@ -225,14 +298,22 @@ export const removeNoOpClipPaths: PluginConfig = {
           const elementKids = node.children.filter((c) => c.type === 'element')
           if (elementKids.length !== 1) return
           const child = elementKids[0]
-          if (child.name !== 'rect') return
           if (child.attributes.transform) return
 
-          const x = num(child.attributes.x, 0)
-          const y = num(child.attributes.y, 0)
-          const w = num(child.attributes.width, NaN)
-          const h = num(child.attributes.height, NaN)
-          if (![x, y, w, h].every(Number.isFinite)) return
+          let bounds: [number, number, number, number] | null = null
+          if (child.name === 'rect') {
+            bounds = [
+              num(child.attributes.x, 0),
+              num(child.attributes.y, 0),
+              num(child.attributes.width, NaN),
+              num(child.attributes.height, NaN),
+            ]
+          } else if (child.name === 'path') {
+            bounds = rectanglePathBounds(child.attributes.d ?? '')
+          }
+          if (bounds === null || !bounds.every(Number.isFinite)) return
+
+          const [x, y, w, h] = bounds
 
           const [vbX, vbY, vbW, vbH] = vb
           if (

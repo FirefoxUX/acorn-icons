@@ -174,8 +174,6 @@ async function updateDesktopIcon(
       ...(duotone ? [mapChannelIdsToFills] : []),
       svgoRemoveAttrs(attrsToRemove),
       viewBoxAndDimensions,
-      // Strip Figma's no-op clipPath wrappers before the duotone validator
-      // runs so it doesn't trip on the clip rect inside `<defs>`.
       removeNoOpClipPaths,
       ...(duotone
         ? [validateDuotone(path, duotoneIssues), normalizeDuotoneRoot]
@@ -293,6 +291,10 @@ const GEOMETRY_ELEMENTS = new Set([
   'line',
 ])
 
+// Shapes inside these are never painted directly, so their `fill` needs no
+// color channel.
+const NON_RENDERING_CONTAINERS = new Set(['defs', 'clipPath', 'mask'])
+
 // Captures duotone violations that need a designer to resolve. A root
 // `fill` attribute is auto-fixable by `normalizeDuotoneRoot` and is
 // deliberately not surfaced here.
@@ -308,17 +310,22 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
       let missingFillCount = 0
       const badFillValues: string[] = []
 
+      let nonRenderingDepth = 0
+
       const firstToken = (value: string | undefined): string =>
         (value || '').trim().split(/\s+/)[0]
 
       return {
         element: {
           enter(node) {
-            const rawFill = node.attributes.fill
-            const token = firstToken(rawFill)
-            if (node.name === 'svg') {
+            if (NON_RENDERING_CONTAINERS.has(node.name)) {
+              nonRenderingDepth++
+            }
+            if (nonRenderingDepth > 0 || node.name === 'svg') {
               return
             }
+            const rawFill = node.attributes.fill
+            const token = firstToken(rawFill)
             if (token === 'context-fill') hasContextFill = true
             if (token === 'context-stroke') hasContextStroke = true
 
@@ -333,6 +340,11 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
               ) {
                 badFillValues.push(rawFill)
               }
+            }
+          },
+          exit(node) {
+            if (NON_RENDERING_CONTAINERS.has(node.name)) {
+              nonRenderingDepth--
             }
           },
         },
