@@ -34,6 +34,8 @@ export type Asset = {
   width: number
   height: number
   formats: Format[]
+  /** Icons that paint a second color channel through `context-stroke`. */
+  duotone?: boolean
   /** Sanitized markup, inlined into the page. Icons only. */
   inlineSvg?: string
   /**

@@ -2,7 +2,7 @@ import { execSync } from 'child_process'
 import fs from 'fs'
 import { simpleGit } from 'simple-git'
 import { summary } from '../summary.js'
-import { getInput, tryCatch, writeFeedback } from '../utils.js'
+import { getInput, recordFindings, tryCatch } from '../utils.js'
 
 const DEFAULT_COMMIT_MESSAGE = 'Updated icons to match format conventions'
 
@@ -32,7 +32,9 @@ async function run() {
 
   const message = getInput('message', false) || DEFAULT_COMMIT_MESSAGE
   await simpleGit().commit(message)
-  await push()
+  if (!(await push())) {
+    return
+  }
 
   summary.addHeading(`Committed ${status.files.length} files`, 3)
   await summary.write()
@@ -44,16 +46,19 @@ async function run() {
  * reformatted, which nothing here can resolve, so say so and let the next
  * push start from a clean checkout.
  */
-async function push() {
+async function push(): Promise<boolean> {
   try {
     await simpleGit().push('origin')
+    return true
   } catch {
     console.log('Push rejected, rebasing on the remote branch and retrying.')
     try {
       await simpleGit().pull(['--rebase'])
       await simpleGit().push('origin')
+      return true
     } catch {
       await reportBranchMoved()
+      return false
     }
   }
 }
@@ -64,18 +69,19 @@ async function reportBranchMoved() {
   summary.addHeading(title, 3)
   summary.addAlert('caution', 'Could not push the formatting changes.')
 
-  writeFeedback({
-    title,
-    summary: 'Push again and the formatter will rerun on the new commit.',
-    body: [
-      'Someone pushed to this branch while the formatter was reformatting the same files, so its changes could not be applied on top.',
-      '',
-      'Nothing is lost. Push any new commit, or close and reopen the pull request, and the formatter will run again from the current state of the branch.',
-    ].join('\n'),
-  })
+  recordFindings([
+    {
+      kind: 'automation',
+      title,
+      body: [
+        'Someone pushed to this branch while the formatter was reformatting the same files, so its changes could not be applied on top.',
+        '',
+        'Nothing is lost. Push any new commit, or close and reopen the pull request, and the formatter will run again from the current state of the branch.',
+      ].join('\n'),
+    },
+  ])
 
   await summary.write()
-  process.exit(1)
 }
 
 function isFork(): boolean {
@@ -98,28 +104,29 @@ async function reportFork(files: string[]) {
   summary.addHeading(title, 3)
   summary.addList(files.map((file) => `<code>${file}</code>`))
 
-  writeFeedback({
-    title,
-    summary: `${title}. Run the formatter locally and push the result.`,
-    body: [
-      files.map((file) => `- \`${file}\``).join('\n'),
-      '',
-      'These files do not match the format conventions, and the bot cannot push to a fork.',
-      '',
-      'To fix them, run the following (requires Node.js):',
-      '',
-      '```',
-      'cd .github/actions',
-      'npm ci',
-      'npm run transform',
-      '```',
-      '',
-      'Then commit the changed files and push.',
-    ].join('\n'),
-  })
+  recordFindings([
+    {
+      kind: 'fix',
+      title,
+      body: [
+        files.map((file) => `- \`${file}\``).join('\n'),
+        '',
+        'These files do not match the format conventions, and the bot cannot push to a fork.',
+        '',
+        'To fix them, run the following (requires Node.js):',
+        '',
+        '```',
+        'cd .github/actions',
+        'npm ci',
+        'npm run transform',
+        '```',
+        '',
+        'Then commit the changed files and push.',
+      ].join('\n'),
+    },
+  ])
 
   await summary.write()
-  process.exit(1)
 }
 
 function setupGit() {

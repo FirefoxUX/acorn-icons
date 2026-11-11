@@ -6,6 +6,7 @@
     "moduleResolution": "NodeNext",
     "rootDir": "./src",
     "isolatedModules": true,
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

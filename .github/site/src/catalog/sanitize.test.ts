@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { readDimensions, sanitizeSvg } from './sanitize.ts'
+import { isDuotone, readDimensions, sanitizeSvg } from './sanitize.ts'
 
 test('readDimensions prefers the viewBox over width and height', () => {
   // extension-critical-16.svg is named 16 and lives in the 16 folder, but draws
@@ -49,6 +49,23 @@ test('sanitizeSvg keeps the two duotone channels distinct', () => {
 
   assert.match(out, /fill="currentColor"/)
   assert.match(out, /fill="var\(--asset-fill-2\)"/)
+})
+
+test('isDuotone looks for the second channel in the markup', () => {
+  assert.equal(
+    isDuotone(
+      '<svg><path fill="context-fill"/><path fill="context-stroke"/></svg>',
+    ),
+    true,
+  )
+  assert.equal(
+    isDuotone('<svg fill="context-fill"><path d="M0 0"/></svg>'),
+    false,
+  )
+  assert.equal(
+    isDuotone('<svg><path stroke="context-stroke" d="M0 0"/></svg>'),
+    false,
+  )
 })
 
 test('sanitizeSvg drops both context opacity spellings', () => {

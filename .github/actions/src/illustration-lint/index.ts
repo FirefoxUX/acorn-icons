@@ -1,9 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { summary } from '../summary.js'
-import { inlineCode, tryCatch, writeFeedback } from '../utils.js'
-
-const FEEDBACK_FILE = 'illustration-feedback.json'
+import { inlineCode, recordFindings, tryCatch } from '../utils.js'
 
 type Casing = 'kebab' | 'camel' | 'snake'
 
@@ -392,9 +390,7 @@ async function report(
 ): Promise<void> {
   summary.addHeading(`Checked ${scanned} illustration filenames`, 3)
 
-  // Warnings never write a feedback payload. post-feedback treats the mere
-  // presence of one as a failure, so a warning that wrote a payload would
-  // turn the check red.
+  // Warnings never record a finding, because any finding fails the job.
   if (warnings.length > 0) {
     summary.addAlert(
       'warning',
@@ -424,29 +420,19 @@ async function report(
       ? '1 illustration filename breaks the naming rules'
       : `${count} illustration filenames break the naming rules`
 
-  writeFeedback(
+  recordFindings([
     {
+      kind: 'fix',
       title,
-      summary: summarize(title, blocking),
       body: [
         group(blocking),
         '',
         'SVG names are kebab-case, iOS PDFs are camelCase, and Android XML and WebP are snake_case. Names in kit start with `kit` and names in pictograms start with `pic`. Names in exports keep whatever name the product loads them by, as long as they avoid spaces and special characters, and Android names stay lowercase with underscores. Acronyms follow the same casing as any other word, so `illFeatureMozillaVpn` rather than `illFeatureMozillaVPN`.',
       ].join('\n'),
     },
-    FEEDBACK_FILE,
-  )
+  ])
 
   await summary.write()
-  process.exit(1)
-}
-
-/** GitHub caps commit-status descriptions at 140 characters. */
-function summarize(title: string, blocking: Violation[]): string {
-  const first = blocking[0].message.replace(/[`*]/g, '')
-  const more = blocking.length > 1 ? ` (+${blocking.length - 1} more)` : ''
-  const candidate = `${first}${more}`
-  return candidate.length <= 140 ? candidate : title
 }
 
 // Runs last so the tables above are initialized before `run` reads them.

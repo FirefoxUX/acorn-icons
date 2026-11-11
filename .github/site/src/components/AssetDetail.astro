@@ -9,6 +9,7 @@ import { categoryLabel } from '@src/catalog/categories.ts'
 import type { Asset } from '@src/catalog/types.ts'
 import BackdropPicker from '@src/components/BackdropPicker.svelte'
 import CopyMarkup from '@src/components/CopyMarkup.svelte'
+import DuotoneColors from '@src/components/DuotoneColors.svelte'
 import FirefoxUsage from '@src/components/FirefoxUsage.astro'
 import FormatDownloads from '@src/components/FormatDownloads.astro'
 import SizeSiblings from '@src/components/SizeSiblings.astro'
@@ -128,6 +129,14 @@ const meta = [
   <div class="js-only">
     <BackdropPicker id={`backdrop-${asset.id}`} client:load />
   </div>
+
+  {
+    asset.duotone && (
+      <div class="js-only">
+        <DuotoneColors id={`duotone-${asset.id}`} client:load />
+      </div>
+    )
+  }
 
   <FormatDownloads {asset} level={sectionLevel} />
   <FirefoxUsage {asset} level={sectionLevel} />

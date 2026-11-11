@@ -1,8 +1,10 @@
 import { PluginConfig, optimize } from 'svgo'
 import fg from 'fast-glob'
 import fs from 'fs'
+import nodePath from 'path'
 import { summary } from '../summary.js'
 import {
+  Finding,
   ensureLicense,
   formatFile,
   getInput,
@@ -10,8 +12,9 @@ import {
   removeOrphanedClipPathRefs,
   svgoBasePlugins,
   svgoRemoveAttrs,
+  recordFindings,
   tryCatch,
-  writeFeedback,
+  unreadableFinding,
 } from '../utils.js'
 
 tryCatch(run, 'Failed to check desktop SVGs. See logs for details.')
@@ -42,10 +45,19 @@ async function run() {
 
   const changedFiles: string[] = []
   const duotoneIssues: DuotoneIssue[] = []
+  const unreadable: { path: string; detail: string }[] = []
 
   for (const file of files) {
-    if (await updateDesktopIcon(file, duotoneIssues)) {
-      changedFiles.push(file)
+    try {
+      if (await updateDesktopIcon(file, duotoneIssues)) {
+        changedFiles.push(file)
+      }
+    } catch (error) {
+      console.error(error)
+      unreadable.push({
+        path: file,
+        detail: error instanceof Error ? error.message : String(error),
+      })
     }
   }
 
@@ -66,16 +78,41 @@ async function run() {
         ({ path, reasons }) => `<code>${path}</code> — ${reasons.join('; ')}`,
       ),
     )
-    writeFeedback({
-      title: duotoneFeedbackTitle(duotoneIssues.length),
-      summary: duotoneFeedbackSummary(duotoneIssues),
-      body: duotoneFeedbackBody(duotoneIssues),
-    })
-    await summary.write()
-    process.exit(1)
+  }
+  if (unreadable.length > 0) {
+    summary.addHeading(`${unreadable.length} unreadable SVG(s)`, 3)
+    summary.addList(
+      unreadable.map(({ path, detail }) => `<code>${path}</code>: ${detail}`),
+    )
   }
 
-  summary.write()
+  // The files are already rewritten at this point. Recording findings
+  // instead of exiting early lets the commit step still push them.
+  recordFindings([
+    ...duotoneIssues.map(duotoneFinding),
+    ...unreadable.map(({ path, detail }) => unreadableFinding(path, detail)),
+  ])
+
+  await summary.write()
+}
+
+function displayPath(path: string): string {
+  return nodePath.relative(process.cwd(), path)
+}
+
+function duotoneFinding({ path, reasons }: DuotoneIssue): Finding {
+  const name = nodePath.basename(path)
+  return {
+    kind: 'fix',
+    title: `\`${name}\` has a problem with its two color channels`,
+    body: [
+      `\`${displayPath(path)}\``,
+      '',
+      reasons.map((reason) => `- ${reason}`).join('\n'),
+      '',
+      'A `-duotone` icon needs one shape named `context-fill` and one named `context-stroke` in Figma, and every other shape needs one of those two names as well. Re-export the frame with the icon-helper plugin once the layers are named. If the icon only needs one color, remove `-duotone` from the filename.',
+    ].join('\n'),
+  }
 }
 
 function duotoneContractExplanation(): string {
@@ -90,40 +127,6 @@ function duotoneContractExplanation(): string {
     'If an icon only needs a single color channel, drop the `-duotone`',
     'suffix from the filename and the pipeline will set the root fill',
     'automatically.',
-  ].join('\n')
-}
-
-function duotoneFeedbackTitle(count: number): string {
-  return count === 1
-    ? '1 duotone icon needs fixing'
-    : `${count} duotone icons need fixing`
-}
-
-function duotoneFeedbackSummary(issues: DuotoneIssue[]): string {
-  // Commit-status descriptions are capped at 140 chars by the GitHub API,
-  // so name the first file and the headline reason; fall back to a count
-  // if that already pushes us over the limit.
-  const first = issues[0]
-  const headline = first.reasons[0] ?? 'invalid duotone structure'
-  const fileLabel = first.path.split('/').pop() ?? first.path
-  const more = issues.length > 1 ? ` (+${issues.length - 1} more)` : ''
-  const candidate = `${fileLabel}: ${headline}${more}`
-  if (candidate.length <= 140) return candidate
-  return duotoneFeedbackTitle(issues.length)
-}
-
-function duotoneFeedbackBody(issues: DuotoneIssue[]): string {
-  const fileSections = issues
-    .map(({ path, reasons }) => {
-      const bullets = reasons.map((r) => `    - ${r}`).join('\n')
-      return `- \`${path}\`\n${bullets}`
-    })
-    .join('\n')
-
-  return [
-    fileSections,
-    '',
-    `A duotone SVG needs one child element with \`fill="context-fill"\` and one with \`fill="context-stroke"\`, and no \`fill\` on the root \`<svg>\`. Re-export the frame from the icon-helper Figma plugin, or drop the \`-duotone\` part from the filename if it only needs one color channel.`,
   ].join('\n')
 }
 
@@ -209,14 +212,14 @@ const viewBoxAndDimensions: PluginConfig = {
           return
         }
 
-        if ((viewBox && !width) || !height) {
-          const [, , w, h] = viewBox.split(' ')
-          node.attributes.width = w
-          node.attributes.height = h
-        } else if (width && height && !viewBox) {
+        if (viewBox) {
+          const [, , w, h] = viewBox.trim().split(/[\s,]+/)
+          node.attributes.width = width ?? w
+          node.attributes.height = height ?? h
+        } else if (width && height) {
           node.attributes.viewBox = `0 0 ${width} ${height}`
         } else {
-          throw new Error('SVG has no width, height, or viewBox')
+          throw new Error('The SVG has no viewBox and no width and height.')
         }
       },
     },
@@ -295,6 +298,23 @@ const GEOMETRY_ELEMENTS = new Set([
 // color channel.
 const NON_RENDERING_CONTAINERS = new Set(['defs', 'clipPath', 'mask'])
 
+// Enough of the path data for a designer to find the layer in Figma.
+function describeShape(node: {
+  name: string
+  attributes: Record<string, string>
+}): string {
+  const d = node.attributes.d
+  return d
+    ? `\`<${node.name}>\` starting \`${d.slice(0, 20)}\``
+    : `\`<${node.name}>\``
+}
+
+function listShapes(shapes: string[]): string {
+  return shapes.length === 1
+    ? `The ${shapes[0]}`
+    : `${shapes.length} shapes (${shapes.join(', ')})`
+}
+
 // Captures duotone violations that need a designer to resolve. A root
 // `fill` attribute is auto-fixable by `normalizeDuotoneRoot` and is
 // deliberately not surfaced here.
@@ -307,8 +327,8 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
     fn: () => {
       let hasContextFill = false
       let hasContextStroke = false
-      let missingFillCount = 0
-      const badFillValues: string[] = []
+      const missingFills: string[] = []
+      const badFills: string[] = []
 
       let nonRenderingDepth = 0
 
@@ -333,12 +353,12 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
             // black at runtime, which silently breaks chrome theming.
             if (GEOMETRY_ELEMENTS.has(node.name)) {
               if (!rawFill || rawFill.trim() === '') {
-                missingFillCount++
+                missingFills.push(describeShape(node))
               } else if (
                 token !== 'context-fill' &&
                 token !== 'context-stroke'
               ) {
-                badFillValues.push(rawFill)
+                badFills.push(`${describeShape(node)} (\`${rawFill}\`)`)
               }
             }
           },
@@ -352,27 +372,23 @@ function validateDuotone(path: string, issues: DuotoneIssue[]): PluginConfig {
           exit() {
             const reasons: string[] = []
             if (!hasContextFill) {
-              reasons.push('no child element has `fill="context-fill"`')
-            }
-            if (!hasContextStroke) {
-              reasons.push('no child element has `fill="context-stroke"`')
-            }
-            if (missingFillCount > 0) {
-              const noun = missingFillCount === 1 ? 'shape has' : 'shapes have'
               reasons.push(
-                `${missingFillCount} child ${noun} no \`fill\` attribute — set \`fill="context-fill"\` or \`fill="context-stroke"\` on each`,
+                'No shape is named `context-fill`. Name the shape that should follow the icon color.',
               )
             }
-            if (badFillValues.length > 0) {
-              const example = badFillValues[0]
-              const extra =
-                badFillValues.length > 1
-                  ? ` (+${badFillValues.length - 1} more)`
-                  : ''
-              const noun =
-                badFillValues.length === 1 ? 'shape has' : 'shapes have'
+            if (!hasContextStroke) {
               reasons.push(
-                `${badFillValues.length} child ${noun} \`fill="${example}"\`${extra} — use \`fill="context-fill"\` or \`fill="context-stroke"\` instead`,
+                'No shape is named `context-stroke`. Name the shape that should follow the second color.',
+              )
+            }
+            if (missingFills.length > 0) {
+              reasons.push(
+                `${listShapes(missingFills)} ${missingFills.length === 1 ? 'has' : 'have'} no color channel. It would render black. Name the layer \`context-fill\` or \`context-stroke\`.`,
+              )
+            }
+            if (badFills.length > 0) {
+              reasons.push(
+                `${listShapes(badFills)} ${badFills.length === 1 ? 'has a' : 'have'} fixed color${badFills.length === 1 ? '' : 's'} instead of a color channel. Name the layer \`context-fill\` or \`context-stroke\` so the plugin replaces the color.`,
               )
             }
             if (reasons.length > 0 && !alreadyRecorded) {

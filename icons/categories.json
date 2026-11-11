@@ -8,6 +8,7 @@
     },
     "action": {
       "icons": [
+        "clipboard",
         "copy"
       ]
     },
@@ -19,7 +20,10 @@
     "add": {
       "icons": [
         "add",
-        "add-circle-fill"
+        "add-circle-fill",
+        "add-to-homescreen",
+        "grid-add",
+        "plus"
       ]
     },
     "alerts, notifications, help": {
@@ -30,9 +34,17 @@
         "error",
         "error-fill",
         "help",
+        "help-circle",
+        "help-circle-fill",
         "help-fill",
         "information",
         "information-fill",
+        "notification",
+        "notification-dot",
+        "notification-dot-badge-fill",
+        "notification-dot-fill",
+        "notification-slash",
+        "report",
         "update-circle",
         "update-circle-fill",
         "warning",
@@ -42,7 +54,12 @@
     "app menu": {
       "icons": [
         "app-menu",
-        "app-menu-space"
+        "app-menu-space",
+        "ellipsis-horizontal",
+        "ellipsis-vertical",
+        "more-grid",
+        "more-horizontal-round",
+        "more-vertical-round"
       ]
     },
     "archive": {
@@ -53,10 +70,18 @@
     "arrows & chevrons": {
       "label": "Arrows & chevrons",
       "icons": [
+        "append-down-left",
+        "append-up-left",
+        "append-up-right",
         "arrow-clockwise",
+        "arrow-counter-clockwise",
         "arrow-counterclockwise",
+        "arrow-down-left-circle",
         "arrow-down-line",
+        "arrow-down-right-circle",
         "arrow-trending",
+        "arrow-trending-down",
+        "arrow-up-right-circle",
         "back",
         "back-small",
         "chevron-double-right",
@@ -66,7 +91,9 @@
         "chevron-right",
         "chevron-up",
         "chevron-up-small",
+        "collapse-all",
         "cursor-arrow",
+        "expand-all",
         "forward",
         "forward-small",
         "line-arrow-up",
@@ -75,10 +102,16 @@
     },
     "avatars": {
       "icons": [
+        "avatar-circle",
+        "avatar-circle-fill",
+        "avatar-info-circle-fill",
         "avatar-signed-in-fill",
         "avatar-signed-in-fill-custom-initial",
         "avatar-signed-in-fill-profile-picture",
-        "avatar-signed-out"
+        "avatar-signed-out",
+        "avatar-sync-circle-fill",
+        "avatar-warning-circle-fill",
+        "avatar-warning-circle-fill-multicolor"
       ]
     },
     "badges": {
@@ -98,7 +131,14 @@
     "bookmarks": {
       "icons": [
         "bookmark",
+        "bookmark-badge-fill",
         "bookmark-fill",
+        "bookmark-half-fill",
+        "bookmark-mask",
+        "bookmark-mask-only",
+        "bookmark-slash",
+        "bookmark-tray",
+        "bookmark-tray-fill",
         "bookmarks-tray"
       ]
     },
@@ -111,6 +151,8 @@
     "checkmarks": {
       "icons": [
         "checkmark",
+        "checkmark-badge",
+        "checkmark-circle",
         "checkmark-circle-fill",
         "double-checkmark"
       ]
@@ -119,7 +161,11 @@
       "label": "Close & dismiss",
       "icons": [
         "close",
-        "close-circle-fill"
+        "close-circle-fill",
+        "close-circle-fill-duotone",
+        "cross",
+        "cross-circle",
+        "cross-circle-fill"
       ]
     },
     "closed caption": {
@@ -140,11 +186,22 @@
     },
     "container": {
       "icons": [
+        "apple-fill",
+        "briefcase-fill",
+        "circle-fill",
         "dog",
+        "dog-fill",
         "dollar-sign-circle",
+        "dollar-sign-circle-fill",
         "fence",
+        "fence-fill",
+        "gift-fill",
         "glasses",
-        "tree"
+        "knife-and-fork-fill",
+        "plane-fill",
+        "shopping-cart-fill",
+        "tree",
+        "tree-fill"
       ]
     },
     "dashboard": {
@@ -165,14 +222,25 @@
     },
     "devices": {
       "icons": [
+        "device-desktop",
+        "device-desktop-fill",
+        "device-desktop-send",
         "device-mobile",
-        "keyboard"
+        "device-tablet",
+        "keyboard",
+        "other-device-shortcuts",
+        "wifi"
       ]
     },
     "downloads": {
       "icons": [
+        "download",
+        "download-progress",
         "downloaded-file",
-        "downloads"
+        "downloads",
+        "save",
+        "save-arrow",
+        "save-file"
       ]
     },
     "experiments": {
@@ -183,10 +251,12 @@
     "extensions": {
       "icons": [
         "extension",
+        "extension-cog",
         "extension-critical",
         "extension-cut",
         "extension-fill",
-        "extension-warning"
+        "extension-warning",
+        "extension-warning-multicolor"
       ]
     },
     "external link": {
@@ -204,8 +274,11 @@
     },
     "folder": {
       "icons": [
+        "collection",
         "folder",
+        "folder-add",
         "folder-arrow-down",
+        "folder-arrow-right",
         "folder-fill"
       ]
     },
@@ -230,6 +303,7 @@
     "globe": {
       "icons": [
         "globe",
+        "globe-map",
         "globe-slash",
         "globe-warning"
       ]
@@ -246,7 +320,9 @@
     },
     "history": {
       "icons": [
-        "history"
+        "history",
+        "history-mask",
+        "history-mask-only"
       ]
     },
     "home": {
@@ -291,7 +367,9 @@
     "lightning bolt": {
       "label": "Lightning bolt",
       "icons": [
-        "lightning-bolt"
+        "lightning",
+        "lightning-bolt",
+        "lightning-filled"
       ]
     },
     "link": {
@@ -310,6 +388,7 @@
         "lock-document",
         "lock-slash",
         "lock-slash-duotone",
+        "lock-slash-multicolor",
         "lock-warning"
       ]
     },
@@ -332,15 +411,27 @@
       "icons": [
         "audio",
         "audio-muted",
+        "audio-wave",
+        "image",
+        "image-slash",
         "microphone",
+        "pause",
+        "pause-badge-fill",
         "pause-fill",
+        "person-speaking",
+        "play-badge-fill",
         "play-circle-fill",
         "play-fill",
+        "play-next-fill",
+        "play-previous-fill",
         "playback-forward",
         "playback-rewind",
         "print",
+        "seek-backward-fill",
+        "seek-forward-fill",
         "skip-backward",
         "skip-forward",
+        "stop",
         "stop-fill"
       ]
     },
@@ -351,7 +442,8 @@
     },
     "news": {
       "icons": [
-        "newsfeed"
+        "newsfeed",
+        "whats-new"
       ]
     },
     "off": {
@@ -396,6 +488,7 @@
     "payment methods": {
       "label": "Payment methods",
       "icons": [
+        "credit-card",
         "payment-methods"
       ]
     },
@@ -412,6 +505,7 @@
         "page-scrolling",
         "page-thumbnails",
         "pdf",
+        "pdf-duotone",
         "presentation-mode",
         "vertical-scrolling",
         "wrapped-scrolling"
@@ -420,6 +514,7 @@
     "pen, pencil": {
       "label": "Pen & pencil",
       "icons": [
+        "edit",
         "edit-active",
         "edit-squiggle",
         "signature",
@@ -435,6 +530,7 @@
         "camera-slash",
         "canvas",
         "canvas-slash",
+        "database",
         "local-host",
         "local-host-slash",
         "local-network",
@@ -447,6 +543,7 @@
         "notifications",
         "notifications-slash",
         "permission",
+        "permissions",
         "plugin",
         "plugin-slash",
         "popup-subitem",
@@ -457,6 +554,7 @@
         "storage",
         "storage-slash",
         "xr",
+        "xr-fill",
         "xr-slash"
       ]
     },
@@ -470,13 +568,26 @@
     "pin": {
       "icons": [
         "pin",
-        "pin-fill"
+        "pin-badge-fill",
+        "pin-fill",
+        "pin-fill-mask-only",
+        "pin-mask",
+        "pin-slash",
+        "pin-slash-fill"
       ]
     },
     "playback speed": {
       "label": "Playback speed",
       "icons": [
-        "playback-speed"
+        "playback-speed",
+        "playback-speed-0-2x",
+        "playback-speed-0-5x",
+        "playback-speed-0-7x",
+        "playback-speed-1-2x",
+        "playback-speed-1-5x",
+        "playback-speed-1-7x",
+        "playback-speed-1x",
+        "playback-speed-2x"
       ]
     },
     "plugin": {
@@ -487,13 +598,17 @@
     "policy": {
       "icons": [
         "applied-policy",
+        "content-analysis",
         "policy"
       ]
     },
     "private mode": {
       "label": "Private mode",
       "icons": [
+        "private-mode",
         "private-mode-circle-fill",
+        "private-mode-circle-fill-purple",
+        "private-mode-circle-fill-stroke",
         "private-mode-fill"
       ]
     },
@@ -504,6 +619,7 @@
         "bike",
         "book",
         "briefcase",
+        "car",
         "craft",
         "diamond",
         "flower",
@@ -511,6 +627,7 @@
         "hammer",
         "heart",
         "heart-rate",
+        "hotel",
         "leaf",
         "makeup",
         "musical-note",
@@ -520,7 +637,8 @@
         "shopping-cart",
         "soccer-ball",
         "sparkle-single",
-        "video-game-controller"
+        "video-game-controller",
+        "wrench"
       ]
     },
     "qr-code": {
@@ -532,9 +650,23 @@
     "reader mode": {
       "label": "Reader mode",
       "icons": [
+        "listen-to-page",
         "reader-mode",
+        "reader-summarize",
+        "reader-summarize-fill",
+        "reader-view",
+        "reader-view-customize",
+        "reader-view-fill",
         "reader-view-headphones",
         "reader-view-headphones-fill"
+      ]
+    },
+    "reading list": {
+      "icons": [
+        "reading-list",
+        "reading-list-add",
+        "reading-list-slash",
+        "reading-list-slash-fill"
       ]
     },
     "restore": {
@@ -550,6 +682,7 @@
     },
     "screenshot": {
       "icons": [
+        "part-of-page",
         "screenshot"
       ]
     },
@@ -558,29 +691,41 @@
         "find-in-page",
         "search",
         "search-in-circle",
-        "search-in-circle-right"
+        "search-in-circle-right",
+        "search-tabs"
       ]
     },
     "settings": {
       "icons": [
-        "settings"
+        "debug-drawer",
+        "settings",
+        "tool"
       ]
     },
     "share": {
       "icons": [
+        "share-android",
+        "share-apple",
+        "share-ios",
         "share-macos",
         "share-winos"
       ]
     },
     "shield": {
       "icons": [
+        "ad-blocker-checkmark",
+        "ad-blocker-cross",
         "shield",
         "shield-blocked",
         "shield-checkmark",
+        "shield-checkmark-fill",
         "shield-cross",
+        "shield-dot",
         "shield-exclamation-mark",
         "shield-slash",
-        "shield-slash-duotone"
+        "shield-slash-duotone",
+        "shield-slash-fill",
+        "shield-slash-multicolor"
       ]
     },
     "shopping": {
@@ -612,6 +757,8 @@
         "custom-model",
         "memories",
         "memories-slash",
+        "new-chat",
+        "smart-page",
         "smart-window",
         "smart-window-color"
       ]
@@ -627,6 +774,7 @@
     },
     "sparkles": {
       "icons": [
+        "sparkle",
         "sparkles"
       ]
     },
@@ -650,6 +798,15 @@
         "soccer-ball-32"
       ]
     },
+    "star": {
+      "icons": [
+        "sponsored-star",
+        "star-fill",
+        "star-half-fill",
+        "star-one-half-fill",
+        "star-one-half-fill-multicolor"
+      ]
+    },
     "stocks": {
       "icons": [
         "stocks"
@@ -669,6 +826,8 @@
     "sync": {
       "icons": [
         "sync",
+        "sync-tabs",
+        "sync-tabs-fill",
         "synced-tabs"
       ]
     },
@@ -676,15 +835,27 @@
       "icons": [
         "all-tabs",
         "closed-tabs",
+        "infinite-tabs",
+        "infinite-tabs-fill",
         "open-tabs",
+        "open-tabs-mask",
+        "open-tabs-mask-only",
         "send-tab-to-device-left",
         "send-tab-to-device-right",
         "site-restrictions",
         "tab",
+        "tab-badge-fill",
+        "tab-fill",
         "tab-group",
+        "tab-group-close",
+        "tab-group-fill",
         "tab-group-label",
         "tab-group-label-fill",
         "tab-notes",
+        "tab-number",
+        "tab-number-fill",
+        "tab-tray",
+        "tab-ungroup",
         "taskbar-add-tab",
         "taskbar-move-tab",
         "taskbar-remove-tab",
@@ -706,20 +877,29 @@
     "text": {
       "icons": [
         "add-text",
-        "text-cursor"
+        "select-all",
+        "text-cursor",
+        "text-settings",
+        "text-size"
       ]
     },
     "themes": {
       "icons": [
         "moon",
+        "night-mode",
+        "night-mode-fill",
         "sun",
-        "themes"
+        "sun-fill",
+        "themes",
+        "wallpaper"
       ]
     },
     "thumbs": {
       "icons": [
         "thumbs-down",
-        "thumbs-up"
+        "thumbs-down-fill",
+        "thumbs-up",
+        "thumbs-up-fill"
       ]
     },
     "top sites": {
@@ -730,6 +910,8 @@
     },
     "trackers": {
       "icons": [
+        "cookies",
+        "cookies-slash",
         "cryptominer",
         "cryptominer-slash",
         "fingerprinter",
@@ -747,15 +929,20 @@
     "translate": {
       "icons": [
         "translate",
+        "translate-active",
+        "translate-active-alt",
         "translations-companion"
       ]
     },
     "user": {
       "icons": [
         "add-user",
+        "administrators",
         "authenticated-user",
+        "authentication",
         "identity",
         "remove-user",
+        "service-accounts",
         "single-user",
         "unauthenticated-user",
         "users"
@@ -763,6 +950,8 @@
     },
     "view": {
       "icons": [
+        "eye",
+        "eye-slash",
         "fx-view"
       ]
     },
@@ -773,11 +962,13 @@
         "vpn-error",
         "vpn-off",
         "vpn-on",
-        "vpn-on-off-site"
+        "vpn-on-off-site",
+        "vpn-rules"
       ]
     },
     "weather": {
       "icons": [
+        "cloud",
         "weather"
       ]
     },
@@ -788,6 +979,7 @@
     },
     "window": {
       "icons": [
+        "mini-window",
         "window",
         "window-firefox"
       ]

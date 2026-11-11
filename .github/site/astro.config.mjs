@@ -33,9 +33,15 @@ export default defineConfig({
     // and aborts the whole scan. Discovery is only there to find dependencies
     // that need pre-bundling, and nothing our islands import does, so turning it
     // off costs nothing. Revisit once rolldown resolves these.
+    //
+    // `match-sorter` is the exception. Tint's menus import it, and the color
+    // picker's popover loads them on demand, so discovery never sees it. Its
+    // `remove-accents` dependency is CommonJS and fails to load as a raw module
+    // unless the optimizer converts it.
     ...(isDev && {
       optimizeDeps: {
         noDiscovery: true,
+        include: ['match-sorter'],
         exclude: ['tint'],
       },
     }),

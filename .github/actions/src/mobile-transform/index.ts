@@ -3,15 +3,18 @@ import fg from 'fast-glob'
 import { optimize } from 'svgo'
 import { summary } from '../summary.js'
 import {
+  Finding,
   FormattableFile,
   ensureLicense,
   formatFile,
   getInput,
+  recordFindings,
   removeNoOpClipPaths,
   removeOrphanedClipPathRefs,
   svgoBasePlugins,
   svgoRemoveAttrs,
   tryCatch,
+  unreadableFinding,
 } from '../utils.js'
 
 tryCatch(run, 'Failed to check mobile files. See logs for details.')
@@ -32,12 +35,25 @@ async function run() {
   }
 
   const changedFiles: string[] = []
+  const unreadable: Finding[] = []
 
   for (const file of files) {
-    if (await updateMobileIcon(file, fileType)) {
-      changedFiles.push(file)
+    try {
+      if (await updateMobileIcon(file, fileType)) {
+        changedFiles.push(file)
+      }
+    } catch (error) {
+      console.error(error)
+      unreadable.push(
+        unreadableFinding(
+          file,
+          error instanceof Error ? error.message : String(error),
+        ),
+      )
     }
   }
+
+  recordFindings(unreadable)
 
   if (changedFiles.length === 0) {
     summary.addHeading(`Mobile ${fileType.toUpperCase()} files unchanged`, 3)

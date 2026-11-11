@@ -64,8 +64,8 @@ export function ensureLicense(input: string): string {
 
 /**
  * Wrapper function for actions that wraps the function in a try/catch block.
- * If the function throws an error, the error is logged, a warning is added
- * to the summary and the process exits with a non-zero exit code.
+ * An unexpected error is logged, added to the summary and recorded as an
+ * automation finding, and the process exits with a non-zero exit code.
  *
  * @param fn Function to run in a try/catch block
  * @param errorSummary Message to add to the summary if the function throws an error
@@ -78,10 +78,16 @@ export async function tryCatch(fn: () => void, errorSummary: string) {
     console.log(`::error title=Action failed::${errorSummary}`)
     console.error(error)
     summary.addAlert('caution', errorSummary)
-    // Awaited, because `summary.write` appends asynchronously and `exit` would
-    // otherwise cut it off before it reached the job summary.
+    // Awaited, because `summary.write` appends asynchronously and the
+    // process would otherwise end before it reached the job summary.
     await summary.write()
-    process.exit(1)
+    recordFindings([
+      {
+        kind: 'automation',
+        title: errorSummary.replace(/\. See logs for details\.$/, ''),
+        body: error instanceof Error ? error.message : String(error),
+      },
+    ])
   }
 }
 
@@ -340,38 +346,71 @@ export function inlineCode(text: string): string {
 }
 
 /**
- * Payload consumed by the post-feedback composite action.
+ * One problem to show on the pull request.
  *
- * - `title`: sticky comment header.
- * - `summary`: commit-status description, capped at 140 chars by GitHub.
- * - `body`: sticky comment body. Should name each offending file and
- *   tell the designer how to resolve it.
+ * - `fix`: the author can resolve it.
+ * - `automation`: the pipeline itself failed, which is not the author's fault.
+ * - `body`: Markdown. Should name each offending file and say how to resolve
+ *   it.
  */
-export type FeedbackPayload = {
+export type Finding = {
+  kind: 'fix' | 'automation'
   title: string
-  summary: string
   body: string
 }
 
+export const FINDINGS_FILE = 'findings.jsonl'
+
 /**
- * Drop a feedback payload where the post-feedback action expects it.
- * Silently does nothing when RUNNER_TEMP is unset so callers can invoke
- * unconditionally from local runs.
+ * Appends findings, one JSON object per line, to the file the report job
+ * collects from this job's runner. Several steps of one job write to the same
+ * file. Marks the process as failed, so a step that records a finding fails
+ * its job without every caller having to remember to exit.
  *
- * `filename` must match the `feedback_path` the calling workflow passes to
- * post-feedback. Two producers sharing one filename would clobber each
- * other, so a concern that runs in its own job uses its own name.
+ * Outside CI there is no `RUNNER_TEMP`, so the findings only reach the log.
  */
-export function writeFeedback(
-  payload: FeedbackPayload,
-  filename = 'icon-feedback.json',
-): void {
+export function recordFindings(findings: Finding[]): void {
+  if (findings.length === 0) {
+    return
+  }
+  process.exitCode = 1
+  for (const finding of findings) {
+    console.log(`::error::${finding.title}`)
+  }
   const runnerTemp = process.env.RUNNER_TEMP
   if (!runnerTemp) {
     return
   }
-  const target = path.join(runnerTemp, filename)
-  fs.writeFileSync(target, JSON.stringify(payload), 'utf8')
+  try {
+    fs.mkdirSync(runnerTemp, { recursive: true })
+    fs.appendFileSync(
+      path.join(runnerTemp, FINDINGS_FILE),
+      findings.map((finding) => `${JSON.stringify(finding)}\n`).join(''),
+      'utf8',
+    )
+  } catch (error) {
+    // The job is already failing, and the report job falls back to a generic
+    // automation message when a failed job left no findings.
+    console.error(error)
+  }
+}
+
+/**
+ * The finding for a file that threw while it was being read or optimized.
+ */
+export function unreadableFinding(filePath: string, detail: string): Finding {
+  const relative = path.relative(process.cwd(), filePath)
+  return {
+    kind: 'fix',
+    title: `\`${path.basename(filePath)}\` could not be read`,
+    body: [
+      `\`${relative}\``,
+      '',
+      `The file could not be processed: ${detail}`,
+      '',
+      'Export the icon from Figma again and replace the file. If the new export fails the same way, the problem is probably in the file and not in your icon, so please let us know.',
+    ].join('\n'),
+  }
 }
 
 /**

@@ -13,7 +13,7 @@ import {
   parseMobilePdf,
   parseSizedName,
 } from './normalize.ts'
-import { readDimensions, sanitizeSvg } from './sanitize.ts'
+import { isDuotone, readDimensions, sanitizeSvg } from './sanitize.ts'
 import { readJson, readText, scan, type ScannedFile } from './scan.ts'
 import type {
   Asset,
@@ -224,6 +224,7 @@ function buildIcons(warnings: string[]): Asset[] {
       group: categoryFor(slug, size),
       // Downloads for desktop are SVG only.
       formats: [toFormat(file, 'svg')],
+      duotone: isDuotone(source),
       inlineSvg: sanitizeSvg(source, id),
       rawSvg: source,
       keywords: [],

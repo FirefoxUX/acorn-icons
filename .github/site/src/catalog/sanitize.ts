@@ -7,6 +7,15 @@ const KEEP_FILLS = new Set(['#fff', '#ffffff', '#c52d4f', '#b833e1', '#d6d5da'])
 
 const BLACK_FILL = /(fill|stroke)="(#000|#000000|black)"/gi
 
+/**
+ * Whether the file paints a second color channel. Only the desktop duotone
+ * icons use `context-stroke` as a fill, so it is the marker rather than the
+ * filename.
+ */
+export function isDuotone(svg: string): boolean {
+  return /\bfill="context-stroke"/i.test(svg)
+}
+
 type Dimensions = { width: number; height: number }
 
 /**

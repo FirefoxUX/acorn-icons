@@ -81,7 +81,7 @@ Checks every filename under `illustrations` against the per-format naming conven
 
 Naming problems fail the check, because they are always fixable by renaming the file. A missing format is reported as a warning and does not fail, since an asset is routinely in flight while one export is still outstanding.
 
-No inputs. Writes its feedback payload to `illustration-feedback.json` rather than `icon-feedback.json`, so it must run in its own job with a matching `feedback_path`.
+No inputs.
 
 ### `categories-format`
 
@@ -97,23 +97,20 @@ Validates `icons/categories.json`, which the catalog site reads to group icons i
 
 Fails the check on anything that would break or corrupt the build: invalid JSON, a missing or malformed `categories` object, an entry that is not a lowercase hyphenated name, or one icon listed under two categories. It does not fail on an entry naming an icon that no longer exists, or a category nothing uses — neither harms the site, and failing on them would block a rename or a deletion until someone pruned the file.
 
-Separately, and without failing, it names any icon the pull request adds that no category covers. Leaving an icon uncategorized is allowed, so this is only a reminder. Icons that were already uncategorized before the pull request are ignored.
+No inputs.
 
-**Inputs**
+### `filename-case`
 
-- `base_ref`: Branch the pull request targets. Preferred, because its tip stays current as other pull requests land, so their icons are not mistaken for this one's. (optional)
-- `base_sha`: Commit to diff against, used when the base branch is not fetched. Without either input only the file is validated. (optional)
+Fails the check when two files in `icons` or `illustrations` have names that differ only by letter case. macOS and Windows treat them as one file, so the checkout would corrupt on those systems.
 
-Writes `categories-feedback.json` for the blocking half and `categories-notice.json` for the reminder, so it needs its own job with a `post-feedback` and a `post-notice` step pointed at each.
+No inputs.
 
-### `post-notice`
+## How results reach the pull request
 
-Upserts a sticky PR comment from a JSON payload and deletes it once the payload is gone. Writes no commit status, so the check stays green.
+Every action reports problems by calling `recordFindings` from `src/utils.ts`, which appends one JSON line per finding to `$RUNNER_TEMP/findings.jsonl` and marks the step as failed. A finding is either `fix`, which the author can resolve, or `automation`, which means the pipeline itself failed. `tryCatch` records an `automation` finding for any unexpected error.
 
-This exists because `post-feedback` treats the presence of a payload as a failure, which makes it unusable for advice the author is free to ignore. Because the comment is edited rather than replaced, and GitHub does not notify on edits, the author is notified once no matter how many times they push.
+Each job in `icon-actions.yaml` uploads its findings file as the `findings-<job>` artifact. The final `report` job (`src/report`) merges them into one sticky comment and sets one commit status per job. A job that failed without recording a finding, for example because `npm ci` failed, is reported as an automation problem with a link to its log. The comment is removed once every job passes.
 
-**Inputs**
+`report` runs under plain `node` with no dependencies and without installing anything, so it can still report a broken install. Run `npm test` to run its tests.
 
-- `marker`: Hidden HTML comment identifying the sticky comment. Use a distinct value per notice. (required)
-- `notice_path`: Absolute path to the JSON payload. (required)
-- `github_token`: Defaults to `github.token`. (optional)
+On a pull request from a fork the token is read-only. The comment is written to the job summary instead, and the failing job checks are what block the merge.

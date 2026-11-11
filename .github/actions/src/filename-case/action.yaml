@@ -1,0 +1,8 @@
+name: 'Filename case check'
+description: 'Finds filenames in icons/ and illustrations/ that differ only by letter case'
+
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: '"${{ github.action_path }}/../../node_modules/.bin/tsx" "${{ github.action_path }}/index.ts"'

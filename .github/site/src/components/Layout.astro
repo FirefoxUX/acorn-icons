@@ -7,6 +7,7 @@ import iconArrowRight from 'tint/icons/20-arrow-right.svg?raw'
 
 import BackdropPicker from '@src/components/BackdropPicker.svelte'
 import CopyMarkup from '@src/components/CopyMarkup.svelte'
+import DuotoneColors from '@src/components/DuotoneColors.svelte'
 import Sidebar from '@src/components/Sidebar.astro'
 
 interface Props {
@@ -137,6 +138,7 @@ const fontPreloads = getFontPreloads(
       showPanel && (
         <div hidden aria-hidden="true">
           <BackdropPicker id="preload-backdrop" client:load />
+          <DuotoneColors id="preload-duotone" client:load />
           <CopyMarkup markup="" client:load />
           <CollapsibleCard client:load />
         </div>

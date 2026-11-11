@@ -5,6 +5,7 @@
   "description": "A collection of actions for the acorn icon repository",
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "test": "node --test 'src/**/*.test.ts'",
     "lint": "eslint src/",
     "prettier": "prettier --write --check 'src/**/*.*'",
     "transform": "npm run transform:icons && npm run transform:illustrations && npm run format:categories",

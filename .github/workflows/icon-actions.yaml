@@ -4,9 +4,8 @@ on:
   pull_request:
     branches:
       - "main"
-    # Kept identical to the filter in check-filename-case.yaml. A workflow
-    # that a path filter skips never reports, so a required check that only
-    # one of the two runs would leave the PR waiting for a status forever.
+    # A workflow that a path filter skips never reports, so a required check
+    # would leave the PR waiting for a status forever.
     paths:
       - "icons/**"
       - "illustrations/**"
@@ -15,7 +14,12 @@ on:
       # or a required check never reports and the pull request waits forever.
       - ".github/actions/**"
       - ".github/workflows/icon-actions.yaml"
-      - ".github/workflows/check-filename-case.yaml"
+
+# Runs queue instead of cancelling, because cancelling the checks job while it
+# pushes a formatting commit could leave the branch half updated.
+concurrency:
+  group: icon-actions-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
 
 jobs:
   checks:
@@ -23,8 +27,6 @@ jobs:
     name: "Format and validate"
     permissions:
       contents: "write"
-      pull-requests: "write"
-      statuses: "write"
 
     steps:
       - name: Check out Git repository
@@ -39,18 +41,24 @@ jobs:
       # tsx runs the actions without a compile step, so type errors only
       # surface at runtime unless we typecheck up front.
       - name: Type check actions
+        id: typecheck
         working-directory: ./.github/actions
         run: npm run typecheck
       - name: Update desktop icons
         uses: ./.github/actions/src/desktop-transform
         with:
           files: "icons/desktop/**/*.svg"
+      # The transforms below keep going after an earlier one fails, so a file
+      # one of them cannot process does not stop the others from formatting
+      # theirs.
       - name: Update mobile svg icons
+        if: ${{ !cancelled() && steps.typecheck.outcome == 'success' }}
         uses: ./.github/actions/src/mobile-transform
         with:
           files: "icons/mobile/**/*.svg"
           file_type: "svg"
       - name: Update mobile xml icons
+        if: ${{ !cancelled() && steps.typecheck.outcome == 'success' }}
         uses: ./.github/actions/src/mobile-transform
         with:
           files: "icons/mobile/**/*.xml"
@@ -59,42 +67,42 @@ jobs:
       # byte-identical copies for kit and pictograms, and the transform is a
       # pure function of content, so they stay identical.
       - name: Update illustration svgs
+        if: ${{ !cancelled() && steps.typecheck.outcome == 'success' }}
         uses: ./.github/actions/src/illustration-transform
         with:
           files: "illustrations/**/*.svg"
           file_type: "svg"
       - name: Update illustration xmls
+        if: ${{ !cancelled() && steps.typecheck.outcome == 'success' }}
         uses: ./.github/actions/src/illustration-transform
         with:
           files: "illustrations/mobile/xml/**/*.xml"
           file_type: "xml"
       - name: Tidy icon categories
+        if: ${{ !cancelled() && steps.typecheck.outcome == 'success' }}
         uses: ./.github/actions/src/categories-format
       # No fork guard here: the action detects a fork itself and reports the
       # unformatted files instead of pushing, which it cannot do anyway.
+      # Runs after a failed transform so the files that did format are kept.
       - name: Commit changes
+        if: ${{ !cancelled() && steps.typecheck.outcome == 'success' }}
         uses: ./.github/actions/src/commit-changes
         with:
           message: "Updated assets to match format conventions"
-
-      - name: Post PR feedback
+      - name: Upload findings
         if: always()
-        uses: ./.github/actions/post-feedback
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          marker: "<!-- acorn-icons-bot:icon-actions -->"
-          status_context: "Icons / validation"
-          feedback_path: ${{ runner.temp }}/icon-feedback.json
-          outcome: ${{ job.status }}
+          name: findings-checks
+          path: ${{ runner.temp }}/findings.jsonl
+          if-no-files-found: ignore
+          overwrite: true
 
-  # Its own job so that `job.status` reflects the naming check alone. Sharing
-  # a job with the transforms would make either failure report as both.
   conventions:
     runs-on: "ubuntu-latest"
     name: "Illustration naming"
     permissions:
       contents: "read"
-      pull-requests: "write"
-      statuses: "write"
 
     steps:
       - name: Check out Git repository
@@ -102,60 +110,109 @@ jobs:
       - name: Install dependencies
         working-directory: ./.github/actions
         run: npm ci
+      # tsx runs the actions without a compile step, so type errors only
+      # surface at runtime unless we typecheck up front.
       - name: Type check actions
         working-directory: ./.github/actions
         run: npm run typecheck
       - name: Check illustration naming and parity
         uses: ./.github/actions/src/illustration-lint
-
-      - name: Post PR feedback
+      - name: Upload findings
         if: always()
-        uses: ./.github/actions/post-feedback
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          marker: "<!-- acorn-icons-bot:illustration-naming -->"
-          status_context: "Illustrations / naming"
-          feedback_path: ${{ runner.temp }}/illustration-feedback.json
-          outcome: ${{ job.status }}
+          name: findings-conventions
+          path: ${{ runner.temp }}/findings.jsonl
+          if-no-files-found: ignore
+          overwrite: true
 
   categories:
     runs-on: "ubuntu-latest"
     name: "Icon categories"
     permissions:
       contents: "read"
-      pull-requests: "write"
-      statuses: "write"
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-        with:
-          # The reminder diffs against the base commit to find added icons.
-          fetch-depth: 0
       - name: Install dependencies
         working-directory: ./.github/actions
         run: npm ci
+      # tsx runs the actions without a compile step, so type errors only
+      # surface at runtime unless we typecheck up front.
       - name: Type check actions
         working-directory: ./.github/actions
         run: npm run typecheck
       - name: Check icon categories
         uses: ./.github/actions/src/categories-check
+      - name: Upload findings
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          base_sha: ${{ github.event.pull_request.base.sha }}
-          base_ref: ${{ github.event.pull_request.base.ref }}
+          name: findings-categories
+          path: ${{ runner.temp }}/findings.jsonl
+          if-no-files-found: ignore
+          overwrite: true
 
-      # Two comment writers in one job is fine here: only post-feedback reads
-      # job.status, and it is the only one setting a commit status.
-      - name: Post PR notice
+  filename-case:
+    runs-on: "ubuntu-latest"
+    name: "Case collisions"
+    permissions:
+      contents: "read"
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Install dependencies
+        working-directory: ./.github/actions
+        run: npm ci
+      # tsx runs the actions without a compile step, so type errors only
+      # surface at runtime unless we typecheck up front.
+      - name: Type check actions
+        working-directory: ./.github/actions
+        run: npm run typecheck
+      - name: Check for filenames that differ only by case
+        uses: ./.github/actions/src/filename-case
+      - name: Upload findings
         if: always()
-        uses: ./.github/actions/post-notice
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          marker: "<!-- acorn-icons-bot:categories-reminder -->"
-          notice_path: ${{ runner.temp }}/categories-notice.json
+          name: findings-filename-case
+          path: ${{ runner.temp }}/findings.jsonl
+          if-no-files-found: ignore
+          overwrite: true
+
+  # Posts the one comment and the commit statuses for the whole run. It
+  # neither checks out the repository nor installs dependencies, because a
+  # failed install is one of the things it has to report.
+  report:
+    runs-on: "ubuntu-latest"
+    name: "Report"
+    needs: ["checks", "conventions", "categories", "filename-case"]
+    if: always()
+    permissions:
+      actions: "read"
+      pull-requests: "write"
+      statuses: "write"
+
+    steps:
+      # The script is plain TypeScript that Node runs without a build step. Only
+      # the actions directory is fetched, because nothing here needs the icons.
+      - name: Check out the report script
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          sparse-checkout: .github/actions
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: 26
+      - name: Download findings
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: findings-*
+          path: findings
       - name: Post PR feedback
-        if: always()
-        uses: ./.github/actions/post-feedback
-        with:
-          marker: "<!-- acorn-icons-bot:categories -->"
-          status_context: "Icons / categories"
-          feedback_path: ${{ runner.temp }}/categories-feedback.json
-          outcome: ${{ job.status }}
+        run: node .github/actions/src/report/index.ts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          NEEDS: ${{ toJSON(needs) }}
